@@ -1,0 +1,25 @@
+domain: marketing
+description: Campaign performance, traffic, lead generation and marketing attribution analytics
+keywords: [campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend]
+metrics:
+  - name: Customer Acquisition Cost (CAC)
+    definition: Total sales and marketing spend divided by number of new customers acquired
+  - name: Cost Per Lead (CPL)
+    definition: Total campaign spend divided by total number of leads generated
+  - name: Marketing Qualified Leads (MQL)
+    definition: Leads that meet predefined criteria indicating readiness to pass to sales
+  - name: Return on Ad Spend (ROAS)
+    definition: Revenue generated per dollar spent on advertising
+  - name: Marketing Influenced Pipeline
+    definition: Total pipeline value where marketing touched the account at any stage
+  - name: Channel Attribution
+    definition: Credit assigned to each marketing channel for contributing to conversions
+sample_qa:
+  - q: Which campaign has the lowest CAC?
+    a: For each campaign, divide total spend by new customers acquired and rank campaigns by CAC ascending.
+  - q: How are our MQLs trending month over month?
+    a: Group leads by month of qualification date, filter by MQL status, and show month over month change percentage.
+  - q: What is our best performing acquisition channel?
+    a: Compare ROAS and CAC across channels. Look at volume, conversion rate and revenue contribution per channel.
+  - q: Why did our CPL increase this quarter?
+    a: Break down spend and lead volume by campaign and channel. Identify which campaigns drove cost increase without proportional lead growth.

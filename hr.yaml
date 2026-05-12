@@ -1,0 +1,25 @@
+domain: hr
+description: Workforce, headcount, attrition, hiring and employee engagement analytics
+keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff]
+metrics:
+  - name: Headcount
+    definition: Total number of active full-time employees at a point in time
+  - name: Attrition Rate
+    definition: Percentage of employees who left voluntarily or involuntarily in a period
+  - name: Time to Hire
+    definition: Average number of days from job posting to offer acceptance
+  - name: Employee Net Promoter Score (eNPS)
+    definition: Measure of employee satisfaction and likelihood to recommend the company
+  - name: Offer Acceptance Rate
+    definition: Percentage of job offers accepted by candidates
+  - name: Internal Mobility Rate
+    definition: Percentage of open roles filled by internal candidates
+sample_qa:
+  - q: What is our attrition rate this year?
+    a: Divide total departures year to date by average headcount for the year, multiply by 100 to get percentage.
+  - q: Which teams have the highest attrition?
+    a: Segment departure records by department and calculate attrition rate per team. Compare against company average.
+  - q: How long does it take to hire on average?
+    a: Calculate average days between job requisition creation date and offer accepted date across all closed roles.
+  - q: Are we on track with our hiring plan?
+    a: Compare actual hires month to date against the hiring plan targets. Show gap by department and role level.
