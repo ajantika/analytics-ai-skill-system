@@ -7,47 +7,50 @@ st.set_page_config(page_title="Analytics AI Skill System", page_icon="🤖", lay
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*, html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
-[data-testid="stAppViewContainer"] { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important; }
+/* No external font imports — system fonts work everywhere including LinkedIn browser */
+*, html, body, [class*="css"] {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+[data-testid="stAppViewContainer"] {
+    background: #1a1535 !important;
+    background-image: radial-gradient(ellipse at top left, #2d2060 0%, #1a1535 50%, #0f0c29 100%) !important;
+}
 [data-testid="stHeader"] { background: transparent !important; }
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding-top: 1rem !important; padding-bottom: 1rem !important; max-width: 740px !important; background: transparent !important; }
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    max-width: 740px !important;
+    background: transparent !important;
+}
 [data-testid="stVerticalBlock"], [data-testid="element-container"],
 div[class*="stMarkdown"], div[class*="stButton"],
 [data-testid="stHorizontalBlock"] { background: transparent !important; }
 
-/* Domain card buttons — single row */
+/* Domain buttons */
 div[data-testid="column"] .stButton > button {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
-    border-radius: 12px !important;
-    color: white !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.14) !important;
+    border-radius: 10px !important;
+    color: #c4b5fd !important;
     font-size: 0.82rem !important;
     font-weight: 600 !important;
-    padding: 14px 8px !important;
+    padding: 12px 8px !important;
     white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
     transition: all 0.2s !important;
     width: 100% !important;
 }
 div[data-testid="column"] .stButton > button:hover {
     background: rgba(99,102,241,0.3) !important;
-    border-color: rgba(99,102,241,0.7) !important;
+    border-color: #818cf8 !important;
+    color: white !important;
     transform: translateY(-2px) !important;
 }
-div[data-testid="column"] .stButton > button[kind="primary"],
-div[data-testid="column"] .stButton > button:focus {
-    background: rgba(99,102,241,0.4) !important;
-    border-color: #818cf8 !important;
-    box-shadow: 0 0 0 2px rgba(129,140,248,0.3) !important;
-}
 
-/* Example buttons */
+/* Example question buttons */
 .stButton > button {
     background: rgba(255,255,255,0.04) !important;
-    border: 1px solid rgba(255,255,255,0.09) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
     border-radius: 9px !important;
     color: #94a3b8 !important;
     font-size: 0.78rem !important;
@@ -57,15 +60,18 @@ div[data-testid="column"] .stButton > button:focus {
 }
 .stButton > button:hover {
     background: rgba(99,102,241,0.12) !important;
-    border-color: rgba(99,102,241,0.35) !important;
+    border-color: rgba(99,102,241,0.3) !important;
     color: white !important;
 }
 
 /* Text input */
-.stTextInput > div > div {background: rgba(20,18,60,0.9) !important; border-radius: 12px !important;}
+.stTextInput > div > div {
+    background: rgba(15, 12, 41, 0.95) !important;
+    border-radius: 12px !important;
+}
 .stTextInput > div > div > input {
-    background: rgba(20,18,60,0.9) !important;
-    border: 1px solid rgba(129,140,248,0.35) !important;
+    background: rgba(15, 12, 41, 0.95) !important;
+    border: 1px solid rgba(129,140,248,0.4) !important;
     border-radius: 12px !important;
     color: #ffffff !important;
     caret-color: #ffffff !important;
@@ -76,14 +82,17 @@ div[data-testid="column"] .stButton > button:focus {
 .stTextInput > div > div > input:focus {
     border-color: #818cf8 !important;
     box-shadow: 0 0 0 3px rgba(129,140,248,0.15) !important;
+    background: rgba(15, 12, 41, 1) !important;
 }
 .stTextInput > div > div > input::placeholder {
-    color: #475569 !important;
-    -webkit-text-fill-color: #475569 !important;
+    color: #4a5568 !important;
+    -webkit-text-fill-color: #4a5568 !important;
 }
 .stTextInput label {
-    color: #64748b !important; font-size: 0.73rem !important;
-    font-weight: 600 !important; text-transform: uppercase !important;
+    color: #64748b !important;
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
     letter-spacing: 0.07em !important;
 }
 
@@ -93,20 +102,24 @@ div[data-testid="column"] .stButton > button:focus {
     border: 1px solid rgba(255,255,255,0.07) !important;
     border-radius: 10px !important;
 }
-[data-testid="stExpander"] summary { color: #475569 !important; font-size: 0.8rem !important; }
+[data-testid="stExpander"] summary {
+    color: #475569 !important;
+    font-size: 0.78rem !important;
+}
 [data-testid="stSpinner"] > div { border-top-color: #818cf8 !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Domain config ─────────────────────────────────────────────────────────────
+
+# ── Domain config — ORDER: Product, Marketing, Sales, HR ─────────────────────
 DOMAIN_CONFIG = {
-    "sales": {
-        "icon": "💰", "label": "Sales",
+    "product_usage": {
+        "icon": "📊", "label": "Product",
         "questions": [
-            "Which sales rep gives the highest discounts?",
-            "What is our MRR breakdown by customer type?",
-            "How many new customers did we add this quarter?",
-            "What is our pipeline coverage ratio?"
+            "Which customers are over-utilizing their plans?",
+            "What is the MRR recovery opportunity from right-sizing?",
+            "Which regions have the highest over-utilization?",
+            "What is our product margin by region?"
         ]
     },
     "marketing": {
@@ -118,6 +131,15 @@ DOMAIN_CONFIG = {
             "How are our MQL to SQL conversion rates trending?"
         ]
     },
+    "sales": {
+        "icon": "💰", "label": "Sales",
+        "questions": [
+            "Which sales rep gives the highest discounts?",
+            "What is our MRR breakdown by customer type?",
+            "How many new customers did we add this quarter?",
+            "What is our pipeline coverage ratio?"
+        ]
+    },
     "hr": {
         "icon": "👥", "label": "HR",
         "questions": [
@@ -126,17 +148,11 @@ DOMAIN_CONFIG = {
             "Are we on track with our hiring plan?",
             "What is our new hire 90-day retention rate?"
         ]
-    },
-    "product_usage": {
-        "icon": "📊", "label": "Product",
-        "questions": [
-            "How many customers are over-utilizing their plans?",
-            "What is the potential MRR if we right-size customers?",
-            "Which regions have the highest over-utilization?",
-            "What is our product margin by region?"
-        ]
     }
 }
+
+DOMAIN_ORDER = ["product_usage", "marketing", "sales", "hr"]
+
 
 # ── Load domains ──────────────────────────────────────────────────────────────
 @st.cache_data
@@ -155,12 +171,22 @@ def load_domains():
 
 def classify_domain(question, domains):
     q = question.lower()
-    scores = {d: sum(1 for kw in data["keywords"] if kw in q) for d, data in domains.items()}
+    scores = {}
+    for domain_name, data in domains.items():
+        score = 0
+        for kw in data["keywords"]:
+            kw_clean = kw.lower().replace("-", " ").replace("_", " ")
+            if kw_clean in q:
+                score += 2
+            elif any(word in q for word in kw_clean.split() if len(word) > 3):
+                score += 1
+        scores[domain_name] = score
     best = max(scores, key=scores.get)
-    return best if scores[best] > 0 else list(domains.keys())[0]
+    return best if scores[best] > 0 else DOMAIN_ORDER[0]
 
 def build_context(domain_data):
-    ctx = f"Domain: {domain_data['domain'].upper()}\nDescription: {domain_data['description']}\n\nKey Metrics:\n"
+    ctx = f"Domain: {domain_data['domain'].upper()}\n"
+    ctx += f"Description: {domain_data['description']}\n\nKey Metrics:\n"
     for m in domain_data["metrics"]:
         ctx += f"  - {m['name']}: {m['definition']}\n"
     ctx += "\nSample Q&A:\n"
@@ -168,72 +194,73 @@ def build_context(domain_data):
         ctx += f"  Q: {qa['q']}\n  A: {qa['a']}\n\n"
     return ctx
 
-def ask_groq(question, context):
+def ask_groq(question, context, domain_name):
     try:
         api_key = st.secrets.get("GROQ_API_KEY", os.environ.get("GROQ_API_KEY", ""))
         if not api_key:
             return "Add GROQ_API_KEY to Streamlit secrets."
         client = Groq(api_key=api_key)
-        response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": f"""You are an expert analytics assistant for a B2B SaaS company.
-Use ONLY the domain knowledge below to answer. Be specific, structured and actionable.
-Format your answer clearly — use numbered steps or bullet points where helpful.
+        prompt = f"""You are a senior analytics expert answering a business analytics question.
+Use the domain knowledge below to give a DIRECT, SPECIFIC answer.
+Do NOT give generic step-by-step instructions. Instead, give the actual analytical approach with specific metrics, thresholds, and formulas from the knowledge base.
+Keep the answer concise — 3 to 5 sentences or a short structured list.
 
+DOMAIN KNOWLEDGE:
 {context}
 
-Question: {question}
-Answer:"""}],
-            max_tokens=600
+QUESTION: {question}
+
+Give a direct, expert answer:"""
+
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=400
         )
         return response.choices[0].message.content
     except Exception as e:
         return f"Error: {str(e)}"
 
 
+# ── Init session state ────────────────────────────────────────────────────────
+if "active_domain" not in st.session_state:
+    st.session_state["active_domain"] = "product_usage"
+if "prefill" not in st.session_state:
+    st.session_state["prefill"] = ""
+
 # ── HERO ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="text-align:center;padding:1.25rem 0 0.75rem">
   <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);
   border:1px solid rgba(99,102,241,0.35);color:#a5b4fc;font-size:11px;font-weight:600;
-  padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:0.05em">
-    🤖 AI-POWERED · NOT A DASHBOARD · GROQ + LLAMA 3.1
+  padding:5px 16px;border-radius:20px;margin-bottom:14px;letter-spacing:0.05em">
+    🤖 AI-POWERED &nbsp;·&nbsp; NOT A DASHBOARD &nbsp;·&nbsp; GROQ + LLAMA 3.1
   </div>
-  <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 6px;line-height:1.2">
-    Analytics AI <span style="background:linear-gradient(90deg,#818cf8,#c084fc);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent">Skill System</span>
+  <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 8px;line-height:1.2">
+    Analytics AI
+    <span style="color:#a78bfa"> Skill System</span>
   </h1>
-  <p style="color:#94a3b8;font-size:0.88rem;margin:0 0 8px">
-    Ask a question in plain English · AI identifies the domain · Retrieves knowledge · Answers instantly
+  <p style="color:#94a3b8;font-size:0.88rem;margin:0">
+    Ask a question in plain English &nbsp;·&nbsp; AI routes to the right domain &nbsp;·&nbsp; Instant answer
   </p>
 </div>
 """, unsafe_allow_html=True)
 
-# ── Demo banner ───────────────────────────────────────────────────────────────
+# ── Demo notice ───────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.25);
-border-radius:8px;padding:7px 14px;margin-bottom:1rem;text-align:center;
-font-size:11.5px;color:#ca8a04">
-  ⚠️ Demo environment — knowledge bases contain illustrative data, not production data.
-  This app mirrors an AI analytics system deployed at Cloudflare.
+<div style="background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.22);
+border-radius:8px;padding:7px 16px;margin-bottom:1rem;text-align:center;font-size:11.5px;color:#a16207">
+  ⚠️ Demo environment &nbsp;·&nbsp; Knowledge bases contain illustrative data, not production data
 </div>
 """, unsafe_allow_html=True)
 
-# ── Init session state ────────────────────────────────────────────────────────
-if "active_domain" not in st.session_state:
-    st.session_state["active_domain"] = "sales"
-if "prefill" not in st.session_state:
-    st.session_state["prefill"] = ""
-
-# ── DOMAIN ROW — single clickable row ─────────────────────────────────────────
+# ── DOMAIN ROW ────────────────────────────────────────────────────────────────
 st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem">Select a domain</p>', unsafe_allow_html=True)
 
-cols = st.columns(4)
-domains_order = ["sales", "marketing", "hr", "product_usage"]
-for i, dk in enumerate(domains_order):
+dcols = st.columns(4)
+for i, dk in enumerate(DOMAIN_ORDER):
     cfg = DOMAIN_CONFIG[dk]
-    label = f"{cfg['icon']} {cfg['label']}"
-    if cols[i].button(label, key=f"dom_{dk}", use_container_width=True):
+    if dcols[i].button(f"{cfg['icon']} {cfg['label']}", key=f"dom_{dk}", use_container_width=True):
         st.session_state["active_domain"] = dk
         st.session_state["prefill"] = cfg["questions"][0]
         st.rerun()
@@ -253,11 +280,11 @@ for i, q in enumerate(active_cfg["questions"]):
         st.rerun()
 
 # ── INPUT ─────────────────────────────────────────────────────────────────────
-st.markdown('<div style="margin-top:0.6rem"></div>', unsafe_allow_html=True)
+st.markdown('<div style="margin-top:0.5rem"></div>', unsafe_allow_html=True)
 question = st.text_input(
     "Or ask your own question",
     value=st.session_state.get("prefill", ""),
-    placeholder="e.g. Which sales rep is giving the highest discounts?"
+    placeholder="e.g. Which customers are over-utilizing their plans?"
 )
 
 # ── ANSWER ────────────────────────────────────────────────────────────────────
@@ -269,36 +296,38 @@ if question and domains:
     cfg = DOMAIN_CONFIG.get(domain_name, {"icon": "📊", "label": domain_name.upper()})
 
     st.markdown(f"""
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.12);
-    border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;font-size:0.82rem;font-weight:600;
-    padding:7px 14px;border-radius:8px;margin:8px 0 12px">
-        {cfg['icon']} Routed to <strong style="color:white;margin-left:3px">{cfg['label'].upper()}</strong>&nbsp;domain
+    <div style="display:inline-flex;align-items:center;gap:8px;
+    background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.28);
+    color:#a5b4fc;font-size:0.8rem;font-weight:600;padding:7px 14px;
+    border-radius:8px;margin:8px 0 12px">
+        {cfg['icon']} Routed to
+        <strong style="color:white;margin-left:2px">{cfg['label'].upper()}</strong> domain
     </div>
     """, unsafe_allow_html=True)
 
-    with st.spinner("Generating answer..."):
+    with st.spinner("Analysing..."):
         context = build_context(domain_data)
-        answer = ask_groq(question, context)
+        answer = ask_groq(question, context, domain_name)
 
     st.markdown(f"""
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);
-    border-left:3px solid #818cf8;border-radius:12px;padding:18px 22px;margin-bottom:10px">
-        <div style="color:#818cf8;font-weight:700;font-size:0.7rem;letter-spacing:0.09em;
-        text-transform:uppercase;margin-bottom:10px">AI-Generated Answer</div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+    border-left:3px solid #7c3aed;border-radius:12px;padding:18px 22px;margin-bottom:8px">
+        <div style="color:#a78bfa;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;
+        text-transform:uppercase;margin-bottom:10px">Analytics Insight</div>
         <div style="color:#e2e8f0;font-size:0.92rem;line-height:1.75">{answer}</div>
     </div>
     """, unsafe_allow_html=True)
 
-    with st.expander("🔍 View AI knowledge base used to answer this question"):
-        st.markdown('<p style="color:#64748b;font-size:0.75rem;margin-bottom:8px">This is the structured knowledge the AI retrieved to generate the answer above — the same pattern used in the Cloudflare production system.</p>', unsafe_allow_html=True)
+    with st.expander("🔍 View knowledge base used"):
+        st.markdown('<p style="color:#64748b;font-size:0.75rem;margin-bottom:8px">Structured domain knowledge retrieved and passed to the AI to generate the answer above.</p>', unsafe_allow_html=True)
         st.code(context, language="yaml")
 
-# ── FOOTER ────────────────────────────────────────────────────────────────────
+# ── FOOTER — no blank space ───────────────────────────────────────────────────
 st.markdown("""
-<div style="border-top:1px solid rgba(255,255,255,0.06);margin-top:1.5rem;padding-top:0.75rem;
-text-align:center;color:#334155;font-size:0.72rem">
-    Built by <span style="color:#818cf8;font-weight:600">Ajantika Paul</span> · 
-    Mirrors the multi-domain AI analytics skill system deployed at Cloudflare ·
-    <a href="https://github.com/ajantika/analytics-ai-skill-system" style="color:#818cf8;text-decoration:none">View on GitHub</a>
+<div style="border-top:1px solid rgba(255,255,255,0.06);margin-top:1.5rem;
+padding:0.75rem 0 0.5rem;text-align:center;color:#334155;font-size:0.72rem">
+    Built by <span style="color:#818cf8;font-weight:600">Ajantika Paul</span> &nbsp;·&nbsp;
+    <a href="https://github.com/ajantika/analytics-ai-skill-system"
+    style="color:#818cf8;text-decoration:none">View on GitHub</a>
 </div>
 """, unsafe_allow_html=True)
