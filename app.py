@@ -51,7 +51,7 @@ def ask_gemini(question, context):
         if not api_key:
             return "⚠️ API key not found. Add GEMINI_API_KEY to Streamlit secrets."
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         prompt = f"""You are an expert analytics assistant helping a data analytics team.
 Use ONLY the domain knowledge provided below to answer the question.
 Be concise, practical and specific. Give actionable guidance.
