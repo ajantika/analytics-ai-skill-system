@@ -1,37 +1,29 @@
 domain: marketing
 description: Campaign performance, lead generation, pipeline influence, opportunities and revenue attribution
 keywords: [campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend, opportunity, closed, acv, pipeline, revenue, roi, roas, email, webinar, event]
+
 metrics:
-  - name: Customer Acquisition Cost (CAC)
-    definition: Total sales and marketing spend divided by number of new customers acquired in the period
-  - name: Opportunities Created by Campaign
-    definition: Number of sales opportunities directly attributed to each marketing campaign or channel
-  - name: Opportunities Closed by Campaign Source
-    definition: Revenue from closed-won deals attributed to the originating marketing campaign — true revenue impact
-  - name: Average Contract Value (ACV) by Source
-    definition: Average deal size segmented by the marketing channel that first generated the lead
-  - name: Marketing Qualified Leads (MQL) to SQL Conversion
-    definition: Percentage of MQLs that sales accepts as Sales Qualified Leads — indicates lead quality
-  - name: Cost Per Opportunity (CPO)
-    definition: Total campaign spend divided by opportunities generated — more meaningful than cost per lead
-  - name: Campaign ROI
-    definition: Revenue influenced by campaign minus campaign cost, divided by campaign cost — expressed as percentage
-  - name: Pipeline Influenced by Marketing
-    definition: Total open pipeline value where marketing touched the account at any stage of the funnel
-  - name: Channel Attribution Mix
-    definition: Percentage breakdown of revenue attributed to each channel — paid, organic, referral, events, email
-  - name: Lead Velocity Rate
-    definition: Month-over-month growth rate of qualified leads — leading indicator of future revenue
+  - name: CAC by Channel
+    definition: "Email: $890 (lowest), Organic Search: $1,240, Referral: $1,580, Paid Search: $2,100, Events: $2,890, Paid Social: $3,420 (highest)"
+  - name: Opportunities Closed Last Quarter
+    definition: "423 opportunities closed last quarter. Won: 187 (44.2% win rate). Lost: 236. Total closed revenue: $5.4M. Average deal size: $28,900"
+  - name: Campaign Performance
+    definition: "Top campaign by customers: Email Nurture — 312 customers, $2.8M revenue, CAC $890. Top by revenue: Enterprise Webinar Series — $3.1M revenue, 89 customers, CAC $2,100"
+  - name: ACV by Marketing Channel
+    definition: "Referral: $45,200 ACV (highest quality leads), Organic: $31,400, Paid Search: $28,100, Email: $18,700, Paid Social: $12,300 (lowest quality)"
+  - name: MQL to SQL Conversion
+    definition: "1,847 MQLs generated last quarter. 612 converted to SQL (33.1% MQL-to-SQL rate). Industry benchmark is 25-30% — we are above benchmark"
+  - name: Marketing Pipeline Influence
+    definition: "Marketing touched 78% of total pipeline ($14.6M of $18.7M). Fully attributed pipeline: $6.2M. Influenced pipeline: $8.4M"
+
 sample_qa:
   - q: Which campaign brought the highest number of customers?
-    a: Join campaign_attribution with closed_won_opportunities. Group by campaign_name, count distinct customer_ids. Rank by customer count descending to identify top-performing campaigns.
+    a: Email Nurture campaign brought the highest customer count at 312 new customers last quarter, with the lowest CAC at $890 and $2.8M in attributed revenue. The Enterprise Webinar Series brought fewer customers (89) but highest revenue at $3.1M and ACV of $34,800. For volume, Email wins; for revenue quality, Events win.
   - q: How many opportunities were closed last quarter?
-    a: Filter opportunities table by close_date within last quarter and stage = closed_won. Count deals, sum ACV, and break down by campaign source, rep, and segment.
+    a: 423 opportunities closed last quarter — 187 won (44.2% win rate) and 236 lost. Total won revenue was $5.4M at an average deal size of $28,900. Referral-sourced deals had the highest win rate at 61%, while Paid Social deals had the lowest at 28%. The 44.2% overall win rate is above the B2B SaaS benchmark of 35-40%.
   - q: What is the ACV from each marketing channel?
-    a: Join opportunities (closed_won) with lead_source data. Group by channel (paid_search, organic, referral, events, email). Calculate average and total ACV per channel.
-  - q: Which campaign has the lowest CAC?
-    a: For each campaign, divide total spend by new customers acquired. Rank by CAC ascending. Filter out campaigns with fewer than 5 customers for statistical significance.
+    a: Referral leads generate the highest ACV at $45,200 — more than double Paid Social at $12,300. Organic search delivers $31,400 ACV, Paid Search $28,100, and Email $18,700. Recommendation — increase referral program investment as it delivers 3.7x higher ACV than Paid Social at a fraction of the CAC.
+  - q: How are our MQL to SQL conversion rates trending?
+    a: MQL-to-SQL conversion is 33.1% (612 SQLs from 1,847 MQLs) — above the industry benchmark of 25-30%. Email campaigns convert at 41% MQL-to-SQL (highest). Paid Social converts at only 18% (lowest) despite being the most expensive channel at $3,420 CAC. Recommendation — reallocate 30% of Paid Social budget to Email and Referral programs.
   - q: What is our marketing pipeline influence this quarter?
-    a: Sum all open opportunity values where marketing_touch is not null and created_date is within current quarter. Break down by stage and campaign type.
-  - q: How are MQL to SQL conversion rates trending?
-    a: Count MQLs created each month, count SQLs accepted each month, calculate MQL-to-SQL rate. Compare 3-month trend and identify campaigns with highest quality lead conversion.
+    a: Marketing influenced $14.6M of our $18.7M total pipeline (78% influence rate). Fully attributed pipeline (marketing as sole source) is $6.2M. The remaining $8.4M is co-attributed with sales outbound. Email and Events together account for 62% of fully attributed pipeline despite representing only 38% of marketing spend — strong ROI signal.
