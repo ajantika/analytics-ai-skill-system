@@ -1,6 +1,6 @@
 # 🤖 Analytics AI Skill System
 
-A multi-domain AI analytics Q&A system with domain-aware query routing — built to mirror the production system deployed at Cloudflare.
+A multi-domain AI analytics Q&A system with domain-aware query routing — built to mirror the production system deployed.
 
 🔗 **Live demo: [ajantika-analytics-ai.streamlit.app](https://ajantika-analytics-ai.streamlit.app)**
 
@@ -37,7 +37,7 @@ This project recreates the architecture of a real production system built at Clo
 | **Groq API + Llama 3.1** | Free, fast LLM for answer generation |
 | **YAML** | Structured domain knowledge bases |
 | **Streamlit** | Web interface and cloud deployment |
-| **Domain-aware routing** | Keyword classifier routes questions to correct domain |
+| **Domain-aware routing** | Keyword classifier routes questions to the correct domain |
 
 ---
 
@@ -90,7 +90,7 @@ Create a new `.yaml` file following the same structure as `sales.yaml` — the s
 
 ## Built by
 
-**Ajantika Paul** — Analytics & AI Systems Lead · Ex-Cloudflare
+**Ajantika Paul** — Analytics & AI Systems Lead 
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-ajantika--paul-blue?style=flat&logo=linkedin)](https://linkedin.com/in/ajantika-paul)
 [![GitHub](https://img.shields.io/badge/GitHub-ajantika-black?style=flat&logo=github)](https://github.com/ajantika)
