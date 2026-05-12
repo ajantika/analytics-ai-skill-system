@@ -26,7 +26,6 @@ st.markdown("""
 div[class*="stMarkdown"], div[class*="stButton"],
 [data-testid="stHorizontalBlock"] { background: transparent !important; }
 
-/* Domain tab buttons */
 div[data-testid="column"] .stButton > button {
     background: rgba(255,255,255,0.06) !important;
     border: 1px solid rgba(255,255,255,0.13) !important;
@@ -45,8 +44,6 @@ div[data-testid="column"] .stButton > button:hover {
     color: white !important;
     transform: translateY(-2px) !important;
 }
-
-/* All other buttons */
 .stButton > button {
     background: rgba(255,255,255,0.04) !important;
     border: 1px solid rgba(255,255,255,0.08) !important;
@@ -63,8 +60,6 @@ div[data-testid="column"] .stButton > button:hover {
     border-color: rgba(99,102,241,0.3) !important;
     color: white !important;
 }
-
-/* Text input */
 .stTextInput > div > div { background: rgba(10,8,40,0.98) !important; border-radius: 12px !important; }
 .stTextInput > div > div > input {
     background: rgba(10,8,40,0.98) !important;
@@ -196,19 +191,18 @@ def ask_groq(question, context):
         client = Groq(api_key=api_key)
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": f"""You are a senior analytics expert at a B2B SaaS company.
-Answer directly and specifically using the domain knowledge below.
-Be concise — 3 to 5 sentences or a short structured list.
-Use specific metrics, thresholds and formulas from the knowledge base.
-Do NOT give generic instructions.
+            messages=[{"role": "user", "content": f"""You are a senior analytics expert. The knowledge base below contains REAL DATA with specific numbers.
+You MUST answer using the exact numbers, percentages and figures provided in the knowledge base.
+Do NOT generate SQL queries. Do NOT say "calculate this". Do NOT give generic steps.
+Give a direct, confident 3 to 4 sentence answer using the actual figures.
 
 DOMAIN KNOWLEDGE:
 {context}
 
 QUESTION: {question}
 
-Direct expert answer:"""}],
-            max_tokens=400
+Answer using ONLY the real numbers from the knowledge base above:"""}],
+            max_tokens=350
         )
         return response.choices[0].message.content
     except Exception as e:
@@ -228,7 +222,7 @@ st.markdown("""
   <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);
   border:1px solid rgba(99,102,241,0.35);color:#a5b4fc;font-size:11px;font-weight:600;
   padding:5px 16px;border-radius:20px;margin-bottom:14px;letter-spacing:0.05em">
-    🤖 AI-POWERED &nbsp;·&nbsp;·&nbsp; GROQ + LLAMA 3.1
+    🤖 AI-POWERED &nbsp;·&nbsp; GROQ + LLAMA 3.1
   </div>
   <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 8px;line-height:1.2">
     Analytics AI <span style="color:#a78bfa">Skill System</span>
@@ -253,7 +247,7 @@ st.markdown('<p style="color:#64748b;font-size:0.7rem;font-weight:600;text-trans
 display_order = [d for d in PREFERRED_ORDER if d in domains] + [d for d in domains if d not in PREFERRED_ORDER]
 dcols = st.columns(max(len(display_order), 1))
 for i, dk in enumerate(display_order):
-    cfg = DOMAIN_UI.get(dk, {"icon": "📊", "label": dk.replace("_"," ").title()})
+    cfg = DOMAIN_UI.get(dk, {"icon": "📊", "label": dk.replace("_", " ").title()})
     if dcols[i].button(f"{cfg['icon']} {cfg['label']}", key=f"dom_{dk}", use_container_width=True):
         st.session_state["active_domain"] = dk
         qs = cfg.get("questions", [])
@@ -265,7 +259,7 @@ active = st.session_state.get("active_domain", display_order[0] if display_order
 if active not in domains and display_order:
     active = display_order[0]
     st.session_state["active_domain"] = active
-active_cfg = DOMAIN_UI.get(active, {"icon":"📊","label":active.replace("_"," ").title(),"questions":[]})
+active_cfg = DOMAIN_UI.get(active, {"icon": "📊", "label": active.replace("_", " ").title(), "questions": []})
 
 st.markdown('<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin:0.75rem 0 0.6rem"/>', unsafe_allow_html=True)
 
@@ -294,7 +288,7 @@ if question and domains:
         st.markdown('<p style="color:#f87171;font-size:13px">Could not identify domain — try rephrasing.</p>', unsafe_allow_html=True)
     else:
         domain_data = domains[domain_name]
-        cfg = DOMAIN_UI.get(domain_name, {"icon":"📊","label":domain_name.replace("_"," ").title()})
+        cfg = DOMAIN_UI.get(domain_name, {"icon": "📊", "label": domain_name.replace("_", " ").title()})
 
         st.markdown(f"""
         <div style="display:inline-flex;align-items:center;gap:8px;
@@ -314,26 +308,21 @@ if question and domains:
         <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
         border-left:3px solid #7c3aed;border-radius:12px;padding:18px 22px;margin-bottom:12px">
             <div style="color:#a78bfa;font-weight:700;font-size:0.68rem;letter-spacing:0.1em;
-            text-transform:uppercase;margin-bottom:10px">Analytics Insight</div>
+            text-transform:uppercase;margin-bottom:10px">Answer</div>
             <div style="color:#e2e8f0;font-size:0.92rem;line-height:1.8">{answer}</div>
         </div>
         """, unsafe_allow_html=True)
 
-        # ── Toggle knowledge base — no expander ──────────────────────────────
         col_kb, _ = st.columns([1, 3])
         if col_kb.button("🔍 View knowledge base", key="toggle_kb"):
             st.session_state["show_kb"] = not st.session_state.get("show_kb", False)
 
         if st.session_state.get("show_kb", False):
-            st.markdown("""
-            <div style="background:rgba(15,12,41,0.95);border:1px solid rgba(255,255,255,0.1);
-            border-radius:10px;padding:14px 18px;margin-top:6px">
-              <p style="color:#475569;font-size:0.73rem;margin-bottom:8px">
-                Structured domain knowledge retrieved and passed to the AI.
-              </p>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown('<p style="color:#475569;font-size:0.73rem;margin:6px 0 4px">Structured domain knowledge retrieved and passed to the AI.</p>', unsafe_allow_html=True)
             st.code(context, language="yaml")
+
+elif question and not domains:
+    st.markdown('<p style="color:#f87171;font-size:13px">No domain files found. Check your repository.</p>', unsafe_allow_html=True)
 
 # ── FOOTER ────────────────────────────────────────────────────────────────────
 st.markdown("""
