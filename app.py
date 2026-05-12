@@ -7,13 +7,12 @@ st.set_page_config(page_title="Analytics AI Skill System", page_icon="🤖", lay
 
 st.markdown("""
 <style>
-/* No external font imports — system fonts work everywhere including LinkedIn browser */
 *, html, body, [class*="css"] {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 [data-testid="stAppViewContainer"] {
     background: #1a1535 !important;
-    background-image: radial-gradient(ellipse at top left, #2d2060 0%, #1a1535 50%, #0f0c29 100%) !important;
+    background-image: radial-gradient(ellipse at top, #2d2060 0%, #0f0c29 70%) !important;
 }
 [data-testid="stHeader"] { background: transparent !important; }
 #MainMenu, footer, header { visibility: hidden; }
@@ -27,7 +26,6 @@ st.markdown("""
 div[class*="stMarkdown"], div[class*="stButton"],
 [data-testid="stHorizontalBlock"] { background: transparent !important; }
 
-/* Domain buttons */
 div[data-testid="column"] .stButton > button {
     background: rgba(255,255,255,0.06) !important;
     border: 1px solid rgba(255,255,255,0.14) !important;
@@ -46,8 +44,6 @@ div[data-testid="column"] .stButton > button:hover {
     color: white !important;
     transform: translateY(-2px) !important;
 }
-
-/* Example question buttons */
 .stButton > button {
     background: rgba(255,255,255,0.04) !important;
     border: 1px solid rgba(255,255,255,0.08) !important;
@@ -63,8 +59,6 @@ div[data-testid="column"] .stButton > button:hover {
     border-color: rgba(99,102,241,0.3) !important;
     color: white !important;
 }
-
-/* Text input */
 .stTextInput > div > div {
     background: rgba(15, 12, 41, 0.95) !important;
     border-radius: 12px !important;
@@ -82,7 +76,6 @@ div[data-testid="column"] .stButton > button:hover {
 .stTextInput > div > div > input:focus {
     border-color: #818cf8 !important;
     box-shadow: 0 0 0 3px rgba(129,140,248,0.15) !important;
-    background: rgba(15, 12, 41, 1) !important;
 }
 .stTextInput > div > div > input::placeholder {
     color: #4a5568 !important;
@@ -95,24 +88,19 @@ div[data-testid="column"] .stButton > button:hover {
     text-transform: uppercase !important;
     letter-spacing: 0.07em !important;
 }
-
-/* Expander */
 [data-testid="stExpander"] {
     background: rgba(255,255,255,0.02) !important;
     border: 1px solid rgba(255,255,255,0.07) !important;
     border-radius: 10px !important;
 }
-[data-testid="stExpander"] summary {
-    color: #475569 !important;
-    font-size: 0.78rem !important;
-}
+[data-testid="stExpander"] summary { color: #475569 !important; font-size: 0.78rem !important; }
 [data-testid="stSpinner"] > div { border-top-color: #818cf8 !important; }
 </style>
 """, unsafe_allow_html=True)
 
 
-# ── Domain config — ORDER: Product, Marketing, Sales, HR ─────────────────────
-DOMAIN_CONFIG = {
+# ── Domain UI config ──────────────────────────────────────────────────────────
+DOMAIN_UI = {
     "product_usage": {
         "icon": "📊", "label": "Product",
         "questions": [
@@ -151,67 +139,84 @@ DOMAIN_CONFIG = {
     }
 }
 
-DOMAIN_ORDER = ["product_usage", "marketing", "sales", "hr"]
+# Preferred display order
+PREFERRED_ORDER = ["product_usage", "marketing", "sales", "hr"]
 
 
-# ── Load domains ──────────────────────────────────────────────────────────────
+# ── Load domains from YAML files ──────────────────────────────────────────────
 @st.cache_data
 def load_domains():
     domains = {}
     for file in os.listdir("."):
         if file.endswith(".yaml"):
             try:
-                with open(file) as f:
+                with open(file, "r") as f:
                     data = yaml.safe_load(f)
-                    if data and "domain" in data:
-                        domains[data["domain"]] = data
+                    if isinstance(data, dict) and "domain" in data:
+                        key = str(data["domain"]).strip().lower().replace(" ", "_")
+                        data["domain"] = key  # normalize
+                        domains[key] = data
             except Exception:
                 pass
     return domains
 
+
 def classify_domain(question, domains):
+    if not domains:
+        return None
     q = question.lower()
     scores = {}
     for domain_name, data in domains.items():
         score = 0
-        for kw in data["keywords"]:
-            kw_clean = kw.lower().replace("-", " ").replace("_", " ")
+        keywords = data.get("keywords", [])
+        for kw in keywords:
+            kw_clean = str(kw).lower().replace("-", " ").replace("_", " ")
             if kw_clean in q:
                 score += 2
-            elif any(word in q for word in kw_clean.split() if len(word) > 3):
-                score += 1
+            else:
+                for word in kw_clean.split():
+                    if len(word) > 3 and word in q:
+                        score += 1
         scores[domain_name] = score
     best = max(scores, key=scores.get)
-    return best if scores[best] > 0 else DOMAIN_ORDER[0]
+    # Return best if it has any score, else return first available domain
+    if scores[best] > 0:
+        return best
+    # Fallback: match active domain if available
+    active = st.session_state.get("active_domain", "")
+    if active in domains:
+        return active
+    return list(domains.keys())[0]
+
 
 def build_context(domain_data):
-    ctx = f"Domain: {domain_data['domain'].upper()}\n"
-    ctx += f"Description: {domain_data['description']}\n\nKey Metrics:\n"
-    for m in domain_data["metrics"]:
-        ctx += f"  - {m['name']}: {m['definition']}\n"
+    ctx = f"Domain: {domain_data.get('domain','').upper()}\n"
+    ctx += f"Description: {domain_data.get('description','')}\n\nKey Metrics:\n"
+    for m in domain_data.get("metrics", []):
+        ctx += f"  - {m.get('name','')}: {m.get('definition','')}\n"
     ctx += "\nSample Q&A:\n"
-    for qa in domain_data["sample_qa"]:
-        ctx += f"  Q: {qa['q']}\n  A: {qa['a']}\n\n"
+    for qa in domain_data.get("sample_qa", []):
+        ctx += f"  Q: {qa.get('q','')}\n  A: {qa.get('a','')}\n\n"
     return ctx
 
-def ask_groq(question, context, domain_name):
+
+def ask_groq(question, context):
     try:
         api_key = st.secrets.get("GROQ_API_KEY", os.environ.get("GROQ_API_KEY", ""))
         if not api_key:
             return "Add GROQ_API_KEY to Streamlit secrets."
         client = Groq(api_key=api_key)
-        prompt = f"""You are a senior analytics expert answering a business analytics question.
-Use the domain knowledge below to give a DIRECT, SPECIFIC answer.
-Do NOT give generic step-by-step instructions. Instead, give the actual analytical approach with specific metrics, thresholds, and formulas from the knowledge base.
-Keep the answer concise — 3 to 5 sentences or a short structured list.
+        prompt = f"""You are a senior analytics expert at a B2B SaaS company.
+Answer the question directly and specifically using the domain knowledge below.
+Be concise — 3 to 5 sentences or a short list. Use specific metrics and thresholds from the knowledge base.
+Do NOT give generic step-by-step instructions.
 
 DOMAIN KNOWLEDGE:
 {context}
 
 QUESTION: {question}
 
-Give a direct, expert answer:"""
-
+Direct expert answer:"""
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
@@ -222,11 +227,14 @@ Give a direct, expert answer:"""
         return f"Error: {str(e)}"
 
 
-# ── Init session state ────────────────────────────────────────────────────────
+# ── Session state ─────────────────────────────────────────────────────────────
 if "active_domain" not in st.session_state:
     st.session_state["active_domain"] = "product_usage"
 if "prefill" not in st.session_state:
     st.session_state["prefill"] = ""
+
+# Load domains early so we can debug
+domains = load_domains()
 
 # ── HERO ──────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -237,8 +245,7 @@ st.markdown("""
     🤖 AI-POWERED &nbsp;·&nbsp; NOT A DASHBOARD &nbsp;·&nbsp; GROQ + LLAMA 3.1
   </div>
   <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 8px;line-height:1.2">
-    Analytics AI
-    <span style="color:#a78bfa"> Skill System</span>
+    Analytics AI <span style="color:#a78bfa">Skill System</span>
   </h1>
   <p style="color:#94a3b8;font-size:0.88rem;margin:0">
     Ask a question in plain English &nbsp;·&nbsp; AI routes to the right domain &nbsp;·&nbsp; Instant answer
@@ -246,7 +253,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Demo notice ───────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.22);
 border-radius:8px;padding:7px 16px;margin-bottom:1rem;text-align:center;font-size:11.5px;color:#a16207">
@@ -257,16 +263,27 @@ border-radius:8px;padding:7px 16px;margin-bottom:1rem;text-align:center;font-siz
 # ── DOMAIN ROW ────────────────────────────────────────────────────────────────
 st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem">Select a domain</p>', unsafe_allow_html=True)
 
-dcols = st.columns(4)
-for i, dk in enumerate(DOMAIN_ORDER):
-    cfg = DOMAIN_CONFIG[dk]
+# Build display order — preferred order first, then any extra loaded domains
+display_order = [d for d in PREFERRED_ORDER if d in domains]
+extra = [d for d in domains if d not in PREFERRED_ORDER]
+display_order += extra
+
+dcols = st.columns(max(len(display_order), 1))
+for i, dk in enumerate(display_order):
+    cfg = DOMAIN_UI.get(dk, {"icon": "📊", "label": dk.replace("_", " ").title()})
     if dcols[i].button(f"{cfg['icon']} {cfg['label']}", key=f"dom_{dk}", use_container_width=True):
         st.session_state["active_domain"] = dk
-        st.session_state["prefill"] = cfg["questions"][0]
+        questions = cfg.get("questions", [])
+        st.session_state["prefill"] = questions[0] if questions else ""
         st.rerun()
 
-active = st.session_state["active_domain"]
-active_cfg = DOMAIN_CONFIG[active]
+active = st.session_state.get("active_domain", display_order[0] if display_order else "")
+# Make sure active domain is valid
+if active not in domains and display_order:
+    active = display_order[0]
+    st.session_state["active_domain"] = active
+
+active_cfg = DOMAIN_UI.get(active, {"icon": "📊", "label": active.replace("_", " ").title(), "questions": []})
 
 st.markdown('<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin:0.75rem 0"/>', unsafe_allow_html=True)
 
@@ -274,7 +291,7 @@ st.markdown('<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);
 st.markdown(f'<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem">{active_cfg["icon"]} {active_cfg["label"]} — example questions</p>', unsafe_allow_html=True)
 
 qcols = st.columns(2)
-for i, q in enumerate(active_cfg["questions"]):
+for i, q in enumerate(active_cfg.get("questions", [])):
     if qcols[i % 2].button(q, key=f"q_{active}_{i}", use_container_width=True):
         st.session_state["prefill"] = q
         st.rerun()
@@ -288,41 +305,46 @@ question = st.text_input(
 )
 
 # ── ANSWER ────────────────────────────────────────────────────────────────────
-domains = load_domains()
-
 if question and domains:
     domain_name = classify_domain(question, domains)
-    domain_data = domains[domain_name]
-    cfg = DOMAIN_CONFIG.get(domain_name, {"icon": "📊", "label": domain_name.upper()})
 
-    st.markdown(f"""
-    <div style="display:inline-flex;align-items:center;gap:8px;
-    background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.28);
-    color:#a5b4fc;font-size:0.8rem;font-weight:600;padding:7px 14px;
-    border-radius:8px;margin:8px 0 12px">
-        {cfg['icon']} Routed to
-        <strong style="color:white;margin-left:2px">{cfg['label'].upper()}</strong> domain
-    </div>
-    """, unsafe_allow_html=True)
+    if not domain_name or domain_name not in domains:
+        st.error("Could not identify domain. Please try rephrasing your question.")
+    else:
+        domain_data = domains[domain_name]
+        cfg = DOMAIN_UI.get(domain_name, {"icon": "📊", "label": domain_name.replace("_"," ").title()})
 
-    with st.spinner("Analysing..."):
-        context = build_context(domain_data)
-        answer = ask_groq(question, context, domain_name)
+        st.markdown(f"""
+        <div style="display:inline-flex;align-items:center;gap:8px;
+        background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.28);
+        color:#a5b4fc;font-size:0.8rem;font-weight:600;padding:7px 14px;
+        border-radius:8px;margin:8px 0 12px">
+            {cfg['icon']} Routed to
+            <strong style="color:white;margin-left:2px">{cfg['label'].upper()}</strong> domain
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown(f"""
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
-    border-left:3px solid #7c3aed;border-radius:12px;padding:18px 22px;margin-bottom:8px">
-        <div style="color:#a78bfa;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;
-        text-transform:uppercase;margin-bottom:10px">Analytics Insight</div>
-        <div style="color:#e2e8f0;font-size:0.92rem;line-height:1.75">{answer}</div>
-    </div>
-    """, unsafe_allow_html=True)
+        with st.spinner("Analysing..."):
+            context = build_context(domain_data)
+            answer = ask_groq(question, context)
 
-    with st.expander("🔍 View knowledge base used"):
-        st.markdown('<p style="color:#64748b;font-size:0.75rem;margin-bottom:8px">Structured domain knowledge retrieved and passed to the AI to generate the answer above.</p>', unsafe_allow_html=True)
-        st.code(context, language="yaml")
+        st.markdown(f"""
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+        border-left:3px solid #7c3aed;border-radius:12px;padding:18px 22px;margin-bottom:8px">
+            <div style="color:#a78bfa;font-weight:700;font-size:0.7rem;letter-spacing:0.1em;
+            text-transform:uppercase;margin-bottom:10px">Analytics Insight</div>
+            <div style="color:#e2e8f0;font-size:0.92rem;line-height:1.75">{answer}</div>
+        </div>
+        """, unsafe_allow_html=True)
 
-# ── FOOTER — no blank space ───────────────────────────────────────────────────
+        with st.expander("🔍 View knowledge base used"):
+            st.markdown('<p style="color:#64748b;font-size:0.75rem;margin-bottom:8px">Structured domain knowledge retrieved and passed to the AI to generate the answer above.</p>', unsafe_allow_html=True)
+            st.code(context, language="yaml")
+
+elif question and not domains:
+    st.error("No domain YAML files found. Please check your repository files.")
+
+# ── FOOTER ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="border-top:1px solid rgba(255,255,255,0.06);margin-top:1.5rem;
 padding:0.75rem 0 0.5rem;text-align:center;color:#334155;font-size:0.72rem">
