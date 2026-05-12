@@ -9,92 +9,148 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *, html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; }
-[data-testid="stAppViewContainer"] {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
-}
+[data-testid="stAppViewContainer"] { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important; }
 [data-testid="stHeader"] { background: transparent !important; }
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding-top: 1.5rem !important; max-width: 720px !important; background: transparent !important; }
+.block-container { padding-top: 1rem !important; padding-bottom: 1rem !important; max-width: 740px !important; background: transparent !important; }
 [data-testid="stVerticalBlock"], [data-testid="element-container"],
 div[class*="stMarkdown"], div[class*="stButton"],
 [data-testid="stHorizontalBlock"] { background: transparent !important; }
 
-/* ALL buttons equal height and no wrap */
-.stButton > button {
-    background: rgba(255,255,255,0.06) !important;
+/* Domain card buttons — single row */
+div[data-testid="column"] .stButton > button {
+    background: rgba(255,255,255,0.05) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
-    border-radius: 10px !important;
-    color: #cbd5e1 !important;
+    border-radius: 12px !important;
+    color: white !important;
     font-size: 0.82rem !important;
-    font-weight: 500 !important;
-    padding: 10px 8px !important;
+    font-weight: 600 !important;
+    padding: 14px 8px !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     transition: all 0.2s !important;
     width: 100% !important;
 }
-.stButton > button:hover {
-    background: rgba(99,102,241,0.2) !important;
-    border-color: rgba(99,102,241,0.5) !important;
-    color: white !important;
-    transform: translateY(-1px) !important;
+div[data-testid="column"] .stButton > button:hover {
+    background: rgba(99,102,241,0.3) !important;
+    border-color: rgba(99,102,241,0.7) !important;
+    transform: translateY(-2px) !important;
+}
+div[data-testid="column"] .stButton > button[kind="primary"],
+div[data-testid="column"] .stButton > button:focus {
+    background: rgba(99,102,241,0.4) !important;
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 2px rgba(129,140,248,0.3) !important;
 }
 
-/* FIX: Text input — force dark background and white text */
-.stTextInput > div > div {
-    background: rgba(30, 27, 75, 0.8) !important;
-    border-radius: 12px !important;
+/* Example buttons */
+.stButton > button {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.09) !important;
+    border-radius: 9px !important;
+    color: #94a3b8 !important;
+    font-size: 0.78rem !important;
+    padding: 8px 12px !important;
+    transition: all 0.15s !important;
+    text-align: left !important;
 }
+.stButton > button:hover {
+    background: rgba(99,102,241,0.12) !important;
+    border-color: rgba(99,102,241,0.35) !important;
+    color: white !important;
+}
+
+/* Text input */
+.stTextInput > div > div {background: rgba(20,18,60,0.9) !important; border-radius: 12px !important;}
 .stTextInput > div > div > input {
-    background: rgba(30, 27, 75, 0.8) !important;
-    border: 1px solid rgba(129, 140, 248, 0.4) !important;
+    background: rgba(20,18,60,0.9) !important;
+    border: 1px solid rgba(129,140,248,0.35) !important;
     border-radius: 12px !important;
     color: #ffffff !important;
     caret-color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     font-size: 0.95rem !important;
     padding: 13px 18px !important;
-    -webkit-text-fill-color: #ffffff !important;
 }
 .stTextInput > div > div > input:focus {
     border-color: #818cf8 !important;
-    box-shadow: 0 0 0 3px rgba(129,140,248,0.2) !important;
-    background: rgba(30, 27, 75, 0.95) !important;
+    box-shadow: 0 0 0 3px rgba(129,140,248,0.15) !important;
 }
 .stTextInput > div > div > input::placeholder {
-    color: #64748b !important;
-    -webkit-text-fill-color: #64748b !important;
+    color: #475569 !important;
+    -webkit-text-fill-color: #475569 !important;
 }
 .stTextInput label {
-    color: #64748b !important;
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
+    color: #64748b !important; font-size: 0.73rem !important;
+    font-weight: 600 !important; text-transform: uppercase !important;
     letter-spacing: 0.07em !important;
 }
 
-/* Spinner */
-[data-testid="stSpinner"] > div { border-top-color: #818cf8 !important; }
-
 /* Expander */
 [data-testid="stExpander"] {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.08) !important;
+    background: rgba(255,255,255,0.02) !important;
+    border: 1px solid rgba(255,255,255,0.07) !important;
     border-radius: 10px !important;
 }
-[data-testid="stExpander"] summary { color: #64748b !important; font-size: 0.82rem !important; }
+[data-testid="stExpander"] summary { color: #475569 !important; font-size: 0.8rem !important; }
+[data-testid="stSpinner"] > div { border-top-color: #818cf8 !important; }
 </style>
 """, unsafe_allow_html=True)
 
+# ── Domain config ─────────────────────────────────────────────────────────────
+DOMAIN_CONFIG = {
+    "sales": {
+        "icon": "💰", "label": "Sales",
+        "questions": [
+            "Which sales rep gives the highest discounts?",
+            "What is our MRR breakdown by customer type?",
+            "How many new customers did we add this quarter?",
+            "What is our pipeline coverage ratio?"
+        ]
+    },
+    "marketing": {
+        "icon": "📢", "label": "Marketing",
+        "questions": [
+            "Which campaign brought the highest number of customers?",
+            "How many opportunities were closed last quarter?",
+            "What is the ACV from each marketing channel?",
+            "How are our MQL to SQL conversion rates trending?"
+        ]
+    },
+    "hr": {
+        "icon": "👥", "label": "HR",
+        "questions": [
+            "Which teams have the highest attrition?",
+            "What is our regrettable attrition this quarter?",
+            "Are we on track with our hiring plan?",
+            "What is our new hire 90-day retention rate?"
+        ]
+    },
+    "product_usage": {
+        "icon": "📊", "label": "Product",
+        "questions": [
+            "How many customers are over-utilizing their plans?",
+            "What is the potential MRR if we right-size customers?",
+            "Which regions have the highest over-utilization?",
+            "What is our product margin by region?"
+        ]
+    }
+}
 
+# ── Load domains ──────────────────────────────────────────────────────────────
 @st.cache_data
 def load_domains():
     domains = {}
     for file in os.listdir("."):
         if file.endswith(".yaml"):
-            with open(file) as f:
-                data = yaml.safe_load(f)
-                domains[data["domain"]] = data
+            try:
+                with open(file) as f:
+                    data = yaml.safe_load(f)
+                    if data and "domain" in data:
+                        domains[data["domain"]] = data
+            except Exception:
+                pass
     return domains
 
 def classify_domain(question, domains):
@@ -120,14 +176,15 @@ def ask_groq(question, context):
         client = Groq(api_key=api_key)
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            messages=[{"role": "user", "content": f"""You are an expert analytics assistant.
-Use ONLY the domain knowledge below to answer. Be concise and actionable.
+            messages=[{"role": "user", "content": f"""You are an expert analytics assistant for a B2B SaaS company.
+Use ONLY the domain knowledge below to answer. Be specific, structured and actionable.
+Format your answer clearly — use numbered steps or bullet points where helpful.
 
 {context}
 
 Question: {question}
 Answer:"""}],
-            max_tokens=500
+            max_tokens=600
         )
         return response.choices[0].message.content
     except Exception as e:
@@ -136,95 +193,86 @@ Answer:"""}],
 
 # ── HERO ──────────────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="text-align:center;padding:1.5rem 0 1rem">
-  <div style="display:inline-block;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);
-  color:#a5b4fc;font-size:11px;font-weight:600;padding:4px 16px;border-radius:20px;
-  margin-bottom:14px;letter-spacing:0.06em">⚡ POWERED BY GROQ + LLAMA 3.1</div>
-  <h1 style="color:white;font-size:2.2rem;font-weight:700;margin:0 0 8px;line-height:1.2">
+<div style="text-align:center;padding:1.25rem 0 0.75rem">
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);
+  border:1px solid rgba(99,102,241,0.35);color:#a5b4fc;font-size:11px;font-weight:600;
+  padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:0.05em">
+    🤖 AI-POWERED · NOT A DASHBOARD · GROQ + LLAMA 3.1
+  </div>
+  <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 6px;line-height:1.2">
     Analytics AI <span style="background:linear-gradient(90deg,#818cf8,#c084fc);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent">Skill System</span>
   </h1>
-  <p style="color:#94a3b8;font-size:0.92rem;margin:0">
-    Ask any analytics question · AI routes to the right domain · Get instant answers
+  <p style="color:#94a3b8;font-size:0.88rem;margin:0 0 8px">
+    Ask a question in plain English · AI identifies the domain · Retrieves knowledge · Answers instantly
   </p>
 </div>
 """, unsafe_allow_html=True)
 
-# ── DOMAIN CARDS — visual only ────────────────────────────────────────────────
+# ── Demo banner ───────────────────────────────────────────────────────────────
 st.markdown("""
-<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0.5rem 0 0.25rem">
-  <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;padding:18px;text-align:center">
-    <div style="font-size:1.8rem">💰</div>
-    <div style="color:white;font-weight:600;font-size:0.9rem;margin:6px 0 3px">Sales</div>
-    <div style="color:#94a3b8;font-size:0.72rem">MRR · ARR · Churn · Pipeline</div>
-  </div>
-  <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;padding:18px;text-align:center">
-    <div style="font-size:1.8rem">📢</div>
-    <div style="color:white;font-weight:600;font-size:0.9rem;margin:6px 0 3px">Marketing</div>
-    <div style="color:#94a3b8;font-size:0.72rem">CAC · CPL · MQL · ROAS</div>
-  </div>
-  <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;padding:18px;text-align:center">
-    <div style="font-size:1.8rem">👥</div>
-    <div style="color:white;font-weight:600;font-size:0.9rem;margin:6px 0 3px">HR</div>
-    <div style="color:#94a3b8;font-size:0.72rem">Headcount · Attrition · Hiring</div>
-  </div>
+<div style="background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.25);
+border-radius:8px;padding:7px 14px;margin-bottom:1rem;text-align:center;
+font-size:11.5px;color:#ca8a04">
+  ⚠️ Demo environment — knowledge bases contain illustrative data, not production data.
+  This app mirrors an AI analytics system deployed at Cloudflare.
 </div>
 """, unsafe_allow_html=True)
 
-# ── DOMAIN BUTTONS — short labels to prevent wrapping ────────────────────────
-st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin:0.75rem 0 0.4rem">Click to explore a domain</p>', unsafe_allow_html=True)
-c1, c2, c3 = st.columns(3)
-if c1.button("💰 Sales", key="d1", use_container_width=True):
-    st.session_state["prefill"] = "Why did our churn increase last quarter?"
-    st.rerun()
-if c2.button("📢 Marketing", key="d2", use_container_width=True):
-    st.session_state["prefill"] = "Which campaign has the lowest CAC?"
-    st.rerun()
-if c3.button("👥 HR", key="d3", use_container_width=True):
-    st.session_state["prefill"] = "What is our attrition rate this year?"
-    st.rerun()
+# ── Init session state ────────────────────────────────────────────────────────
+if "active_domain" not in st.session_state:
+    st.session_state["active_domain"] = "sales"
+if "prefill" not in st.session_state:
+    st.session_state["prefill"] = ""
 
-st.markdown('<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin:1.25rem 0"/>', unsafe_allow_html=True)
+# ── DOMAIN ROW — single clickable row ─────────────────────────────────────────
+st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem">Select a domain</p>', unsafe_allow_html=True)
 
-# ── EXAMPLE QUESTIONS ─────────────────────────────────────────────────────────
-st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem">Or try an example</p>', unsafe_allow_html=True)
-examples = [
-    "Why did our churn increase last quarter?",
-    "Which campaign has the lowest CAC?",
-    "What is our attrition rate this year?",
-    "How is our pipeline trending?"
-]
-ecols = st.columns(2)
-for i, ex in enumerate(examples):
-    if ecols[i % 2].button(ex, key=f"ex_{i}", use_container_width=True):
-        st.session_state["prefill"] = ex
+cols = st.columns(4)
+domains_order = ["sales", "marketing", "hr", "product_usage"]
+for i, dk in enumerate(domains_order):
+    cfg = DOMAIN_CONFIG[dk]
+    label = f"{cfg['icon']} {cfg['label']}"
+    if cols[i].button(label, key=f"dom_{dk}", use_container_width=True):
+        st.session_state["active_domain"] = dk
+        st.session_state["prefill"] = cfg["questions"][0]
+        st.rerun()
+
+active = st.session_state["active_domain"]
+active_cfg = DOMAIN_CONFIG[active]
+
+st.markdown('<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin:0.75rem 0"/>', unsafe_allow_html=True)
+
+# ── DYNAMIC EXAMPLE QUESTIONS ─────────────────────────────────────────────────
+st.markdown(f'<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.4rem">{active_cfg["icon"]} {active_cfg["label"]} — example questions</p>', unsafe_allow_html=True)
+
+qcols = st.columns(2)
+for i, q in enumerate(active_cfg["questions"]):
+    if qcols[i % 2].button(q, key=f"q_{active}_{i}", use_container_width=True):
+        st.session_state["prefill"] = q
         st.rerun()
 
 # ── INPUT ─────────────────────────────────────────────────────────────────────
-st.markdown('<div style="margin-top:0.75rem"></div>', unsafe_allow_html=True)
+st.markdown('<div style="margin-top:0.6rem"></div>', unsafe_allow_html=True)
 question = st.text_input(
-    "Ask your own question",
+    "Or ask your own question",
     value=st.session_state.get("prefill", ""),
-    placeholder="e.g. Which team has the highest attrition this quarter?"
+    placeholder="e.g. Which sales rep is giving the highest discounts?"
 )
 
 # ── ANSWER ────────────────────────────────────────────────────────────────────
 domains = load_domains()
 
-if question:
+if question and domains:
     domain_name = classify_domain(question, domains)
     domain_data = domains[domain_name]
-    icons = {"sales": "💰", "hr": "👥", "marketing": "📢"}
-    icon = icons.get(domain_name, "📊")
+    cfg = DOMAIN_CONFIG.get(domain_name, {"icon": "📊", "label": domain_name.upper()})
 
     st.markdown(f"""
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);
-    border:1px solid rgba(99,102,241,0.35);color:#a5b4fc;font-size:0.83rem;font-weight:600;
-    padding:8px 16px;border-radius:8px;margin:10px 0 14px">
-        {icon} Routed to <strong style="color:white;margin-left:4px">{domain_name.upper()}</strong>&nbsp;domain
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.12);
+    border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;font-size:0.82rem;font-weight:600;
+    padding:7px 14px;border-radius:8px;margin:8px 0 12px">
+        {cfg['icon']} Routed to <strong style="color:white;margin-left:3px">{cfg['label'].upper()}</strong>&nbsp;domain
     </div>
     """, unsafe_allow_html=True)
 
@@ -233,22 +281,24 @@ if question:
         answer = ask_groq(question, context)
 
     st.markdown(f"""
-    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);
-    border-left:3px solid #818cf8;border-radius:14px;padding:20px 24px;margin-bottom:12px">
-        <div style="color:#818cf8;font-weight:700;font-size:0.72rem;letter-spacing:0.09em;
-        text-transform:uppercase;margin-bottom:10px">Answer</div>
-        <div style="color:#e2e8f0;font-size:0.93rem;line-height:1.75">{answer}</div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.09);
+    border-left:3px solid #818cf8;border-radius:12px;padding:18px 22px;margin-bottom:10px">
+        <div style="color:#818cf8;font-weight:700;font-size:0.7rem;letter-spacing:0.09em;
+        text-transform:uppercase;margin-bottom:10px">AI-Generated Answer</div>
+        <div style="color:#e2e8f0;font-size:0.92rem;line-height:1.75">{answer}</div>
     </div>
     """, unsafe_allow_html=True)
 
-    with st.expander("🔍 View domain knowledge used"):
+    with st.expander("🔍 View AI knowledge base used to answer this question"):
+        st.markdown('<p style="color:#64748b;font-size:0.75rem;margin-bottom:8px">This is the structured knowledge the AI retrieved to generate the answer above — the same pattern used in the Cloudflare production system.</p>', unsafe_allow_html=True)
         st.code(context, language="yaml")
 
 # ── FOOTER ────────────────────────────────────────────────────────────────────
 st.markdown("""
-<hr style="border:none;border-top:1px solid rgba(255,255,255,0.07);margin:2rem 0 1rem"/>
-<div style="text-align:center;color:#475569;font-size:0.75rem;padding-bottom:1rem">
-    Built by <span style="color:#818cf8;font-weight:600">Ajantika Paul</span> · Ex-Cloudflare · 
-    <a href="https://github.com/ajantika" style="color:#818cf8;text-decoration:none">github.com/ajantika</a>
+<div style="border-top:1px solid rgba(255,255,255,0.06);margin-top:1.5rem;padding-top:0.75rem;
+text-align:center;color:#334155;font-size:0.72rem">
+    Built by <span style="color:#818cf8;font-weight:600">Ajantika Paul</span> · 
+    Mirrors the multi-domain AI analytics skill system deployed at Cloudflare ·
+    <a href="https://github.com/ajantika/analytics-ai-skill-system" style="color:#818cf8;text-decoration:none">View on GitHub</a>
 </div>
 """, unsafe_allow_html=True)
