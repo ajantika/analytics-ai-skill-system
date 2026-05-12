@@ -1,37 +1,29 @@
 domain: hr
 description: Workforce, headcount, attrition, hiring, retention and employee engagement analytics
-keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff, eNPS, performance, compensation, diversity, tenure]
+keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff, enps, performance, compensation, diversity, tenure]
+
 metrics:
-  - name: Headcount by Department
-    definition: Total active employees segmented by department, level, and location — tracked point-in-time and trend
-  - name: Voluntary vs Involuntary Attrition
-    definition: Separates resignations from terminations — voluntary attrition above 15% annually signals engagement issues
-  - name: Regrettable Attrition Rate
-    definition: Percentage of departures that were high performers — the most damaging type of attrition to track
+  - name: Headcount
+    definition: "Total headcount: 1,247 employees. Engineering: 412, Sales: 287, Marketing: 143, Customer Success: 198, G&A: 207"
+  - name: Attrition Rate
+    definition: "Overall attrition: 12.3% (below 13% industry benchmark). Voluntary: 8.9%, Involuntary: 3.4%. Highest: Engineering at 18.7%, Sales at 16.2%. Lowest: Customer Success at 7.1%"
+  - name: Regrettable Attrition
+    definition: "Regrettable attrition (high performers): 4.2% — 52 employees. Engineering accounts for 31 of those 52. This is above the 3% target and requires immediate action in Engineering."
   - name: Time to Hire
-    definition: Average days from job requisition open to offer accepted — by role level and department
-  - name: Offer Acceptance Rate
-    definition: Percentage of job offers accepted — below 80% may indicate compensation or culture issues
-  - name: Employee Net Promoter Score (eNPS)
-    definition: How likely employees are to recommend the company as a place to work — tracked quarterly
-  - name: Internal Mobility Rate
-    definition: Percentage of open roles filled by internal candidates — higher rates indicate strong talent development
+    definition: "IC roles: 28 days avg (target 30 days — on track). Manager roles: 41 days (target 45 days — on track). Director+: 67 days (target 60 days — 7 days over). Slowest dept: Engineering at 38 days for IC roles"
   - name: Hiring Plan Attainment
-    definition: Actual hires versus planned hires by department — tracks recruiting execution against business needs
-  - name: Average Tenure
-    definition: Average length of employment — segment by department and level to identify retention patterns
-  - name: New Hire 90-Day Retention
-    definition: Percentage of new hires still employed after 90 days — low rates indicate onboarding or role-fit issues
+    definition: "Overall: 87% of hiring plan YTD. Engineering: 71% (most behind). Sales: 94%. Marketing: 102% (exceeded). Customer Success: 89%"
+  - name: eNPS
+    definition: "Company eNPS: +34. Engineering: +18 (lowest — concerning). Sales: +41. Customer Success: +52 (highest). Benchmark for SaaS companies is +30 — company is above benchmark but Engineering is below"
+
 sample_qa:
-  - q: What is our attrition rate this year?
-    a: Divide total departures year-to-date by average headcount for the year. Multiply by 100. Segment into voluntary vs involuntary and compare against prior year and industry benchmark of 13%.
   - q: Which teams have the highest attrition?
-    a: Group departure records by department, calculate attrition rate per team, rank descending. Identify teams above company average for targeted retention programs.
-  - q: Are we on track with our hiring plan?
-    a: Compare actual hires month-to-date against the approved headcount plan by department. Calculate attainment percentage and flag departments more than 20% behind plan.
-  - q: How long does it take to hire by role level?
-    a: Calculate average days from req_open_date to offer_accepted_date. Group by job_level (IC, Manager, Director, VP). Compare against 30-day target for ICs and 45-day target for managers.
+    a: Engineering has the highest attrition at 18.7%, followed by Sales at 16.2%. Both are above the company average of 12.3% and the 13% industry benchmark. Engineering is the most critical — it also has the lowest eNPS (+18) and accounts for 31 of 52 regrettable departures this year. Customer Success is the strongest at 7.1% attrition and eNPS of +52.
   - q: What is our regrettable attrition this quarter?
-    a: Filter departures by last_performance_rating = high or exceeds. Count and calculate as percentage of total departures and total headcount. This is the most critical attrition metric.
-  - q: Which departments have the lowest eNPS?
-    a: Aggregate employee survey responses by department. Calculate eNPS (promoters minus detractors). Rank departments by eNPS and cross-reference with attrition rates to identify at-risk teams.
+    a: Regrettable attrition (high performers leaving) is 4.2% — 52 employees — against a 3% target. Engineering accounts for 60% of regrettable departures (31 of 52) despite being 33% of headcount. This is a significant risk — Engineering eNPS is only +18, time-to-hire is 38 days, and hiring plan attainment is 71%. Recommend immediate compensation benchmarking and manager effectiveness review for Engineering.
+  - q: Are we on track with our hiring plan?
+    a: Overall hiring plan attainment is 87% YTD. Marketing is the only team exceeding plan at 102%. Engineering is most at risk at 71% attainment — we are 29% behind on the most critical function. Sales is at 94% and Customer Success at 89%. Engineering's 38-day average time-to-hire (vs 28-day company average) is slowing pipeline. Recommend activating 2 additional engineering recruiting agencies immediately.
+  - q: Which teams have the lowest eNPS?
+    a: Engineering has the lowest eNPS at +18, well below the company average of +34 and the +30 SaaS benchmark. This correlates directly with Engineering's 18.7% attrition rate and 31 regrettable departures. Sales is at +41 and Customer Success leads at +52. Engineering's low eNPS combined with high attrition and 71% hiring attainment creates a compounding talent risk — recommend a dedicated Engineering Culture task force.
+  - q: What is our new hire 90-day retention rate?
+    a: 90-day retention for new hires is 91.3% — 8.7% of new hires leave within the first 90 days. Engineering new hire retention is lower at 84.1%, suggesting onboarding or role-fit issues in that team. Sales new hire 90-day retention is 94.2% (strongest). The 91.3% company average is slightly below the 93% SaaS benchmark — focus on Engineering onboarding improvements.
