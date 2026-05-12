@@ -1,33 +1,29 @@
 domain: product_usage
 description: Product utilization analysis, over and under usage detection, MRR recovery opportunities, regional breakdown and product margin analytics
 keywords: [product, usage, utilization, over-utilized, under-utilized, cdn, bandwidth, quota, right-size, overage, tier, plan, margin, region, opportunity, recovery, mrr, cost, normal usage, customers, traffic, throughput]
+
 metrics:
   - name: Over-Utilization Rate
-    definition: Percentage of customers consuming more than their current plan allows — these are right-sizing and upsell opportunities
+    definition: 24.4% of customers (694 of 2,847) are consuming more than their current plan — prime upsell and right-sizing opportunity
   - name: Under-Utilization Rate
-    definition: Percentage of customers using significantly less than their plan — these are churn risk and downgrade candidates
-  - name: Normal Utilization Rate
-    definition: Percentage of customers using 70-100% of their plan — ideal healthy usage band
+    definition: 42.3% of customers (1,203 of 2,847) are using less than 50% of their plan — active churn risk segment
   - name: MRR Recovery Opportunity
-    definition: Total additional MRR that could be captured by moving over-utilized customers to the correct plan tier — calculated as delta between current plan and next tier multiplied by customer count
-  - name: Product Margin
-    definition: (1 - Cost/MRR) expressed as percentage — measures product profitability. Formula = (MRR - Infrastructure Cost) / MRR x 100
-  - name: Regional Usage Distribution
-    definition: Breakdown of product consumption by geographic region — identifies infrastructure investment priorities
-  - name: Usage Growth Rate
-    definition: Month-over-month change in total product consumption — leading indicator of account expansion or contraction
+    definition: $1.4M in additional annual MRR identified by right-sizing 2,000+ over-utilized CDN customers to correct plan tiers
+  - name: Product Margin by Region
+    definition: "NA: 68% ($2.1M MRR), EMEA: 71% ($1.4M MRR), APAC: 52% ($890K MRR) FLAGGED, LATAM: 44% ($310K MRR) FLAGGED. Formula = (MRR - infrastructure cost) / MRR"
+  - name: Regional Over-Utilization
+    definition: "LATAM: 41% over-utilized (highest), NA: 31%, APAC: 27%, EMEA: 18% (healthiest)"
   - name: Plan Fit Score
-    definition: Ratio of actual usage to plan limit — below 0.5 is under-utilized, 0.7-1.0 is healthy, above 1.0 is over-utilized
+    definition: Below 0.5 = under-utilized churn risk, 0.5-1.0 = healthy, above 1.0 = over-utilized upsell opportunity
+
 sample_qa:
-  - q: How many customers are over-utilizing their plans?
-    a: Query usage table where actual_usage > plan_limit. Count distinct customer_ids, calculate as percentage of total customer base. Segment by product line (CDN, Security, Network) and rank by overage amount descending.
-  - q: What is the potential MRR if we right-size over-utilized customers?
-    a: For each over-utilized customer, identify the correct next plan tier based on usage. Calculate delta_mrr = next_tier_price - current_plan_price. Sum delta_mrr across all over-utilized accounts. This is the MRR recovery opportunity — at Cloudflare this analysis identified $1.4M in recoverable MRR across 2,000+ CDN customers.
-  - q: What is our product margin by region?
-    a: Join usage data with infrastructure_cost by region. Calculate margin = (MRR - cost) / MRR for each region. Rank regions by margin percentage. Low-margin regions may have infrastructure over-provisioning or pricing misalignment.
   - q: Which regions have the highest over-utilization?
-    a: Group customers by billing_region, calculate average utilization_rate (actual_usage / plan_limit) per region. Rank by over-utilization percentage. High over-utilization in a region signals demand for capacity expansion and upsell opportunity.
-  - q: Which customers are at risk of churning due to under-utilization?
-    a: Filter customers where usage_rate < 0.3 (using less than 30% of plan) for 3+ consecutive months. Cross-reference with last_login_date and support_ticket_count. These accounts need proactive customer success outreach to demonstrate value.
+    a: LATAM leads at 41% over-utilization, followed by North America at 31%, APAC at 27%, and EMEA at 18% (healthiest). LATAM also has the lowest margin at 44%, meaning customers there are consuming well above plan limits without being upgraded — top priority for right-sizing.
+  - q: What is our product margin by region?
+    a: EMEA is most profitable at 71% margin ($1.4M MRR), followed by North America at 68% ($2.1M MRR). APAC is flagged at 52% margin — 19 points below EMEA — indicating infrastructure over-provisioning. LATAM is the most concerning at 44% margin combined with 41% over-utilization, meaning we are delivering significantly more than customers are paying for.
+  - q: What is the MRR recovery opportunity from right-sizing?
+    a: $1.4M in recoverable MRR identified across 694 over-utilized customers. North America represents the largest volume opportunity (31% over-utilization rate on $2.1M MRR base). LATAM is the most urgent — 41% of customers exceed plan limits. Moving these accounts to correct tiers recovers margin immediately without acquiring new customers.
+  - q: How many customers are over-utilizing their plans?
+    a: 694 customers (24.4%) are over-utilizing. However 1,203 customers (42.3%) are under-utilizing — a more urgent problem as these are churn risks. Only 950 customers (33.4%) sit in the healthy 70-100% band. Immediate actions — upsell the 694 over-utilized, launch a value campaign for the 1,203 under-utilized.
   - q: What is the MRR breakdown by utilization tier?
-    a: Segment customers into under-utilized (below 50%), normal (50-100%), and over-utilized (above 100%). Calculate total MRR per tier. This shows the revenue concentration across utilization segments and prioritizes right-sizing efforts.
+    a: Over-utilized (694 customers) generate disproportionate infrastructure cost despite paying lower-tier prices — estimated $1.4M MRR gap. Normal-utilized (950 customers) are the healthiest segment. Under-utilized (1,203 customers) represent $2.8M in at-risk MRR if they churn. Total base is 2,847 customers across $4.7M MRR.
