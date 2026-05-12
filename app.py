@@ -14,7 +14,7 @@ st.set_page_config(
 @st.cache_data
 def load_domains():
     domains = {}
-    domain_dir = "domains"
+    domain_dir = "."
     for file in os.listdir(domain_dir):
         if file.endswith(".yaml"):
             with open(os.path.join(domain_dir, file)) as f:
