@@ -1,25 +1,37 @@
 domain: hr
-description: Workforce, headcount, attrition, hiring and employee engagement analytics
-keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff]
+description: Workforce, headcount, attrition, hiring, retention and employee engagement analytics
+keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff, eNPS, performance, compensation, diversity, tenure]
 metrics:
-  - name: Headcount
-    definition: Total number of active full-time employees at a point in time
-  - name: Attrition Rate
-    definition: Percentage of employees who left voluntarily or involuntarily in a period
+  - name: Headcount by Department
+    definition: Total active employees segmented by department, level, and location — tracked point-in-time and trend
+  - name: Voluntary vs Involuntary Attrition
+    definition: Separates resignations from terminations — voluntary attrition above 15% annually signals engagement issues
+  - name: Regrettable Attrition Rate
+    definition: Percentage of departures that were high performers — the most damaging type of attrition to track
   - name: Time to Hire
-    definition: Average number of days from job posting to offer acceptance
-  - name: Employee Net Promoter Score (eNPS)
-    definition: Measure of employee satisfaction and likelihood to recommend the company
+    definition: Average days from job requisition open to offer accepted — by role level and department
   - name: Offer Acceptance Rate
-    definition: Percentage of job offers accepted by candidates
+    definition: Percentage of job offers accepted — below 80% may indicate compensation or culture issues
+  - name: Employee Net Promoter Score (eNPS)
+    definition: How likely employees are to recommend the company as a place to work — tracked quarterly
   - name: Internal Mobility Rate
-    definition: Percentage of open roles filled by internal candidates
+    definition: Percentage of open roles filled by internal candidates — higher rates indicate strong talent development
+  - name: Hiring Plan Attainment
+    definition: Actual hires versus planned hires by department — tracks recruiting execution against business needs
+  - name: Average Tenure
+    definition: Average length of employment — segment by department and level to identify retention patterns
+  - name: New Hire 90-Day Retention
+    definition: Percentage of new hires still employed after 90 days — low rates indicate onboarding or role-fit issues
 sample_qa:
   - q: What is our attrition rate this year?
-    a: Divide total departures year to date by average headcount for the year, multiply by 100 to get percentage.
+    a: Divide total departures year-to-date by average headcount for the year. Multiply by 100. Segment into voluntary vs involuntary and compare against prior year and industry benchmark of 13%.
   - q: Which teams have the highest attrition?
-    a: Segment departure records by department and calculate attrition rate per team. Compare against company average.
-  - q: How long does it take to hire on average?
-    a: Calculate average days between job requisition creation date and offer accepted date across all closed roles.
+    a: Group departure records by department, calculate attrition rate per team, rank descending. Identify teams above company average for targeted retention programs.
   - q: Are we on track with our hiring plan?
-    a: Compare actual hires month to date against the hiring plan targets. Show gap by department and role level.
+    a: Compare actual hires month-to-date against the approved headcount plan by department. Calculate attainment percentage and flag departments more than 20% behind plan.
+  - q: How long does it take to hire by role level?
+    a: Calculate average days from req_open_date to offer_accepted_date. Group by job_level (IC, Manager, Director, VP). Compare against 30-day target for ICs and 45-day target for managers.
+  - q: What is our regrettable attrition this quarter?
+    a: Filter departures by last_performance_rating = high or exceeds. Count and calculate as percentage of total departures and total headcount. This is the most critical attrition metric.
+  - q: Which departments have the lowest eNPS?
+    a: Aggregate employee survey responses by department. Calculate eNPS (promoters minus detractors). Rank departments by eNPS and cross-reference with attrition rates to identify at-risk teams.
