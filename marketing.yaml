@@ -1,25 +1,37 @@
 domain: marketing
-description: Campaign performance, traffic, lead generation and marketing attribution analytics
-keywords: [campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend]
+description: Campaign performance, lead generation, pipeline influence, opportunities and revenue attribution
+keywords: [campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend, opportunity, closed, acv, pipeline, revenue, roi, roas, email, webinar, event]
 metrics:
   - name: Customer Acquisition Cost (CAC)
-    definition: Total sales and marketing spend divided by number of new customers acquired
-  - name: Cost Per Lead (CPL)
-    definition: Total campaign spend divided by total number of leads generated
-  - name: Marketing Qualified Leads (MQL)
-    definition: Leads that meet predefined criteria indicating readiness to pass to sales
-  - name: Return on Ad Spend (ROAS)
-    definition: Revenue generated per dollar spent on advertising
-  - name: Marketing Influenced Pipeline
-    definition: Total pipeline value where marketing touched the account at any stage
-  - name: Channel Attribution
-    definition: Credit assigned to each marketing channel for contributing to conversions
+    definition: Total sales and marketing spend divided by number of new customers acquired in the period
+  - name: Opportunities Created by Campaign
+    definition: Number of sales opportunities directly attributed to each marketing campaign or channel
+  - name: Opportunities Closed by Campaign Source
+    definition: Revenue from closed-won deals attributed to the originating marketing campaign — true revenue impact
+  - name: Average Contract Value (ACV) by Source
+    definition: Average deal size segmented by the marketing channel that first generated the lead
+  - name: Marketing Qualified Leads (MQL) to SQL Conversion
+    definition: Percentage of MQLs that sales accepts as Sales Qualified Leads — indicates lead quality
+  - name: Cost Per Opportunity (CPO)
+    definition: Total campaign spend divided by opportunities generated — more meaningful than cost per lead
+  - name: Campaign ROI
+    definition: Revenue influenced by campaign minus campaign cost, divided by campaign cost — expressed as percentage
+  - name: Pipeline Influenced by Marketing
+    definition: Total open pipeline value where marketing touched the account at any stage of the funnel
+  - name: Channel Attribution Mix
+    definition: Percentage breakdown of revenue attributed to each channel — paid, organic, referral, events, email
+  - name: Lead Velocity Rate
+    definition: Month-over-month growth rate of qualified leads — leading indicator of future revenue
 sample_qa:
+  - q: Which campaign brought the highest number of customers?
+    a: Join campaign_attribution with closed_won_opportunities. Group by campaign_name, count distinct customer_ids. Rank by customer count descending to identify top-performing campaigns.
+  - q: How many opportunities were closed last quarter?
+    a: Filter opportunities table by close_date within last quarter and stage = closed_won. Count deals, sum ACV, and break down by campaign source, rep, and segment.
+  - q: What is the ACV from each marketing channel?
+    a: Join opportunities (closed_won) with lead_source data. Group by channel (paid_search, organic, referral, events, email). Calculate average and total ACV per channel.
   - q: Which campaign has the lowest CAC?
-    a: For each campaign, divide total spend by new customers acquired and rank campaigns by CAC ascending.
-  - q: How are our MQLs trending month over month?
-    a: Group leads by month of qualification date, filter by MQL status, and show month over month change percentage.
-  - q: What is our best performing acquisition channel?
-    a: Compare ROAS and CAC across channels. Look at volume, conversion rate and revenue contribution per channel.
-  - q: Why did our CPL increase this quarter?
-    a: Break down spend and lead volume by campaign and channel. Identify which campaigns drove cost increase without proportional lead growth.
+    a: For each campaign, divide total spend by new customers acquired. Rank by CAC ascending. Filter out campaigns with fewer than 5 customers for statistical significance.
+  - q: What is our marketing pipeline influence this quarter?
+    a: Sum all open opportunity values where marketing_touch is not null and created_date is within current quarter. Break down by stage and campaign type.
+  - q: How are MQL to SQL conversion rates trending?
+    a: Count MQLs created each month, count SQLs accepted each month, calculate MQL-to-SQL rate. Compare 3-month trend and identify campaigns with highest quality lead conversion.
