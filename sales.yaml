@@ -1,25 +1,37 @@
 domain: sales
-description: Sales performance, revenue, pipeline and monetization analytics
-keywords: [revenue, mrr, arr, churn, pipeline, deals, quota, conversion, sales, customers, billing, subscription, recurring]
+description: Sales performance, revenue, pipeline, customer segments and sales rep analytics
+keywords: [revenue, mrr, arr, churn, pipeline, deals, quota, conversion, sales, customers, billing, subscription, recurring, new customer, existing, returning, discount, rep, acv, forecast, bookings, retention]
 metrics:
   - name: Monthly Recurring Revenue (MRR)
-    definition: Total recurring revenue normalized to a monthly value
-  - name: Annual Recurring Revenue (ARR)
-    definition: MRR multiplied by 12 - annualized view of recurring revenue
-  - name: Churn Rate
-    definition: Percentage of customers or revenue lost in a given period
-  - name: Lead Conversion Rate
-    definition: Percentage of leads that become paying customers
-  - name: Sales Pipeline Value
-    definition: Total value of all active deals currently in the pipeline
+    definition: Total recurring revenue normalized to monthly value — broken down by new, expansion, contraction and churned MRR
+  - name: New vs Existing vs Churned Customers
+    definition: New customers added this period, existing customers retained, and customers lost (churned)
+  - name: Return Customer Rate
+    definition: Percentage of previously churned customers who re-subscribed — indicates product stickiness
+  - name: Net Revenue Retention (NRR)
+    definition: MRR from existing customers including expansions minus contractions and churn — above 100% means growth from existing base alone
   - name: Average Contract Value (ACV)
-    definition: Average revenue per customer contract per year
+    definition: Average annual revenue per customer contract — segment by plan type and customer size
+  - name: Sales Rep Discount Rate
+    definition: Average discount percentage given by each sales rep — high discounters may indicate pipeline pressure or poor qualification
+  - name: Win Rate by Rep
+    definition: Percentage of opportunities closed as won per sales rep — identifies top performers and coaching needs
+  - name: Pipeline Coverage Ratio
+    definition: Total pipeline value divided by revenue target — healthy coverage is typically 3-4x quota
+  - name: Churn Rate
+    definition: Percentage of customers or MRR lost in a given period — segment by cohort, plan, and region
+  - name: Lead Conversion Rate
+    definition: Percentage of leads that become paying customers — track by source and rep
 sample_qa:
-  - q: What is our current MRR?
-    a: Query the revenue table filtering by current month and recurring transaction types. Sum all active subscription charges.
-  - q: Why did churn increase last quarter?
-    a: Analyze cancellation reasons by segment. Break down by plan type, customer tenure, and product usage before cancellation.
-  - q: Which customer segment has the highest conversion rate?
-    a: Group leads by segment (SMB, Mid-Market, Enterprise) and calculate conversions divided by total leads per segment.
+  - q: How many new customers did we add this quarter vs last quarter?
+    a: Query customer table filtering by created_date within current and prior quarter. Compare counts and calculate quarter-over-quarter growth rate.
+  - q: Which sales rep is giving the highest discounts?
+    a: Group closed-won deals by sales_rep_id, calculate average discount_pct per rep, rank descending. Flag reps above 15% average discount for review.
+  - q: What is our MRR breakdown by customer type?
+    a: Segment MRR into new MRR (new customers), expansion MRR (existing customers upgrading), contraction MRR (downgrades), and churned MRR. Net = New + Expansion - Contraction - Churned.
+  - q: Which customers are at risk of churning?
+    a: Identify customers with declining usage last 60 days, overdue invoices, low NPS scores, or no login activity. Prioritize by MRR value for customer success outreach.
+  - q: What is our average contract value by segment?
+    a: Group closed-won opportunities by customer segment (SMB, Mid-Market, Enterprise). Calculate average ACV per segment and compare against prior period.
   - q: How is our pipeline trending?
-    a: Compare pipeline value week over week. Look at deals created, deals closed, and average deal age by stage.
+    a: Compare pipeline value week over week by stage. Track deals created, deals closed, average deal age, and stage conversion rates to identify bottlenecks.
