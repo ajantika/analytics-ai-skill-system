@@ -228,7 +228,7 @@ st.markdown("""
   <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);
   border:1px solid rgba(99,102,241,0.35);color:#a5b4fc;font-size:11px;font-weight:600;
   padding:5px 16px;border-radius:20px;margin-bottom:14px;letter-spacing:0.05em">
-    🤖 AI-POWERED &nbsp;·&nbsp; NOT A DASHBOARD &nbsp;·&nbsp; GROQ + LLAMA 3.1
+    🤖 AI-POWERED &nbsp;·&nbsp;·&nbsp; GROQ + LLAMA 3.1
   </div>
   <h1 style="color:white;font-size:2rem;font-weight:700;margin:0 0 8px;line-height:1.2">
     Analytics AI <span style="color:#a78bfa">Skill System</span>
