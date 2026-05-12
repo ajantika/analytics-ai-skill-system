@@ -1,0 +1,33 @@
+domain: product_usage
+description: Product utilization analysis, over and under usage detection, MRR recovery opportunities, regional breakdown and product margin analytics
+keywords: [product, usage, utilization, over-utilized, under-utilized, cdn, bandwidth, quota, right-size, overage, tier, plan, margin, region, opportunity, recovery, mrr, cost, normal usage, customers, traffic, throughput]
+metrics:
+  - name: Over-Utilization Rate
+    definition: Percentage of customers consuming more than their current plan allows — these are right-sizing and upsell opportunities
+  - name: Under-Utilization Rate
+    definition: Percentage of customers using significantly less than their plan — these are churn risk and downgrade candidates
+  - name: Normal Utilization Rate
+    definition: Percentage of customers using 70-100% of their plan — ideal healthy usage band
+  - name: MRR Recovery Opportunity
+    definition: Total additional MRR that could be captured by moving over-utilized customers to the correct plan tier — calculated as delta between current plan and next tier multiplied by customer count
+  - name: Product Margin
+    definition: (1 - Cost/MRR) expressed as percentage — measures product profitability. Formula = (MRR - Infrastructure Cost) / MRR x 100
+  - name: Regional Usage Distribution
+    definition: Breakdown of product consumption by geographic region — identifies infrastructure investment priorities
+  - name: Usage Growth Rate
+    definition: Month-over-month change in total product consumption — leading indicator of account expansion or contraction
+  - name: Plan Fit Score
+    definition: Ratio of actual usage to plan limit — below 0.5 is under-utilized, 0.7-1.0 is healthy, above 1.0 is over-utilized
+sample_qa:
+  - q: How many customers are over-utilizing their plans?
+    a: Query usage table where actual_usage > plan_limit. Count distinct customer_ids, calculate as percentage of total customer base. Segment by product line (CDN, Security, Network) and rank by overage amount descending.
+  - q: What is the potential MRR if we right-size over-utilized customers?
+    a: For each over-utilized customer, identify the correct next plan tier based on usage. Calculate delta_mrr = next_tier_price - current_plan_price. Sum delta_mrr across all over-utilized accounts. This is the MRR recovery opportunity — at Cloudflare this analysis identified $1.4M in recoverable MRR across 2,000+ CDN customers.
+  - q: What is our product margin by region?
+    a: Join usage data with infrastructure_cost by region. Calculate margin = (MRR - cost) / MRR for each region. Rank regions by margin percentage. Low-margin regions may have infrastructure over-provisioning or pricing misalignment.
+  - q: Which regions have the highest over-utilization?
+    a: Group customers by billing_region, calculate average utilization_rate (actual_usage / plan_limit) per region. Rank by over-utilization percentage. High over-utilization in a region signals demand for capacity expansion and upsell opportunity.
+  - q: Which customers are at risk of churning due to under-utilization?
+    a: Filter customers where usage_rate < 0.3 (using less than 30% of plan) for 3+ consecutive months. Cross-reference with last_login_date and support_ticket_count. These accounts need proactive customer success outreach to demonstrate value.
+  - q: What is the MRR breakdown by utilization tier?
+    a: Segment customers into under-utilized (below 50%), normal (50-100%), and over-utilized (above 100%). Calculate total MRR per tier. This shows the revenue concentration across utilization segments and prioritizes right-sizing efforts.
