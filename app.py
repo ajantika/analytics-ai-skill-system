@@ -1,7 +1,7 @@
 import os
 import yaml
 import streamlit as st
-import google.generativeai as genai
+from groq import Groq
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -44,14 +44,13 @@ def build_context(domain_data):
         ctx += f"  Q: {qa['q']}\n  A: {qa['a']}\n\n"
     return ctx
 
-# ── Ask Gemini (FREE) ─────────────────────────────────────────────────────────
-def ask_gemini(question, context):
+# ── Ask Groq (FREE) ───────────────────────────────────────────────────────────
+def ask_groq(question, context):
     try:
-        api_key = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY", ""))
+        api_key = st.secrets.get("GROQ_API_KEY", os.environ.get("GROQ_API_KEY", ""))
         if not api_key:
-            return "⚠️ API key not found. Add GEMINI_API_KEY to Streamlit secrets."
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel("gemini-2.0-flash")
+            return "⚠️ API key not found. Add GROQ_API_KEY to Streamlit secrets."
+        client = Groq(api_key=api_key)
         prompt = f"""You are an expert analytics assistant helping a data analytics team.
 Use ONLY the domain knowledge provided below to answer the question.
 Be concise, practical and specific. Give actionable guidance.
@@ -62,8 +61,12 @@ DOMAIN KNOWLEDGE:
 QUESTION: {question}
 
 Answer:"""
-        response = model.generate_content(prompt)
-        return response.text
+        response = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=500
+        )
+        return response.choices[0].message.content
     except Exception as e:
         return f"Error: {str(e)}"
 
@@ -120,7 +123,7 @@ if question:
 
     with st.spinner("Generating answer..."):
         context = build_context(domain_data)
-        answer = ask_gemini(question, context)
+        answer = ask_groq(question, context)
 
     st.success("**Answer:**")
     st.write(answer)
