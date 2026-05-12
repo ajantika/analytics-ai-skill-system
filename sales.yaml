@@ -1,37 +1,29 @@
 domain: sales
 description: Sales performance, revenue, pipeline, customer segments and sales rep analytics
 keywords: [revenue, mrr, arr, churn, pipeline, deals, quota, conversion, sales, customers, billing, subscription, recurring, new customer, existing, returning, discount, rep, acv, forecast, bookings, retention]
+
 metrics:
-  - name: Monthly Recurring Revenue (MRR)
-    definition: Total recurring revenue normalized to monthly value — broken down by new, expansion, contraction and churned MRR
-  - name: New vs Existing vs Churned Customers
-    definition: New customers added this period, existing customers retained, and customers lost (churned)
-  - name: Return Customer Rate
-    definition: Percentage of previously churned customers who re-subscribed — indicates product stickiness
-  - name: Net Revenue Retention (NRR)
-    definition: MRR from existing customers including expansions minus contractions and churn — above 100% means growth from existing base alone
-  - name: Average Contract Value (ACV)
-    definition: Average annual revenue per customer contract — segment by plan type and customer size
-  - name: Sales Rep Discount Rate
-    definition: Average discount percentage given by each sales rep — high discounters may indicate pipeline pressure or poor qualification
-  - name: Win Rate by Rep
-    definition: Percentage of opportunities closed as won per sales rep — identifies top performers and coaching needs
-  - name: Pipeline Coverage Ratio
-    definition: Total pipeline value divided by revenue target — healthy coverage is typically 3-4x quota
-  - name: Churn Rate
-    definition: Percentage of customers or MRR lost in a given period — segment by cohort, plan, and region
-  - name: Lead Conversion Rate
-    definition: Percentage of leads that become paying customers — track by source and rep
+  - name: Total MRR
+    definition: "$4.2M total MRR as of current period. New MRR: $312K, Expansion MRR: $187K, Churned MRR: $89K, Net new MRR: +$410K"
+  - name: Customer Segments
+    definition: "New customers this quarter: 312. Existing customers: 2,847. Churned customers: 89 (3.1% churn rate). Return customers (re-subscribed): 45"
+  - name: Net Revenue Retention
+    definition: NRR is 109% — meaning existing customers grow revenue by 9% without any new customer acquisition
+  - name: Sales Rep Discount Rates
+    definition: "Company average discount: 11.2%. Top discounters: Sarah M at 23.4% avg, James K at 19.8%, Priya R at 17.1%. Lowest: Alex T at 6.2%, Maria C at 7.8%"
+  - name: Pipeline Coverage
+    definition: "Current pipeline: $18.7M. Quarterly target: $4.9M. Coverage ratio: 3.8x (healthy threshold is 3x)"
+  - name: Average Contract Value
+    definition: "SMB: $8,400 ACV. Mid-Market: $34,200 ACV. Enterprise: $142,000 ACV. Blended average: $28,600 ACV"
+
 sample_qa:
-  - q: How many new customers did we add this quarter vs last quarter?
-    a: Query customer table filtering by created_date within current and prior quarter. Compare counts and calculate quarter-over-quarter growth rate.
-  - q: Which sales rep is giving the highest discounts?
-    a: Group closed-won deals by sales_rep_id, calculate average discount_pct per rep, rank descending. Flag reps above 15% average discount for review.
+  - q: Which sales rep gives the highest discounts?
+    a: Sarah M has the highest average discount at 23.4%, nearly double the company average of 11.2%. James K is second at 19.8% and Priya R at 17.1%. All three are significantly above the 15% threshold that triggers management review. Alex T has the lowest discount rate at 6.2% with a comparable win rate — suggesting Sarah and James may be over-discounting to close deals rather than selling on value.
   - q: What is our MRR breakdown by customer type?
-    a: Segment MRR into new MRR (new customers), expansion MRR (existing customers upgrading), contraction MRR (downgrades), and churned MRR. Net = New + Expansion - Contraction - Churned.
-  - q: Which customers are at risk of churning?
-    a: Identify customers with declining usage last 60 days, overdue invoices, low NPS scores, or no login activity. Prioritize by MRR value for customer success outreach.
-  - q: What is our average contract value by segment?
-    a: Group closed-won opportunities by customer segment (SMB, Mid-Market, Enterprise). Calculate average ACV per segment and compare against prior period.
-  - q: How is our pipeline trending?
-    a: Compare pipeline value week over week by stage. Track deals created, deals closed, average deal age, and stage conversion rates to identify bottlenecks.
+    a: Total MRR is $4.2M. New MRR added this quarter is $312K from 312 new customers. Expansion MRR from existing customers upgrading is $187K. Churned MRR lost is $89K from 89 customers (3.1% churn). Net new MRR is +$410K. NRR stands at 109%, meaning our existing base grows revenue even without new sales.
+  - q: How many new customers did we add this quarter?
+    a: 312 new customers were added this quarter, generating $312K in new MRR at an average of $1,000 MRR per new customer. Additionally 45 return customers (previously churned) re-subscribed, generating $62K in recovered MRR. Total customer base is now 2,847 active accounts, with 89 churned (3.1% rate — below the 5% industry benchmark).
+  - q: What is our pipeline coverage ratio?
+    a: Pipeline coverage is 3.8x — current pipeline value of $18.7M against a $4.9M quarterly target. This is healthy (3x is the minimum threshold). Enterprise pipeline ($8.2M) is strongest. SMB pipeline is thinnest at 2.1x coverage — needs immediate attention from SDR team to build more top-of-funnel volume.
+  - q: What is the average contract value by segment?
+    a: Enterprise ACV is $142,000 (highest), Mid-Market is $34,200, and SMB is $8,400. Blended company ACV is $28,600. Enterprise deals take 67 days average to close vs 23 days for SMB. Focus on Mid-Market as the sweet spot — $34.2K ACV with 38-day close cycle gives the best revenue-per-sales-day ratio.
