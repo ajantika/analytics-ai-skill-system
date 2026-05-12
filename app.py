@@ -19,56 +19,52 @@ st.markdown("""
 div[class*="stMarkdown"], div[class*="stButton"],
 [data-testid="stHorizontalBlock"] { background: transparent !important; }
 
-/* Domain card buttons */
-div[data-testid="column"] .stButton > button {
-    background: rgba(255,255,255,0.06) !important;
-    border: 1px solid rgba(255,255,255,0.14) !important;
-    border-radius: 14px !important;
-    color: white !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    padding: 16px 10px !important;
-    width: 100% !important;
-    min-height: 64px !important;
-    transition: all 0.2s !important;
-}
-div[data-testid="column"] .stButton > button:hover {
-    background: rgba(99,102,241,0.3) !important;
-    border-color: rgba(99,102,241,0.7) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 24px rgba(99,102,241,0.2) !important;
-}
-
-/* Example + general buttons */
+/* ALL buttons equal height and no wrap */
 .stButton > button {
-    background: rgba(255,255,255,0.05) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 10px !important;
     color: #cbd5e1 !important;
-    font-size: 0.8rem !important;
-    padding: 8px 12px !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    padding: 10px 8px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
     transition: all 0.2s !important;
+    width: 100% !important;
 }
 .stButton > button:hover {
-    background: rgba(99,102,241,0.15) !important;
-    border-color: rgba(99,102,241,0.4) !important;
+    background: rgba(99,102,241,0.2) !important;
+    border-color: rgba(99,102,241,0.5) !important;
     color: white !important;
+    transform: translateY(-1px) !important;
 }
 
-/* Text input */
-.stTextInput > div > div > input {
-    background: rgba(255,255,255,0.07) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
+/* FIX: Text input — force dark background and white text */
+.stTextInput > div > div {
+    background: rgba(30, 27, 75, 0.8) !important;
     border-radius: 12px !important;
-    color: white !important;
+}
+.stTextInput > div > div > input {
+    background: rgba(30, 27, 75, 0.8) !important;
+    border: 1px solid rgba(129, 140, 248, 0.4) !important;
+    border-radius: 12px !important;
+    color: #ffffff !important;
+    caret-color: #ffffff !important;
     font-size: 0.95rem !important;
     padding: 13px 18px !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
 .stTextInput > div > div > input:focus {
     border-color: #818cf8 !important;
-    box-shadow: 0 0 0 3px rgba(129,140,248,0.15) !important;
+    box-shadow: 0 0 0 3px rgba(129,140,248,0.2) !important;
+    background: rgba(30, 27, 75, 0.95) !important;
 }
-.stTextInput > div > div > input::placeholder { color: #475569 !important; }
+.stTextInput > div > div > input::placeholder {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+}
 .stTextInput label {
     color: #64748b !important;
     font-size: 0.75rem !important;
@@ -154,7 +150,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── DOMAIN CARDS — visual display ─────────────────────────────────────────────
+# ── DOMAIN CARDS — visual only ────────────────────────────────────────────────
 st.markdown("""
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0.5rem 0 0.25rem">
   <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
@@ -178,16 +174,16 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── DOMAIN BUTTONS (click to pre-fill) ───────────────────────────────────────
-st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin:0.75rem 0 0.4rem">Click a domain to explore</p>', unsafe_allow_html=True)
+# ── DOMAIN BUTTONS — short labels to prevent wrapping ────────────────────────
+st.markdown('<p style="color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin:0.75rem 0 0.4rem">Click to explore a domain</p>', unsafe_allow_html=True)
 c1, c2, c3 = st.columns(3)
-if c1.button("💰 Ask Sales question", key="d1", use_container_width=True):
+if c1.button("💰 Sales", key="d1", use_container_width=True):
     st.session_state["prefill"] = "Why did our churn increase last quarter?"
     st.rerun()
-if c2.button("📢 Ask Marketing question", key="d2", use_container_width=True):
+if c2.button("📢 Marketing", key="d2", use_container_width=True):
     st.session_state["prefill"] = "Which campaign has the lowest CAC?"
     st.rerun()
-if c3.button("👥 Ask HR question", key="d3", use_container_width=True):
+if c3.button("👥 HR", key="d3", use_container_width=True):
     st.session_state["prefill"] = "What is our attrition rate this year?"
     st.rerun()
 
