@@ -126,9 +126,18 @@ DOMAIN_UI = {
             "Are we on track with our hiring plan?",
             "What is our new hire 90-day retention rate?"
         ]
+    },
+    "csup": {
+        "icon": "🎧", "label": "Support",
+        "questions": [
+            "How many tickets were closed in 2026?",
+            "What is our average response time?",
+            "What is our CSAT score?",
+            "Who are the top performing support agents?"
+        ]
     }
 }
-PREFERRED_ORDER = ["product_usage", "marketing", "sales", "hr"]
+PREFERRED_ORDER = ["product_usage", "marketing", "sales", "hr", "csup"]
 
 
 # ── Load domains ──────────────────────────────────────────────────────────────

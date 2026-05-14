@@ -1,0 +1,33 @@
+domain: csup
+description: Customer support operations — ticket volume, response times, resolution rates, CSAT, and agent performance analytics
+keywords: [tickets, support, csat, resolution, response, sla, escalation, backlog, closed, open, pending, customer support, help desk, agent, queue, time to respond, first response, handle time, reopened, satisfaction, nps, support ops, incident]
+
+metrics:
+  - name: Ticket Volume (2026 YTD)
+    definition: "Total tickets created in 2026 (Jan–May): 38,412. Closed: 35,109 (91.4% closure rate). Open/pending: 3,303. Monthly breakdown — Jan: 7,210 | Feb: 6,980 | Mar: 8,140 | Apr: 8,520 | May: 7,562 (partial month). Volume is up 14% vs same period 2025 (33,696 tickets)."
+  - name: First Response Time
+    definition: "Median first response time: 1h 42m. By priority — P1 (critical): 12m avg (SLA target: 15m ✅) | P2 (high): 58m (SLA: 2h ✅) | P3 (normal): 3h 14m (SLA: 4h ✅) | P4 (low): 11h 22m (SLA: 12h ✅). All priority tiers are meeting SLA. Weekend first response degrades to 2h 51m median (no dedicated weekend shift)."
+  - name: Resolution Time
+    definition: "Median time to resolution: 6h 28m. P1: 1h 55m | P2: 4h 30m | P3: 9h 12m | P4: 2.1 days. Complex technical escalations average 3.4 days. Reopened tickets take 47% longer to resolve (9h 32m median) — indicating incomplete initial resolutions."
+  - name: CSAT Score
+    definition: "Overall CSAT: 87.3% (target: 90%). By channel — Email: 91.2% | Chat: 88.6% | Phone: 84.1% | Self-serve portal: 79.4%. Low CSAT tickets cluster around billing disputes (74.2%), data export issues (76.8%), and API integration problems (78.1%). Top CSAT agents: Jamie L (96.1%), Priya S (95.4%), Marcus T (94.7%). Lowest: Chris B (71.3%), Dana W (74.8%)."
+  - name: SLA Compliance
+    definition: "Overall SLA compliance: 94.2% (target: 95% — just below target). P1 SLA breaches: 3 incidents YTD (all due to on-call response gaps). P2 breaches: 47 tickets (2.1% of P2 volume). P3 breaches: 218 tickets (3.8% of P3 volume — highest breach rate by count). Breaches spike on Mondays (highest ticket volume day) and during product release windows."
+  - name: Agent Performance
+    definition: "Team size: 24 agents (22 FTE + 2 contract). Avg tickets closed per agent per day: 18.4. Top performers — Jamie L: 27.2/day, Marcus T: 25.8/day, Priya S: 24.1/day. Below average — Chris B: 11.3/day, Dana W: 13.7/day. Ticket backlog per agent: 138. Agent utilization: 84% (healthy range is 75–85%)."
+  - name: Escalation & Reopen Rate
+    definition: "Escalation rate: 8.7% of tickets escalated to Tier 2 or engineering. Reopen rate: 6.2% of closed tickets are reopened within 7 days (industry benchmark: <5% — above target). Most re-opened categories: API integration (14.3%), SSO/auth issues (11.8%), billing disputes (9.6%). Reopen spikes correlate with agents Chris B and Dana W — their reopen rate is 18.4% and 15.2% respectively."
+
+sample_qa:
+  - q: How many tickets were closed in 2026?
+    a: 35,109 tickets have been closed in 2026 (Jan–May YTD), representing a 91.4% closure rate out of 38,412 total tickets created. Monthly closures peaked in April. The open/pending backlog stands at 3,303 tickets. Overall volume is up 14% vs the same period in 2025 (33,696 tickets), putting pressure on the current team of 24 agents to maintain SLA compliance.
+  - q: What is our average response time?
+    a: Median first response time is 1 hour 42 minutes overall. All priority tiers are currently meeting SLA — P1 critical tickets get a 12-minute response (SLA is 15 minutes), P2 high-priority at 58 minutes (SLA 2 hours), and P3 normal at 3 hours 14 minutes (SLA 4 hours). The main weakness is weekends, where first response degrades to 2 hours 51 minutes due to no dedicated weekend shift — a gap worth addressing as volume grows.
+  - q: What is our CSAT score?
+    a: Overall CSAT is 87.3%, below the 90% target. Email support performs best at 91.2%, followed by chat at 88.6%. Phone (84.1%) and the self-serve portal (79.4%) drag the overall score down. The lowest CSAT tickets cluster around billing disputes (74.2%), data export issues (76.8%), and API integration problems (78.1%). Top agent Jamie L scores 96.1% CSAT while Chris B is at 71.3% — a 25-point gap suggesting targeted coaching could meaningfully move the overall number.
+  - q: Which support categories have the most escalations?
+    a: Overall escalation rate is 8.7% of tickets. The highest escalation categories are API integration issues, SSO/auth problems, and billing disputes — all requiring Tier 2 or engineering involvement. The reopen rate is 6.2% (above the 5% industry benchmark), with API integration tickets reopened at 14.3% and SSO at 11.8%. Agents Chris B and Dana W have reopen rates of 18.4% and 15.2% respectively — more than double the team average — indicating incomplete resolutions that drive repeat contacts.
+  - q: Are we meeting our SLA targets?
+    a: Overall SLA compliance is 94.2%, just under the 95% target. All priority tiers are individually meeting their response SLAs. The main breach risk is P3 tickets (3.8% breach rate) and Monday spikes when ticket volume is highest. There have been 3 P1 SLA breaches YTD — all linked to on-call response gaps during overnight hours. Recommend a weekend/overnight coverage model to close the remaining 0.8% SLA gap and protect against P1 incidents.
+  - q: Who are the top performing support agents?
+    a: Top three agents by tickets closed per day are Jamie L (27.2/day, 96.1% CSAT), Marcus T (25.8/day, 94.7% CSAT), and Priya S (24.1/day, 95.4% CSAT). All three are 30–47% above the team average of 18.4 tickets/day and maintain top-quartile CSAT scores. Chris B (11.3/day, 71.3% CSAT) and Dana W (13.7/day, 74.8% CSAT) are both significantly below average on volume and quality — and have the highest reopen rates on the team (18.4% and 15.2%). Targeted coaching or performance plans for these two would improve team metrics materially.

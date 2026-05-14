@@ -13,7 +13,7 @@ User question → Domain classifier → YAML knowledge retrieval → Llama 3.1 v
 ```
 
 - Ask any analytics question in plain English
-- System identifies the domain (Sales, Marketing, or HR)
+- System identifies the domain (Product, Marketing, Sales, HR, or Customer Support)
 - Retrieves the relevant YAML knowledge base for that domain
 - Llama 3.1 generates a precise, contextual answer instantly
 
@@ -45,9 +45,11 @@ This project recreates the architecture of a real production system built at Clo
 
 ```
 analytics-ai-skill-system/
-├── sales.yaml          # Sales domain: MRR, churn, pipeline, conversion
-├── marketing.yaml      # Marketing domain: CAC, CPL, MQL, ROAS
-├── hr.yaml             # HR domain: headcount, attrition, hiring
+├── product_usage.yaml  # Product domain: utilization, MRR recovery, regional margin
+├── marketing.yaml      # Marketing domain: CAC, CPL, MQL, ROAS, campaign attribution
+├── sales.yaml          # Sales domain: MRR, churn, pipeline, conversion, discounts
+├── hr.yaml             # HR domain: headcount, attrition, hiring, eNPS
+├── csup.yaml           # Customer Support domain: tickets, response time, CSAT, SLA, agents
 ├── app.py              # Main Streamlit application
 ├── requirements.txt    # Python dependencies
 └── README.md
