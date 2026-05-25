@@ -1,9 +1,24 @@
 import os
 import yaml
 import streamlit as st
+import streamlit.components.v1 as components
 from groq import Groq
 
 st.set_page_config(page_title="Analytics AI Skill System", page_icon="🤖", layout="centered")
+
+# Google Analytics 4 tracking
+GA_ID = "G-BEKZJV5CJJ"  # Analytics AI
+if "ga_loaded" not in st.session_state:
+    st.session_state.ga_loaded = True
+    components.html(f"""
+    <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){{dataLayer.push(arguments);}}
+      gtag('js', new Date());
+      gtag('config', '{GA_ID}');
+    </script>
+    """, height=0)
 
 st.markdown("""
 <style>
