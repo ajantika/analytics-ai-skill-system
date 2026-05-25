@@ -24,7 +24,8 @@ def _inject_ga4():
     try:
         index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
         html = index_path.read_text()
-        if "googletagmanager.com" not in html:
+        # Streamlit Cloud's own GTM is already in the HTML — check for OUR specific GA_ID
+        if GA_ID not in html:
             index_path.write_text(html.replace("</head>", ga_script + "</head>"))
     except Exception:
         pass
