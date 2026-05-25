@@ -1,16 +1,18 @@
 import os
+import pathlib
 import yaml
 import streamlit as st
-import streamlit.components.v1 as components
 from groq import Groq
 
 st.set_page_config(page_title="Analytics AI Skill System", page_icon="🤖", layout="centered")
 
-# Google Analytics 4 tracking
+# Google Analytics 4 — inject into Streamlit's index.html so Google's crawler can detect the tag
+# (components.html puts it in a sandboxed iframe that Google's bot doesn't follow)
 GA_ID = "G-BEKZJV5CJJ"  # Analytics AI
-if "ga_loaded" not in st.session_state:
-    st.session_state.ga_loaded = True
-    components.html(f"""
+
+def _inject_ga4():
+    ga_script = f"""
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={GA_ID}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -18,7 +20,16 @@ if "ga_loaded" not in st.session_state:
       gtag('js', new Date());
       gtag('config', '{GA_ID}');
     </script>
-    """, height=0)
+    """
+    try:
+        index_path = pathlib.Path(st.__file__).parent / "static" / "index.html"
+        html = index_path.read_text()
+        if "googletagmanager.com" not in html:
+            index_path.write_text(html.replace("</head>", ga_script + "</head>"))
+    except Exception:
+        pass
+
+_inject_ga4()
 
 st.markdown("""
 <style>
