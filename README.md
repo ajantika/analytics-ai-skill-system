@@ -1,99 +1,33 @@
-# 🤖 Analytics AI Skill System
+# Multi-Domain AI Analytics Skill System
 
-A multi-domain AI analytics Q&A system with domain-aware query routing — built to mirror the production system deployed.
+A conversational analytics product that routes plain-English questions across business domains and returns precise, data-backed answers instantly.
 
-🔗 **Live demo: [ajantika-analytics-ai.streamlit.app](https://ajantika-analytics-ai.streamlit.app)**
+🔗 **[Live Demo](https://ajantika-analytics-ai.streamlit.app/)**
 
----
+## The problem
+Analysts were spending 3-4 hours per week answering the same ad hoc questions from across the business. Non-technical teams couldn't self-serve insights — every question required an analyst in the loop.
 
 ## What it does
+A user types any question in plain English. The system:
+1. Classifies the domain automatically (Product, Marketing, Sales, HR)
+2. Retrieves the structured YAML knowledge base for that domain
+3. Returns a direct answer with real figures
 
-```
-User question → Domain classifier → YAML knowledge retrieval → Llama 3.1 via Groq → Answer
-```
+No SQL, no wait, no analyst needed. Each domain encodes its own KPI definitions and business logic, so answers stay accurate to how each team measures success.
 
-- Ask any analytics question in plain English
-- System identifies the domain (Product, Marketing, Sales, HR, or Customer Support)
-- Retrieves the relevant YAML knowledge base for that domain
-- Llama 3.1 generates a precise, contextual answer instantly
+## Architecture
+Owned end-to-end: canonical KPI taxonomy → per-domain YAML knowledge schema → retrieval and routing layer → evaluation harness keeping answers trustworthy as new domains are added.
 
----
+🧩 **Framework: Domain-Routing + Eval Harness** — add a new domain as a skill, not a rebuild
 
-## Why this matters
+## Impact
+- 💡 **~$216K in annual productivity value** (≈3-4 analyst hrs/week × loaded cost)
+- 🚀 4 business domains live, self-serve from day one
+- 🧠 Analytics team redirected to strategic work
 
-This project recreates the architecture of a real production system built at Cloudflare that:
-
-- Eliminated 3–4 hours/week of manual ad hoc queries for an 11-person analytics team
-- Generated **~$216K in annual productivity value** across 4 business domains
-- Enabled non-technical stakeholders to self-serve analytics insights without analyst intervention
-
----
-
-## Tech stack
-
-| Tool | Purpose |
-|---|---|
-| **Python** | Core application logic |
-| **Groq API + Llama 3.1** | Free, fast LLM for answer generation |
-| **YAML** | Structured domain knowledge bases |
-| **Streamlit** | Web interface and cloud deployment |
-| **Domain-aware routing** | Keyword classifier routes questions to the correct domain |
+## Stack
+Claude · MCP · Python · Streamlit · YAML
 
 ---
 
-## Project structure
-
-```
-analytics-ai-skill-system/
-├── product_usage.yaml  # Product domain: utilization, MRR recovery, regional margin
-├── marketing.yaml      # Marketing domain: CAC, CPL, MQL, ROAS, campaign attribution
-├── sales.yaml          # Sales domain: MRR, churn, pipeline, conversion, discounts
-├── hr.yaml             # HR domain: headcount, attrition, hiring, eNPS
-├── csup.yaml           # Customer Support domain: tickets, response time, CSAT, SLA, agents
-├── app.py              # Main Streamlit application
-├── requirements.txt    # Python dependencies
-└── README.md
-```
-
----
-
-## Run locally
-
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Add your free Groq API key
-export GROQ_API_KEY=your_key_here
-
-# Run the app
-streamlit run app.py
-```
-
-Get your **FREE** Groq API key at: [console.groq.com](https://console.groq.com) — no credit card needed.
-
----
-
-## Deploy on Streamlit Cloud (free)
-
-1. Push this repo to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repo → set main file to `app.py`
-4. Advanced settings → Secrets → add: `GROQ_API_KEY = "your_key"`
-5. Deploy → get a live URL in 2 minutes
-
----
-
-## Add a new domain
-
-Create a new `.yaml` file following the same structure as `sales.yaml` — the system picks it up automatically with no code changes needed.
-
----
-
-## Built by
-
-**Ajantika Paul** — Analytics & AI Systems Lead 
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ajantika--paul-blue?style=flat&logo=linkedin)](https://linkedin.com/in/ajantika-paul)
-[![GitHub](https://img.shields.io/badge/GitHub-ajantika-black?style=flat&logo=github)](https://github.com/ajantika)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit-FF4B4B?style=flat&logo=streamlit)](https://ajantika-analytics-ai.streamlit.app)
+Built by [Ajantika Paul](https://ajantika.github.io) · Lead Product Data Analyst @ Cloudflare
