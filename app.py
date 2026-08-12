@@ -86,40 +86,28 @@ div[class*="stMarkdown"] {
     background: transparent !important;
 }
 
-/* ── Buttons: domain tabs ── */
-div[data-testid="column"] button[kind="secondary"] {
-    background: rgba(99,102,241,0.08) !important;
-    border: 1px solid rgba(99,102,241,0.2) !important;
-    border-radius: 8px !important;
-    color: #a5b4fc !important;
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-    padding: 10px 6px !important;
-    width: 100% !important;
-    transition: all 0.15s ease !important;
-}
-div[data-testid="column"] button[kind="secondary"]:hover {
-    background: rgba(99,102,241,0.2) !important;
-    border-color: #818cf8 !important;
-    color: #fff !important;
-}
-
-/* ── Buttons: example questions / follow-ups ── */
-button[kind="secondary"] {
-    background: rgba(255,255,255,0.03) !important;
-    border: 1px solid rgba(255,255,255,0.09) !important;
+/* ── All Streamlit buttons ── */
+/* Target the button element inside stButton wrapper — avoids breaking click events */
+div[data-testid="stButton"] > button {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
     border-radius: 8px !important;
     color: #94a3b8 !important;
-    font-size: 0.78rem !important;
-    padding: 8px 12px !important;
-    text-align: left !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    padding: 9px 14px !important;
     width: 100% !important;
-    transition: all 0.15s ease !important;
+    cursor: pointer !important;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+    pointer-events: auto !important;
 }
-button[kind="secondary"]:hover {
-    background: rgba(99,102,241,0.1) !important;
-    border-color: rgba(99,102,241,0.3) !important;
+div[data-testid="stButton"] > button:hover {
+    background: rgba(99,102,241,0.15) !important;
+    border-color: rgba(99,102,241,0.4) !important;
     color: #e2e8f0 !important;
+}
+div[data-testid="stButton"] > button:active {
+    background: rgba(99,102,241,0.25) !important;
 }
 
 /* ── Text input ── */
@@ -377,7 +365,6 @@ def render_example_questions():
 letter-spacing:0.08em;margin:16px 0 8px">Try an analysis</p>
 """, unsafe_allow_html=True)
 
-    cols = st.columns(1)
     for q in HERO_QUESTIONS:
         if st.button(q, key=f"hero_{hash(q)}", use_container_width=True):
             st.session_state["prefill"] = q
