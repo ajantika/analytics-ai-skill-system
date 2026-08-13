@@ -264,7 +264,7 @@ HERO_QUESTIONS = [
 def _init():
     for k, v in {
         "active_domain": "product_usage",
-        "question_input": "",
+        "pending_question": "",
         "show_page": "main",
     }.items():
         if k not in st.session_state:
@@ -362,7 +362,7 @@ letter-spacing:0.08em;margin:16px 0 8px">Try an analysis</p>
 
     for q in HERO_QUESTIONS:
         if st.button(q, key=f"hero_{hash(q)}", use_container_width=True):
-            st.session_state["question_input"] = q
+            st.session_state["pending_question"] = q
             st.rerun()
 
 
@@ -378,7 +378,7 @@ def render_domain_explorer():
                                use_container_width=True):
                 st.session_state["active_domain"] = dk
                 qs = cfg.get("questions", [])
-                st.session_state["question_input"] = qs[0] if qs else ""
+                st.session_state["pending_question"] = qs[0] if qs else ""
                 st.rerun()
 
         active = st.session_state.get("active_domain", display_order[0] if display_order else "")
@@ -588,7 +588,7 @@ border-radius:10px;padding:16px 20px;margin:10px 0 14px">
         if cols[i].button(f"{cfg.get('icon','◈')} {label}", key=f"amb_{d}",
                           use_container_width=True):
             st.session_state["active_domain"] = d
-            st.session_state["question_input"] = st.session_state.get("question_input", "")
+            st.session_state["pending_question"] = st.session_state.get("question_input", "")
             routing.domain = d
             routing.confidence = 0.6
             routing.is_ambiguous = False
@@ -789,6 +789,11 @@ border-radius:8px;padding:12px 16px;margin:12px 0;font-size:0.78rem;color:#16653
 render_hero()
 
 st.markdown('<div style="margin-bottom:6px"></div>', unsafe_allow_html=True)
+
+# Apply any pending question from button clicks BEFORE the text input renders
+if st.session_state.get("pending_question"):
+    st.session_state["question_input"] = st.session_state["pending_question"]
+    st.session_state["pending_question"] = ""
 
 question = render_input_section()
 
