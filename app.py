@@ -264,7 +264,7 @@ HERO_QUESTIONS = [
 def _init():
     for k, v in {
         "active_domain": "product_usage",
-        "prefill": "",
+        "question_input": "",
         "show_page": "main",
     }.items():
         if k not in st.session_state:
@@ -346,15 +346,10 @@ letter-spacing:0.08em;margin-bottom:6px">Ask a business question</p>
 
     question = st.text_input(
         "question",
-        value=st.session_state.get("prefill", ""),
         placeholder="e.g. What is our biggest revenue opportunity?",
         label_visibility="collapsed",
         key="question_input"
     )
-
-    # Clear prefill after it's been consumed
-    if st.session_state.get("prefill") and question == st.session_state.get("prefill"):
-        st.session_state["prefill"] = ""
 
     return question
 
@@ -367,7 +362,7 @@ letter-spacing:0.08em;margin:16px 0 8px">Try an analysis</p>
 
     for q in HERO_QUESTIONS:
         if st.button(q, key=f"hero_{hash(q)}", use_container_width=True):
-            st.session_state["prefill"] = q
+            st.session_state["question_input"] = q
             st.rerun()
 
 
@@ -383,7 +378,7 @@ def render_domain_explorer():
                                use_container_width=True):
                 st.session_state["active_domain"] = dk
                 qs = cfg.get("questions", [])
-                st.session_state["prefill"] = qs[0] if qs else ""
+                st.session_state["question_input"] = qs[0] if qs else ""
                 st.rerun()
 
         active = st.session_state.get("active_domain", display_order[0] if display_order else "")
@@ -399,7 +394,7 @@ letter-spacing:0.08em;margin:14px 0 6px">{active_cfg['icon']} {active_cfg['label
         qcols = st.columns(2)
         for i, q in enumerate(active_cfg.get("questions", [])):
             if qcols[i % 2].button(q, key=f"dq_{active}_{i}", use_container_width=True):
-                st.session_state["prefill"] = q
+                st.session_state["question_input"] = q
                 st.rerun()
 
 
@@ -558,7 +553,7 @@ letter-spacing:0.08em;margin:14px 0 6px">Explore further</p>
 """, unsafe_allow_html=True)
     for fq in followups:
         if st.button(f"→  {fq}", key=f"fq_{hash(fq)}", use_container_width=True):
-            st.session_state["prefill"] = fq
+            st.session_state["question_input"] = fq
             st.rerun()
 
 
@@ -593,6 +588,7 @@ border-radius:10px;padding:16px 20px;margin:10px 0 14px">
         if cols[i].button(f"{cfg.get('icon','◈')} {label}", key=f"amb_{d}",
                           use_container_width=True):
             st.session_state["active_domain"] = d
+            st.session_state["question_input"] = st.session_state.get("question_input", "")
             routing.domain = d
             routing.confidence = 0.6
             routing.is_ambiguous = False
