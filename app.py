@@ -394,7 +394,7 @@ letter-spacing:0.08em;margin:14px 0 6px">{active_cfg['icon']} {active_cfg['label
         qcols = st.columns(2)
         for i, q in enumerate(active_cfg.get("questions", [])):
             if qcols[i % 2].button(q, key=f"dq_{active}_{i}", use_container_width=True):
-                st.session_state["question_input"] = q
+                st.session_state["pending_question"] = q
                 st.rerun()
 
 
@@ -553,7 +553,7 @@ letter-spacing:0.08em;margin:14px 0 6px">Explore further</p>
 """, unsafe_allow_html=True)
     for fq in followups:
         if st.button(f"→  {fq}", key=f"fq_{hash(fq)}", use_container_width=True):
-            st.session_state["question_input"] = fq
+            st.session_state["pending_question"] = fq
             st.rerun()
 
 
