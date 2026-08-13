@@ -225,7 +225,7 @@ DOMAIN_UI = {
     "product_usage": {
         "icon": "📊", "label": "Product", "subtitle": "Usage · Adoption · Monetization",
         "questions": [
-            "Which customers are over-utilizing their plans?",
+            "How many customers are over-utilizing their plans?",
             "What is the MRR recovery opportunity from right-sizing?",
             "Which regions have the highest over-utilization?",
             "What is our product margin by region?",
@@ -281,7 +281,7 @@ DOMAIN_LABELS = {
 
 # Top-level example questions shown on the landing page (before any domain is selected)
 HERO_QUESTIONS = [
-    "Which customers are over-utilizing their plans?",
+    "How many customers are over-utilizing their plans?",
     "What is the MRR recovery opportunity from right-sizing?",
     "Which regions have the highest over-utilization?",
     "What's driving churn risk in our customer base?",
@@ -353,7 +353,7 @@ def _extract_headline_kpi(insight: str) -> str:
         return m.group()
     m = re.search(r'\b(\d+\.?\d*)%', first)
     if m and float(m.group(1)) >= 10:
-        return m.group()
+        return f"{int(round(float(m.group(1))))}%"
     return ""
 
 
@@ -1008,8 +1008,6 @@ if st.session_state.get("pending_question"):
     st.session_state["pending_question"] = ""
 
 question = render_input_section()
-
-render_example_questions()
 
 st.markdown('<div style="margin-top:4px"></div>', unsafe_allow_html=True)
 
