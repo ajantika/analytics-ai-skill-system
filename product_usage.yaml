@@ -8,7 +8,7 @@ metrics:
   - name: Under-Utilization Rate
     definition: 42.3% of customers (1,203 of 2,847) are using less than 50% of their plan — active churn risk segment
   - name: MRR Recovery Opportunity
-    definition: $1.4M in additional annual MRR identified by right-sizing 2,000+ over-utilized CDN customers to correct plan tiers
+    definition: $1.4M in additional annual MRR identified by right-sizing 694 over-utilized customers to correct plan tiers
   - name: Product Margin by Region
     definition: "NA: 68% ($2.1M MRR), EMEA: 71% ($1.4M MRR), APAC: 52% ($890K MRR) FLAGGED, LATAM: 44% ($310K MRR) FLAGGED. Formula = (MRR - infrastructure cost) / MRR"
   - name: Regional Over-Utilization

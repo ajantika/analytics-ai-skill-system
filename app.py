@@ -6,6 +6,7 @@ UI orchestration layer. All domain logic lives in router.py, skills.py, llm.py, 
 import os
 import pathlib
 import logging
+import re
 import streamlit as st
 
 from router import classify_domain, get_ambiguous_domains, AMBIGUITY_THRESHOLD
@@ -312,6 +313,21 @@ def _confidence_label(conf: float) -> tuple[str, str]:
     return "Low", "#f87171"
 
 
+def _extract_headline_kpi(insight: str) -> str:
+    """Return the most prominent numeric KPI from an insight string, or '' if none."""
+    first = insight[:100]
+    m = re.search(r'\$[\d,]+\.?\d*[KMBkm]?', first)
+    if m:
+        return m.group()
+    m = re.search(r'\b\d+\.?\d*x\b', first)
+    if m:
+        return m.group()
+    m = re.search(r'\b(\d+\.?\d*)%', first)
+    if m and float(m.group(1)) >= 10:
+        return m.group()
+    return ""
+
+
 def _failure_reason(expected: str, predicted: str, question: str) -> str:
     """Return a concise, technically honest explanation of why routing failed."""
     q = question.lower()
@@ -444,7 +460,7 @@ border-radius:8px">
     <span style="color:#334155">→</span>
     <span style="color:#818cf8;font-size:0.8rem;font-weight:600">{domain_label}</span>
     <span style="color:#334155">→</span>
-    <span style="color:#475569;font-size:0.75rem">Governed Skill</span>
+    <span style="color:#475569;font-size:0.75rem">Governed Metrics</span>
     <span style="color:#334155">→</span>
     <span style="color:#475569;font-size:0.75rem">Answer</span>
   </div>
@@ -480,12 +496,25 @@ def render_answer(parsed):
     if insight or why or action:
         sections = ""
         if insight:
-            sections += (
-                f'<div style="margin-bottom:18px">'
-                f'{_label("Insight")}'
-                f'{_body(insight)}'
-                f'</div>'
-            )
+            kpi = _extract_headline_kpi(insight)
+            if kpi:
+                sections += (
+                    f'<div style="margin-bottom:18px">'
+                    f'{_label("Insight")}'
+                    f'<div style="text-align:center;margin:10px 0 12px">'
+                    f'<span style="color:#818cf8;font-size:2.8rem;font-weight:800;'
+                    f'letter-spacing:-0.03em;line-height:1">{kpi}</span>'
+                    f'</div>'
+                    f'{_body(insight)}'
+                    f'</div>'
+                )
+            else:
+                sections += (
+                    f'<div style="margin-bottom:18px">'
+                    f'{_label("Insight")}'
+                    f'{_body(insight)}'
+                    f'</div>'
+                )
         if why:
             sections += (
                 f'<div style="margin-bottom:18px">'
@@ -507,10 +536,14 @@ def render_answer(parsed):
         ), unsafe_allow_html=True)
 
 
-def render_eval_panel(ev, routing, domain_name):
+def render_trust_eval_panel(ev, routing, domain_name, domain_data):
+    """Single expander combining routing context, metric provenance, and quality checks."""
+    domain_label = DOMAIN_LABELS.get(domain_name, domain_name.replace("_", " ").title())
+    conf_lbl, conf_color = _confidence_label(routing.confidence)
+    metric_names = get_all_metric_names(domain_data)
+    metrics_str = ", ".join(metric_names[:3]) + ("…" if len(metric_names) > 3 else "")
     pct = int(ev.overall_quality * 100)
     ql_color = "#22c55e" if ev.quality_label == "HIGH" else "#eab308" if ev.quality_label == "MEDIUM" else "#f87171"
-    label = DOMAIN_LABELS.get(domain_name, domain_name.replace("_", " ").title())
 
     def badge(status):
         if status in ("PASS", "NONE"):
@@ -521,63 +554,51 @@ def render_eval_panel(ev, routing, domain_name):
 
     with st.expander("Answer quality & trust", expanded=False):
         st.markdown(f"""
-<div style="margin-bottom:14px">
-  <span style="color:#475569;font-size:0.68rem;font-weight:600;text-transform:uppercase;
-  letter-spacing:0.07em">Overall quality</span>
-  <span style="color:{ql_color};font-size:1rem;font-weight:700;margin-left:10px">
-    {ev.quality_label} · {pct}%
-  </span>
+<div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.05)">
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 20px;font-size:0.78rem;line-height:2.2">
+    <span style="color:#475569">Domain</span>
+    <span style="color:#94a3b8;font-weight:600">{domain_label}</span>
+    <span style="color:#475569">Routing</span>
+    <span><span style="color:{conf_color};font-weight:600">{conf_lbl} confidence</span>&nbsp;·&nbsp;<span style="color:#334155;font-style:italic">Keyword-based router</span></span>
+    <span style="color:#475569">Metrics recognized</span>
+    <span style="color:#64748b">{metrics_str}</span>
+    <span style="color:#475569">Metric source</span>
+    <span style="color:#64748b">{domain_label} YAML skill</span>
+  </div>
 </div>
 
-<table style="width:100%;border-collapse:collapse;font-size:0.8rem">
+<div style="margin-bottom:8px">
+  <span style="color:#475569;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em">Overall quality</span>
+  <span style="color:{ql_color};font-size:0.95rem;font-weight:700;margin-left:10px">{ev.quality_label} · {pct}%</span>
+</div>
+
+<table style="width:100%;border-collapse:collapse;font-size:0.78rem">
   <tr>
-    <td style="padding:6px 0;color:#64748b;width:42%">Numeric grounding check</td>
-    <td style="padding:6px 0">{badge(ev.groundedness)}</td>
-    <td style="padding:6px 0 6px 10px;color:#334155;font-size:0.7rem">{ev.methods['groundedness']}</td>
+    <td style="padding:5px 0;color:#64748b;width:42%">Numeric grounding check</td>
+    <td style="padding:5px 0">{badge(ev.groundedness)}</td>
+    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Deterministic figure matching</td>
   </tr>
   <tr>
-    <td style="padding:6px 0;color:#64748b">Metric definition check</td>
-    <td style="padding:6px 0">{badge(ev.metric_validity)}</td>
-    <td style="padding:6px 0 6px 10px;color:#334155;font-size:0.7rem">{ev.methods['metric_validity']}</td>
+    <td style="padding:5px 0;color:#64748b">Metric recognition</td>
+    <td style="padding:5px 0">{badge(ev.metric_validity)}</td>
+    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Deterministic metric lookup</td>
   </tr>
   <tr>
-    <td style="padding:6px 0;color:#64748b">Answer relevance</td>
-    <td style="padding:6px 0">{badge(ev.relevance)}</td>
-    <td style="padding:6px 0 6px 10px;color:#334155;font-size:0.7rem">{ev.methods['relevance']}</td>
+    <td style="padding:5px 0;color:#64748b">Answer relevance heuristic</td>
+    <td style="padding:5px 0">{badge(ev.relevance)}</td>
+    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Term overlap + non-answer phrase detection</td>
   </tr>
   <tr>
-    <td style="padding:6px 0;color:#64748b">Unsupported claim check</td>
-    <td style="padding:6px 0">{badge(ev.unsupported_claims)}</td>
-    <td style="padding:6px 0 6px 10px;color:#334155;font-size:0.7rem">{ev.methods['unsupported_claims']}</td>
+    <td style="padding:5px 0;color:#64748b">Unsupported claim heuristic</td>
+    <td style="padding:5px 0">{badge(ev.unsupported_claims)}</td>
+    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Generalisation phrase matching</td>
   </tr>
 </table>
 
-<div style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05);
-font-size:0.75rem;color:#334155;line-height:1.9">
-  Source: {label} skill &nbsp;·&nbsp; Governed YAML definitions &nbsp;·&nbsp;
-  Illustrative dataset &nbsp;·&nbsp;
-  Routing confidence: {_confidence_label(routing.confidence)[0]} (keyword method)
-</div>
-""", unsafe_allow_html=True)
-
-
-def render_trust_panel(domain_name, domain_data, routing):
-    label = DOMAIN_LABELS.get(domain_name, domain_name.replace("_", " ").title())
-    conf_lbl, _ = _confidence_label(routing.confidence)
-    metric_names = get_all_metric_names(domain_data)
-    metrics_str = ", ".join(metric_names[:3]) + ("…" if len(metric_names) > 3 else "")
-
-    with st.expander("Why you can trust this answer", expanded=False):
-        st.markdown(f"""
-<div style="font-size:0.82rem;color:#475569;line-height:2.1">
-  <span style="color:#22c55e">✓</span> &nbsp;<strong style="color:#94a3b8">{label}</strong> skill loaded<br>
-  <span style="color:#22c55e">✓</span> &nbsp;Governed metric definitions: <em style="color:#64748b">{metrics_str}</em><br>
-  <span style="color:#22c55e">✓</span> &nbsp;LLM constrained to supplied context — cannot invent KPI definitions<br>
-  <span style="color:#22c55e">✓</span> &nbsp;Illustrative demo dataset — not production or customer data<br>
-  <span style="color:#22c55e">✓</span> &nbsp;Routing confidence: {conf_lbl} &nbsp;·&nbsp; <em>Keyword-based — not semantic or embedding routing</em>
-</div>
-<div style="margin-top:12px;font-size:0.7rem;color:#1e293b;font-style:italic">
-  Evaluation is deterministic figure-matching and heuristic phrase-detection — not LLM-based verification.
+<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.05);
+font-size:0.7rem;color:#334155;font-style:italic;line-height:1.8">
+  These checks detect common failure modes but do not independently verify factual correctness.<br>
+  Source: {domain_label} YAML skill &nbsp;·&nbsp; Illustrative dataset &nbsp;·&nbsp; Routing confidence: {conf_lbl} (keyword method)
 </div>
 """, unsafe_allow_html=True)
 
@@ -869,12 +890,8 @@ border-radius:8px;padding:12px 16px;margin:10px 0;font-size:0.78rem;color:#78350
 """, unsafe_allow_html=True)
 
     # ── Section 3: Evaluation Limitations ─────────────────────────────────────
-    st.markdown("""
-<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
-text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
-padding-bottom:8px">Evaluation Limitations</h3>
-""", unsafe_allow_html=True)
-    st.markdown("""
+    with st.expander("Evaluation Limitations", expanded=False):
+        st.markdown("""
 - **Small, curated dataset** — 11 routing questions is not a statistically meaningful benchmark.
 - **Not a held-out set** — questions were reviewed while building the keyword router; overfitting is possible.
 - **Deterministic keyword baseline** — a semantic router (embedding or LLM-based) would likely outperform this on ambiguous questions, but is not implemented here.
@@ -885,15 +902,10 @@ padding-bottom:8px">Evaluation Limitations</h3>
 """)
 
     # ── Section 4: Next Evaluation Steps ──────────────────────────────────────
-    st.markdown("""
-<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
-text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
-padding-bottom:8px">Next Evaluation Steps</h3>
-<div style="font-size:0.78rem;color:#475569;margin-bottom:8px;font-style:italic">
-  These are future improvements — none currently exist in this demo.
-</div>
-""", unsafe_allow_html=True)
-    st.markdown("""
+    with st.expander("Next evaluation steps", expanded=False):
+        st.markdown("""
+*These are future improvements — none currently exist in this demo.*
+
 1. **Benchmark semantic routing** — compare embedding-based or LLM-based routing against this keyword baseline to quantify the accuracy improvement on ambiguous questions.
 2. **Build a larger held-out evaluation set** — independently label 100+ questions covering straightforward, ambiguous, and adversarial cases, with no overlap with the keyword lists.
 3. **Add regression evaluations** — run the evaluation suite automatically whenever routing logic, prompts, skill files, or models change.
@@ -964,8 +976,7 @@ if question and domains:
                 routing_confidence=routing.confidence
             )
 
-            render_eval_panel(ev, routing, domain_name)
-            render_trust_panel(domain_name, domain_data, routing)
+            render_trust_eval_panel(ev, routing, domain_name, domain_data)
             render_metric_definitions(domain_data, answer_text)
 
             followups = get_follow_up_questions(domain_data, question)
