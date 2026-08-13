@@ -74,10 +74,38 @@ section[data-testid="stMain"] > div {
 
 /* Content width */
 .block-container {
-    max-width: 720px !important;
+    max-width: 820px !important;
     padding: 2rem 1.5rem 3rem !important;
     margin: 0 auto !important;
 }
+
+/* Domain cards */
+.domain-card-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+}
+.domain-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+.domain-card:hover {
+    background: rgba(99,102,241,0.1);
+    border-color: rgba(99,102,241,0.3);
+}
+.domain-card.active {
+    background: rgba(99,102,241,0.12);
+    border-color: rgba(99,102,241,0.4);
+}
+.domain-card-icon { font-size: 1.2rem; margin-bottom: 4px; }
+.domain-card-label { color: #e2e8f0; font-size: 0.75rem; font-weight: 600; }
+.domain-card-sub { color: #475569; font-size: 0.62rem; margin-top: 3px; line-height: 1.4; }
 
 /* Make all containers transparent */
 [data-testid="stVerticalBlock"],
@@ -195,7 +223,7 @@ hr { border-color: rgba(255,255,255,0.07) !important; }
 # ── Constants ──────────────────────────────────────────────────────────────────
 DOMAIN_UI = {
     "product_usage": {
-        "icon": "📊", "label": "Product",
+        "icon": "📊", "label": "Product", "subtitle": "Usage · Adoption · Monetization",
         "questions": [
             "Which customers are over-utilizing their plans?",
             "What is the MRR recovery opportunity from right-sizing?",
@@ -204,7 +232,7 @@ DOMAIN_UI = {
         ]
     },
     "marketing": {
-        "icon": "📣", "label": "Marketing",
+        "icon": "📣", "label": "Marketing", "subtitle": "Campaigns · Pipeline · Conversion",
         "questions": [
             "Which campaign brought the highest number of customers?",
             "How are our MQL to SQL conversion rates trending?",
@@ -213,7 +241,7 @@ DOMAIN_UI = {
         ]
     },
     "sales": {
-        "icon": "💰", "label": "Sales",
+        "icon": "💰", "label": "Sales", "subtitle": "Revenue · ARR · Discounts",
         "questions": [
             "Which sales rep gives the highest discounts?",
             "What is our MRR breakdown by customer type?",
@@ -222,7 +250,7 @@ DOMAIN_UI = {
         ]
     },
     "hr": {
-        "icon": "👥", "label": "HR",
+        "icon": "👥", "label": "People", "subtitle": "Attrition · Hiring · Retention",
         "questions": [
             "Which teams have the highest attrition?",
             "What is our regrettable attrition this quarter?",
@@ -231,7 +259,7 @@ DOMAIN_UI = {
         ]
     },
     "csup": {
-        "icon": "🎧", "label": "Support",
+        "icon": "🎧", "label": "Support", "subtitle": "CSAT · SLA · Tickets",
         "questions": [
             "What is our CSAT score?",
             "Who are the top performing support agents?",
@@ -277,7 +305,8 @@ _init()
 # ── Data loading ───────────────────────────────────────────────────────────────
 @st.cache_data
 def cached_load_domains():
-    return load_domains(".")
+    app_dir = str(pathlib.Path(__file__).parent)
+    return load_domains(app_dir)
 
 domains = cached_load_domains()
 
@@ -356,50 +385,40 @@ def _failure_reason(expected: str, predicted: str, question: str) -> str:
 
 def render_hero():
     st.markdown("""
-<div style="text-align:center;padding:1.8rem 0 0.8rem">
-  <div style="display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px">
-    <span style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);
-    color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
-    letter-spacing:0.06em">Multi-domain</span>
-    <span style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);
-    color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
-    letter-spacing:0.06em">Governed metrics</span>
-    <span style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);
-    color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
-    letter-spacing:0.06em">Grounded answers</span>
-    <span style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);
-    color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
-    letter-spacing:0.06em">Evaluated responses</span>
-  </div>
-  <h1 style="color:#f1f5f9;font-size:2.1rem;font-weight:700;margin:0 0 8px;line-height:1.2;
-  letter-spacing:-0.02em">Analytics AI Skill System</h1>
-  <p style="color:#64748b;font-size:0.92rem;margin:0 0 14px;line-height:1.6;max-width:500px;
+<div style="text-align:center;padding:2rem 0 1rem">
+  <h1 style="color:#f1f5f9;font-size:2.2rem;font-weight:800;margin:0 0 10px;line-height:1.15;
+  letter-spacing:-0.03em">Analytics AI Skill System</h1>
+  <p style="color:#94a3b8;font-size:1rem;margin:0 0 14px;line-height:1.6;max-width:520px;
   display:inline-block">
-    Ask business questions in plain English.<br>
-    Get governed, explainable analytics answers.
+    Ask business questions across five analytics domains<br>using governed metrics and structured AI answers.
   </p>
-  <div style="display:inline-block;background:rgba(234,179,8,0.06);
-  border:1px solid rgba(234,179,8,0.18);border-radius:6px;padding:4px 14px;
-  font-size:0.68rem;color:#92400e;letter-spacing:0.04em">
-    Demo environment · Illustrative data only · No production or customer data
+  <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;
+  background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);
+  border-radius:8px;padding:7px 18px">
+    <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Auto-routed</span>
+    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Governed metrics</span>
+    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Structured AI answer</span>
+    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Evaluated</span>
   </div>
+  <br>
+  <span style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.18);
+  border-radius:5px;padding:3px 12px;font-size:0.65rem;color:#78350f;letter-spacing:0.04em">
+    Demo · Illustrative data only · No production or customer data
+  </span>
 </div>
 """, unsafe_allow_html=True)
 
 
 def render_input_section():
-    st.markdown("""
-<p style="color:#475569;font-size:0.7rem;font-weight:600;text-transform:uppercase;
-letter-spacing:0.08em;margin-bottom:6px">Ask a business question</p>
-""", unsafe_allow_html=True)
-
     question = st.text_input(
         "question",
         placeholder="e.g. What is our biggest revenue opportunity?",
         label_visibility="collapsed",
         key="question_input"
     )
-
     return question
 
 
@@ -418,71 +437,66 @@ letter-spacing:0.08em;margin:14px 0 6px">Explore an analysis</p>
 
 
 def render_domain_explorer():
-    with st.expander("Explore by domain", expanded=False):
-        display_order = [d for d in PREFERRED_ORDER if d in domains]
-        display_order += [d for d in domains if d not in display_order]
+    display_order = [d for d in PREFERRED_ORDER if d in domains]
+    display_order += [d for d in domains if d not in display_order]
 
-        dcols = st.columns(len(display_order))
-        for i, dk in enumerate(display_order):
-            cfg = DOMAIN_UI.get(dk, {"icon": "◈", "label": dk.replace("_", " ").title()})
-            if dcols[i].button(f"{cfg['icon']} {cfg['label']}", key=f"dom_{dk}",
-                               use_container_width=True):
-                st.session_state["active_domain"] = dk
-                qs = cfg.get("questions", [])
-                st.session_state["pending_question"] = qs[0] if qs else ""
-                st.rerun()
+    if not display_order:
+        return
 
-        active = st.session_state.get("active_domain", display_order[0] if display_order else "")
-        if active not in domains and display_order:
-            active = display_order[0]
-        active_cfg = DOMAIN_UI.get(active, {"icon": "◈", "label": active, "questions": []})
+    active = st.session_state.get("active_domain", display_order[0])
+    if active not in domains:
+        active = display_order[0]
 
-        st.markdown(f"""
-<p style="color:#374151;font-size:0.68rem;font-weight:600;text-transform:uppercase;
-letter-spacing:0.08em;margin:14px 0 6px">{active_cfg['icon']} {active_cfg['label']} — example questions</p>
+    dcols = st.columns(len(display_order))
+    for i, dk in enumerate(display_order):
+        cfg = DOMAIN_UI.get(dk, {"icon": "◈", "label": dk.replace("_", " ").title(), "subtitle": ""})
+        is_active = dk == active
+        border = "rgba(99,102,241,0.5)" if is_active else "rgba(255,255,255,0.07)"
+        bg = "rgba(99,102,241,0.1)" if is_active else "rgba(255,255,255,0.02)"
+        label_color = "#a5b4fc" if is_active else "#e2e8f0"
+        if dcols[i].button(
+            f"{cfg['icon']}\n{cfg['label']}",
+            key=f"dom_{dk}",
+            use_container_width=True,
+            help=cfg.get("subtitle", "")
+        ):
+            st.session_state["active_domain"] = dk
+            qs = cfg.get("questions", [])
+            st.session_state["pending_question"] = qs[0] if qs else ""
+            st.rerun()
+        sub = cfg.get("subtitle", "")
+        if sub:
+            dcols[i].markdown(
+                f'<div style="text-align:center;font-size:0.58rem;color:#334155;'
+                f'margin-top:-8px;line-height:1.3">{sub}</div>',
+                unsafe_allow_html=True
+            )
+
+    active_cfg = DOMAIN_UI.get(active, {"icon": "◈", "label": active, "questions": []})
+    st.markdown(f"""
+<p style="color:#374151;font-size:0.65rem;font-weight:600;text-transform:uppercase;
+letter-spacing:0.08em;margin:14px 0 5px">{active_cfg['icon']} {active_cfg['label']} — sample questions</p>
 """, unsafe_allow_html=True)
 
-        qcols = st.columns(2)
-        for i, q in enumerate(active_cfg.get("questions", [])):
-            if qcols[i % 2].button(q, key=f"dq_{active}_{i}", use_container_width=True):
-                st.session_state["pending_question"] = q
-                st.rerun()
+    qcols = st.columns(2)
+    for i, q in enumerate(active_cfg.get("questions", [])):
+        if qcols[i % 2].button(q, key=f"dq_{active}_{i}", use_container_width=True):
+            st.session_state["pending_question"] = q
+            st.rerun()
 
 
 def render_routing_indicator(routing, domain_label):
     conf_lbl, conf_color = _confidence_label(routing.confidence)
     st.markdown(f"""
-<div style="margin:12px 0 14px;padding:10px 16px;
-background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);
-border-radius:8px">
-  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-    <span style="color:#475569;font-size:0.75rem">Question</span>
-    <span style="color:#334155">→</span>
-    <span style="color:#818cf8;font-size:0.8rem;font-weight:600">{domain_label}</span>
-    <span style="color:#334155">→</span>
-    <span style="color:#475569;font-size:0.75rem">Governed Metrics</span>
-    <span style="color:#334155">→</span>
-    <span style="color:#475569;font-size:0.75rem">Answer</span>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-    <span style="color:#6366f1;font-size:0.65rem;font-weight:700;text-transform:uppercase;
-    letter-spacing:0.08em">Routing confidence</span>
-    <span style="color:{conf_color};font-size:0.78rem;font-weight:700">{conf_lbl}</span>
-    <span style="color:#1e293b">·</span>
-    <span style="color:#334155;font-size:0.72rem;font-style:italic">Keyword-based router</span>
-  </div>
-</div>
-""", unsafe_allow_html=True)
-    with st.expander("About routing confidence", expanded=False):
-        st.markdown("""
-<div style="font-size:0.78rem;color:#475569;line-height:1.8">
-Routing confidence is derived from the <strong style="color:#94a3b8">score separation</strong>
-between the highest-scoring and second-highest-scoring domains in keyword matching.
-It is a routing heuristic — not a calibrated probability.<br><br>
-<strong style="color:#94a3b8">High</strong> — large score separation; the domain is unambiguous.<br>
-<strong style="color:#94a3b8">Medium</strong> — moderate separation; routing is plausible but some ambiguity exists.<br>
-<strong style="color:#94a3b8">Low</strong> — small separation; question may belong to multiple domains.
-Rephrasing with more specific terms will improve routing accuracy.
+<div style="margin:10px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+  <span style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);
+  color:#818cf8;font-size:0.75rem;font-weight:600;padding:3px 11px;border-radius:20px">
+    → {domain_label}
+  </span>
+  <span style="color:#334155;font-size:0.72rem">·</span>
+  <span style="color:{conf_color};font-size:0.72rem;font-weight:600">{conf_lbl} confidence</span>
+  <span style="color:#334155;font-size:0.72rem">·</span>
+  <span style="color:#334155;font-size:0.7rem;font-style:italic">Keyword router</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -536,8 +550,32 @@ def render_answer(parsed):
         ), unsafe_allow_html=True)
 
 
-def render_trust_eval_panel(ev, routing, domain_name, domain_data):
-    """Single expander combining routing context, metric provenance, and quality checks."""
+def render_trust_badges(ev):
+    """Compact inline quality signal row shown directly below the answer."""
+    def check(status):
+        return "✓" if status in ("PASS", "NONE") else "⚠" if status == "WARN" else "✗"
+    def chk_color(status):
+        return "#22c55e" if status in ("PASS", "NONE") else "#eab308" if status == "WARN" else "#f87171"
+
+    ng_chk  = check(ev.groundedness)
+    ng_col  = chk_color(ev.groundedness)
+    mr_chk  = check(ev.metric_validity)
+    mr_col  = chk_color(ev.metric_validity)
+    rel_chk = check(ev.relevance)
+    rel_col = chk_color(ev.relevance)
+
+    st.markdown(f"""
+<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 4px;
+font-size:0.75rem">
+  <span style="color:{ng_col};font-weight:600">{ng_chk} Numeric grounding</span>
+  <span style="color:{mr_col};font-weight:600">{mr_chk} Metric recognized</span>
+  <span style="color:{rel_col};font-weight:600">{rel_chk} Relevant answer</span>
+</div>
+""", unsafe_allow_html=True)
+
+
+def render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text=""):
+    """Single expander combining routing context, metric provenance, quality checks, and metric definitions."""
     domain_label = DOMAIN_LABELS.get(domain_name, domain_name.replace("_", " ").title())
     conf_lbl, conf_color = _confidence_label(routing.confidence)
     metric_names = get_all_metric_names(domain_data)
@@ -552,7 +590,7 @@ def render_trust_eval_panel(ev, routing, domain_name, domain_data):
             return '<span style="color:#eab308;font-weight:600">Warn</span>'
         return '<span style="color:#f87171;font-weight:600">Fail</span>'
 
-    with st.expander("Answer quality & trust", expanded=False):
+    with st.expander("View metric definition & evaluation details", expanded=False):
         st.markdown(f"""
 <div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.05)">
   <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 20px;font-size:0.78rem;line-height:2.2">
@@ -560,7 +598,7 @@ def render_trust_eval_panel(ev, routing, domain_name, domain_data):
     <span style="color:#94a3b8;font-weight:600">{domain_label}</span>
     <span style="color:#475569">Routing</span>
     <span><span style="color:{conf_color};font-weight:600">{conf_lbl} confidence</span>&nbsp;·&nbsp;<span style="color:#334155;font-style:italic">Keyword-based router</span></span>
-    <span style="color:#475569">Metrics recognized</span>
+    <span style="color:#475569">Metrics in domain</span>
     <span style="color:#64748b">{metrics_str}</span>
     <span style="color:#475569">Metric source</span>
     <span style="color:#64748b">{domain_label} YAML skill</span>
@@ -601,6 +639,30 @@ font-size:0.7rem;color:#334155;font-style:italic;line-height:1.8">
   Source: {domain_label} YAML skill &nbsp;·&nbsp; Illustrative dataset &nbsp;·&nbsp; Routing confidence: {conf_lbl} (keyword method)
 </div>
 """, unsafe_allow_html=True)
+
+        # Metric definitions relevant to the answer
+        metrics = domain_data.get("metrics", [])
+        if metrics:
+            answer_lower = answer_text.lower()
+            relevant = [
+                m for m in metrics
+                if any(w in answer_lower for w in m.get("name", "").lower().split() if len(w) > 4)
+            ]
+            if not relevant:
+                relevant = metrics[:2]
+            for m in relevant[:3]:
+                mname = m.get("name", "")
+                mdef  = m.get("definition", "")
+                st.markdown(
+                    f'<div style="margin-top:8px;padding:8px 12px;'
+                    f'background:rgba(99,102,241,0.05);border:1px solid rgba(99,102,241,0.12);'
+                    f'border-radius:7px">'
+                    f'<div style="color:#6366f1;font-size:0.65rem;font-weight:700;text-transform:uppercase;'
+                    f'letter-spacing:0.08em;margin-bottom:4px">{mname}</div>'
+                    f'<div style="color:#94a3b8;font-size:0.78rem;line-height:1.6">{mdef}</div>'
+                    f'</div>',
+                    unsafe_allow_html=True
+                )
 
 
 def render_metric_definitions(domain_data, answer_text):
@@ -766,10 +828,11 @@ with nav_r:
 if st.session_state.get("show_page") == "eval":
     st.markdown("""
 <div style="padding:1.2rem 0 0.8rem">
-  <h2 style="color:#f1f5f9;font-size:1.5rem;font-weight:700;margin:0 0 6px">System Evaluation</h2>
-  <p style="color:#475569;font-size:0.82rem;margin:0">
-    Routing performance measured against a curated evaluation set, with transparent failure analysis.<br>
-    A trustworthy AI analytics system must be evaluated — not just demoed.
+  <h2 style="color:#f1f5f9;font-size:1.6rem;font-weight:800;margin:0 0 6px;letter-spacing:-0.02em">
+    System Evaluation</h2>
+  <p style="color:#64748b;font-size:0.85rem;margin:0;line-height:1.7">
+    Routing accuracy and answer quality — measured, not just claimed.<br>
+    Failures are shown, not hidden.
   </p>
 </div>
 """, unsafe_allow_html=True)
@@ -821,13 +884,12 @@ border-radius:8px;padding:12px 16px;margin:10px 0 14px;font-size:0.78rem;color:#
 </div>
 """, unsafe_allow_html=True)
 
-    # ── Failure Analysis ───────────────────────────────────────────────────────
+    # ── Where the router fails ─────────────────────────────────────────────────
     if eval_results["failures"]:
         st.markdown("""
-<h4 style="color:#e2e8f0;font-size:0.88rem;font-weight:700;margin:16px 0 8px">Failure Analysis</h4>
+<h4 style="color:#e2e8f0;font-size:0.88rem;font-weight:700;margin:16px 0 8px">Where the router fails</h4>
 <div style="font-size:0.78rem;color:#475569;margin-bottom:10px;line-height:1.7">
-  Failures are not hidden — they identify where keyword scoring breaks down
-  and what routing improvements would help.
+  These failures reveal the structural limits of keyword scoring — and point to concrete improvements.
 </div>
 """, unsafe_allow_html=True)
         for f in eval_results["failures"]:
@@ -859,25 +921,35 @@ border-radius:8px;padding:12px 16px;margin:10px 0;font-size:0.78rem;color:#16653
 </div>
 """, unsafe_allow_html=True)
 
-    # ── Section 2: Answer Quality Checks ──────────────────────────────────────
+    # ── Section 2: What we evaluate ────────────────────────────────────────────
     st.markdown("""
 <h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
 text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
-padding-bottom:8px">Answer Quality Checks</h3>
+padding-bottom:8px">What we evaluate</h3>
 <div style="font-size:0.78rem;color:#475569;margin-bottom:12px;line-height:1.8">
   Every generated answer is evaluated across four dimensions. All methods are labelled.
-  These checks identify common failure modes — they are not a substitute for ground-truth evaluation.
 </div>
 """, unsafe_allow_html=True)
 
-    st.markdown("""
-| Dimension | Method | What it checks |
-|---|---|---|
-| **Numeric grounding** | Deterministic | Do figures in the answer appear in the governed context? |
-| **Metric recognition** | Deterministic | Are referenced metrics defined in the domain skill? |
-| **Answer relevance** | Heuristic | Term overlap + length + non-answer phrase detection |
-| **Unsupported claims** | Heuristic | Generalisation phrase matching |
-""")
+    eval_dims = [
+        ("Numeric grounding", "Deterministic", "Do figures in the answer appear in the governed context?", "#22c55e"),
+        ("Metric recognition", "Deterministic", "Are referenced metrics defined in the domain skill?", "#22c55e"),
+        ("Answer relevance",   "Heuristic",     "Term overlap + length + non-answer phrase detection",   "#eab308"),
+        ("Unsupported claims", "Heuristic",     "Generalisation phrase matching",                        "#eab308"),
+    ]
+    dim_cols = st.columns(4)
+    for i, (name, method, desc, color) in enumerate(eval_dims):
+        dim_cols[i].markdown(
+            f'<div style="background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.07);'
+            f'border-top:2px solid {color};border-radius:9px;padding:12px 12px 10px">'
+            f'<div style="color:#e2e8f0;font-size:0.78rem;font-weight:700;margin-bottom:4px">{name}</div>'
+            f'<div style="background:rgba(255,255,255,0.05);border-radius:4px;display:inline-block;'
+            f'padding:1px 8px;color:#64748b;font-size:0.62rem;font-weight:600;letter-spacing:0.06em;'
+            f'margin-bottom:6px">{method.upper()}</div>'
+            f'<div style="color:#475569;font-size:0.7rem;line-height:1.5">{desc}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
 
     st.markdown("""
 <div style="background:rgba(234,179,8,0.04);border:1px solid rgba(234,179,8,0.15);
@@ -921,7 +993,14 @@ border-radius:8px;padding:12px 16px;margin:10px 0;font-size:0.78rem;color:#78350
 # ══════════════════════════════════════════════════════════════════════════════
 render_hero()
 
-st.markdown('<div style="margin-bottom:6px"></div>', unsafe_allow_html=True)
+render_domain_explorer()
+
+st.markdown('<div style="margin-top:10px"></div>', unsafe_allow_html=True)
+
+st.markdown("""
+<p style="color:#475569;font-size:0.7rem;font-weight:600;text-transform:uppercase;
+letter-spacing:0.08em;margin-bottom:6px">Ask a business question</p>
+""", unsafe_allow_html=True)
 
 # Apply any pending question from button clicks BEFORE the text input renders
 if st.session_state.get("pending_question"):
@@ -931,10 +1010,6 @@ if st.session_state.get("pending_question"):
 question = render_input_section()
 
 render_example_questions()
-
-st.markdown('<div style="margin-top:6px"></div>', unsafe_allow_html=True)
-
-render_domain_explorer()
 
 st.markdown('<div style="margin-top:4px"></div>', unsafe_allow_html=True)
 
@@ -976,8 +1051,8 @@ if question and domains:
                 routing_confidence=routing.confidence
             )
 
-            render_trust_eval_panel(ev, routing, domain_name, domain_data)
-            render_metric_definitions(domain_data, answer_text)
+            render_trust_badges(ev)
+            render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text)
 
             followups = get_follow_up_questions(domain_data, question)
             render_follow_ups(followups)
