@@ -1041,48 +1041,91 @@ render_domain_samples()
 st.markdown('<div style="margin-top:4px"></div>', unsafe_allow_html=True)
 
 # ── Answer flow ────────────────────────────────────────────────────────────────
+_GREETINGS = {
+    "hi", "hello", "hey", "howdy", "hiya", "sup", "yo",
+    "good morning", "good afternoon", "good evening", "good night",
+    "how are you", "how are you doing", "how do you do",
+    "what's up", "whats up", "what is up", "how's it going", "hows it going",
+}
+
 if question and domains:
-    routing = classify_domain(
-        question, domains,
-        fallback_domain=st.session_state.get("active_domain", "")
+    _q_norm = question.strip().lower().rstrip("!?.,")
+    _is_greeting = _q_norm in _GREETINGS or any(
+        _q_norm.startswith(g + " ") for g in ("hi", "hello", "hey")
     )
 
-    if routing.is_ambiguous and routing.confidence < AMBIGUITY_THRESHOLD:
-        routing = render_ambiguity_ui(routing, domains)
+    if _is_greeting:
+        st.markdown("""
+<div style="background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);
+border-radius:10px;padding:16px 20px;margin:10px 0 14px">
+  <div style="color:#a5b4fc;font-size:0.85rem;font-weight:600;margin-bottom:6px">👋 Hi there!</div>
+  <div style="color:#94a3b8;font-size:0.82rem;line-height:1.7">
+    I'm built to answer business questions across five analytics domains —
+    Product, Sales, Marketing, People, and Support.<br>
+    Try something like <em>"What is our MRR recovery opportunity?"</em>
+    or pick a sample question below.
+  </div>
+</div>
+""", unsafe_allow_html=True)
+    else:
+        routing = classify_domain(
+            question, domains,
+            fallback_domain=st.session_state.get("active_domain", "")
+        )
 
-    if not routing.is_ambiguous or routing.confidence >= AMBIGUITY_THRESHOLD:
-        domain_name = routing.domain
-        if domain_name not in domains:
-            st.error("Could not identify a domain — try rephrasing with more specific terms.")
-        else:
-            domain_data = domains[domain_name]
-            domain_label = DOMAIN_LABELS.get(domain_name,
-                           domain_name.replace("_", " ").title())
+        _no_keyword_match = routing.is_ambiguous and routing.top_domains and routing.top_domains[0][1] == 0
 
-            render_routing_indicator(routing, domain_label)
+        if _no_keyword_match:
+            st.markdown("""
+<div style="background:rgba(100,116,139,0.06);border:1px solid rgba(100,116,139,0.15);
+border-radius:10px;padding:16px 20px;margin:10px 0 14px">
+  <div style="color:#64748b;font-size:0.85rem;font-weight:600;margin-bottom:6px">
+    Outside my knowledge base
+  </div>
+  <div style="color:#64748b;font-size:0.82rem;line-height:1.7">
+    This question doesn't match any of my analytics domains.
+    I answer questions grounded in
+    <strong style="color:#94a3b8">Product, Sales, Marketing, People, and Support</strong> metrics.
+    Try rephrasing with business terms, or choose a domain to explore.
+  </div>
+</div>
+""", unsafe_allow_html=True)
+        elif routing.is_ambiguous and routing.confidence < AMBIGUITY_THRESHOLD:
+            routing = render_ambiguity_ui(routing, domains)
 
-            with st.spinner("Analysing…"):
-                context   = build_context(domain_data)
-                llm_resp  = ask_groq(question, context, api_key=api_key())
+        if not _no_keyword_match and (not routing.is_ambiguous or routing.confidence >= AMBIGUITY_THRESHOLD):
+            domain_name = routing.domain
+            if domain_name not in domains:
+                st.error("Could not identify a domain — try rephrasing with more specific terms.")
+            else:
+                domain_data = domains[domain_name]
+                domain_label = DOMAIN_LABELS.get(domain_name,
+                               domain_name.replace("_", " ").title())
 
-            answer_text = llm_resp["answer"]
-            parsed      = parse_structured_answer(answer_text)
+                render_routing_indicator(routing, domain_label)
 
-            render_answer(parsed)
+                with st.spinner("Analysing…"):
+                    context   = build_context(domain_data)
+                    llm_resp  = ask_groq(question, context, api_key=api_key())
 
-            ev = evaluate_response(
-                question=question,
-                answer=answer_text,
-                context=context,
-                domain_data=domain_data,
-                routing_confidence=routing.confidence
-            )
+                answer_text = llm_resp["answer"]
+                parsed      = parse_structured_answer(answer_text)
 
-            render_trust_badges(ev)
-            render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text)
+                render_answer(parsed)
 
-            followups = get_follow_up_questions(domain_data, question)
-            render_follow_ups(followups)
+                ev = evaluate_response(
+                    question=question,
+                    answer=answer_text,
+                    context=context,
+                    domain_data=domain_data,
+                    routing_confidence=routing.confidence
+                )
+
+                render_trust_badges(ev)
+                render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text)
+
+                followups = get_follow_up_questions(domain_data, question)
+                render_follow_ups(followups)
 
 elif question and not domains:
     st.error("No domain skill files found. Verify YAML files are present in the repository root.")
