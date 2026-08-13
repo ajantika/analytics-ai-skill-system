@@ -194,7 +194,7 @@ hr { border-color: rgba(255,255,255,0.07) !important; }
 # ── Constants ──────────────────────────────────────────────────────────────────
 DOMAIN_UI = {
     "product_usage": {
-        "icon": "◈", "label": "Product",
+        "icon": "📊", "label": "Product",
         "questions": [
             "Which customers are over-utilizing their plans?",
             "What is the MRR recovery opportunity from right-sizing?",
@@ -203,7 +203,7 @@ DOMAIN_UI = {
         ]
     },
     "marketing": {
-        "icon": "◉", "label": "Marketing",
+        "icon": "📣", "label": "Marketing",
         "questions": [
             "Which campaign brought the highest number of customers?",
             "How are our MQL to SQL conversion rates trending?",
@@ -212,16 +212,16 @@ DOMAIN_UI = {
         ]
     },
     "sales": {
-        "icon": "◆", "label": "Sales",
+        "icon": "💰", "label": "Sales",
         "questions": [
-            "What is our pipeline coverage ratio?",
             "Which sales rep gives the highest discounts?",
             "What is our MRR breakdown by customer type?",
             "How many new customers did we add this quarter?",
+            "What is our average contract value by segment?",
         ]
     },
     "hr": {
-        "icon": "◎", "label": "HR",
+        "icon": "👥", "label": "HR",
         "questions": [
             "Which teams have the highest attrition?",
             "What is our regrettable attrition this quarter?",
@@ -230,7 +230,7 @@ DOMAIN_UI = {
         ]
     },
     "csup": {
-        "icon": "◇", "label": "Support",
+        "icon": "🎧", "label": "Support",
         "questions": [
             "What is our CSAT score?",
             "Who are the top performing support agents?",
@@ -303,12 +303,45 @@ def _body(text: str, muted: bool = False) -> str:
     return f'<div style="color:{color};font-size:0.9rem;line-height:1.75">{text}</div>'
 
 
+def _confidence_label(conf: float) -> tuple[str, str]:
+    """Convert raw confidence float to (label, color) for display. Never show raw % as if calibrated."""
+    if conf >= 0.65:
+        return "High", "#22c55e"
+    if conf >= 0.40:
+        return "Medium", "#eab308"
+    return "Low", "#f87171"
+
+
+def _failure_reason(expected: str, predicted: str, question: str) -> str:
+    """Return a concise, technically honest explanation of why routing failed."""
+    q = question.lower()
+    if expected == "marketing" and predicted == "sales" and "customer" in q:
+        return (
+            "The keyword 'customers' scores +2 for Sales and 'new customer' adds a "
+            "partial match (+1). Marketing only gets +2 from 'campaign'. Sales wins on "
+            "total keyword score due to shared 'customer' terminology. "
+            "Whole-word or TF-IDF weighting would likely fix this."
+        )
+    if expected == "sales" and predicted == "product_usage" and "coverage" in q:
+        return (
+            "'coverage' contains 'overage' as a substring — a Product keyword — "
+            "triggering a +2 false-positive match for Product. Sales scores +2 from 'pipeline'. "
+            "The substring router cannot distinguish word boundaries, causing Product to edge out Sales. "
+            "Whole-word matching would prevent this false positive."
+        )
+    if {expected, predicted} <= {"product_usage", "sales"} and ("mrr" in q or "revenue" in q):
+        return "MRR appears in both Product and Sales keyword lists — shared revenue terminology caused ambiguous scoring."
+    exp_lbl = expected.replace("_", " ").title()
+    pred_lbl = predicted.replace("_", " ").title()
+    return f"Keyword overlap between {exp_lbl} and {pred_lbl} — question lacked sufficient disambiguating terms for the keyword router."
+
+
 # ── Rendering functions ────────────────────────────────────────────────────────
 
 def render_hero():
     st.markdown("""
-<div style="text-align:center;padding:2.5rem 0 1.5rem">
-  <div style="display:inline-flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px">
+<div style="text-align:center;padding:1.8rem 0 0.8rem">
+  <div style="display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:14px">
     <span style="background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);
     color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
     letter-spacing:0.06em">Multi-domain</span>
@@ -322,16 +355,16 @@ def render_hero():
     color:#818cf8;font-size:0.68rem;font-weight:600;padding:4px 12px;border-radius:20px;
     letter-spacing:0.06em">Evaluated responses</span>
   </div>
-  <h1 style="color:#f1f5f9;font-size:2.1rem;font-weight:700;margin:0 0 12px;line-height:1.2;
+  <h1 style="color:#f1f5f9;font-size:2.1rem;font-weight:700;margin:0 0 8px;line-height:1.2;
   letter-spacing:-0.02em">Analytics AI Skill System</h1>
-  <p style="color:#64748b;font-size:0.95rem;margin:0 0 20px;line-height:1.6;max-width:500px;
+  <p style="color:#64748b;font-size:0.92rem;margin:0 0 14px;line-height:1.6;max-width:500px;
   display:inline-block">
     Ask business questions in plain English.<br>
     Get governed, explainable analytics answers.
   </p>
   <div style="display:inline-block;background:rgba(234,179,8,0.06);
-  border:1px solid rgba(234,179,8,0.18);border-radius:6px;padding:5px 16px;
-  font-size:0.7rem;color:#92400e;letter-spacing:0.04em">
+  border:1px solid rgba(234,179,8,0.18);border-radius:6px;padding:4px 14px;
+  font-size:0.68rem;color:#92400e;letter-spacing:0.04em">
     Demo environment · Illustrative data only · No production or customer data
   </div>
 </div>
@@ -357,11 +390,13 @@ letter-spacing:0.08em;margin-bottom:6px">Ask a business question</p>
 def render_example_questions():
     st.markdown("""
 <p style="color:#374151;font-size:0.68rem;font-weight:600;text-transform:uppercase;
-letter-spacing:0.08em;margin:16px 0 8px">Try an analysis</p>
+letter-spacing:0.08em;margin:14px 0 6px">Explore an analysis</p>
 """, unsafe_allow_html=True)
 
-    for q in HERO_QUESTIONS:
-        if st.button(q, key=f"hero_{hash(q)}", use_container_width=True):
+    col_a, col_b = st.columns(2)
+    for i, q in enumerate(HERO_QUESTIONS):
+        col = col_a if i % 2 == 0 else col_b
+        if col.button(q, key=f"hero_{hash(q)}", use_container_width=True):
             st.session_state["pending_question"] = q
             st.rerun()
 
@@ -399,20 +434,39 @@ letter-spacing:0.08em;margin:14px 0 6px">{active_cfg['icon']} {active_cfg['label
 
 
 def render_routing_indicator(routing, domain_label):
-    pct = int(routing.confidence * 100)
-    conf_color = "#22c55e" if pct >= 70 else "#eab308" if pct >= 45 else "#f87171"
+    conf_lbl, conf_color = _confidence_label(routing.confidence)
     st.markdown(f"""
-<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-margin:14px 0 16px;padding:10px 16px;
+<div style="margin:12px 0 14px;padding:10px 16px;
 background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);
 border-radius:8px">
-  <span style="color:#6366f1;font-size:0.68rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:0.08em">Routed to</span>
-  <span style="color:#e2e8f0;font-size:0.85rem;font-weight:600">{domain_label}</span>
-  <span style="color:#1e293b">·</span>
-  <span style="color:{conf_color};font-size:0.8rem;font-weight:600">{pct}% confidence</span>
-  <span style="color:#1e293b">·</span>
-  <span style="color:#334155;font-size:0.75rem;font-style:italic">Keyword-based router</span>
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+    <span style="color:#475569;font-size:0.75rem">Question</span>
+    <span style="color:#334155">→</span>
+    <span style="color:#818cf8;font-size:0.8rem;font-weight:600">{domain_label}</span>
+    <span style="color:#334155">→</span>
+    <span style="color:#475569;font-size:0.75rem">Governed Skill</span>
+    <span style="color:#334155">→</span>
+    <span style="color:#475569;font-size:0.75rem">Answer</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="color:#6366f1;font-size:0.65rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:0.08em">Routing confidence</span>
+    <span style="color:{conf_color};font-size:0.78rem;font-weight:700">{conf_lbl}</span>
+    <span style="color:#1e293b">·</span>
+    <span style="color:#334155;font-size:0.72rem;font-style:italic">Keyword-based router</span>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+    with st.expander("About routing confidence", expanded=False):
+        st.markdown("""
+<div style="font-size:0.78rem;color:#475569;line-height:1.8">
+Routing confidence is derived from the <strong style="color:#94a3b8">score separation</strong>
+between the highest-scoring and second-highest-scoring domains in keyword matching.
+It is a routing heuristic — not a calibrated probability.<br><br>
+<strong style="color:#94a3b8">High</strong> — large score separation; the domain is unambiguous.<br>
+<strong style="color:#94a3b8">Medium</strong> — moderate separation; routing is plausible but some ambiguity exists.<br>
+<strong style="color:#94a3b8">Low</strong> — small separation; question may belong to multiple domains.
+Rephrasing with more specific terms will improve routing accuracy.
 </div>
 """, unsafe_allow_html=True)
 
@@ -502,14 +556,14 @@ def render_eval_panel(ev, routing, domain_name):
 font-size:0.75rem;color:#334155;line-height:1.9">
   Source: {label} skill &nbsp;·&nbsp; Governed YAML definitions &nbsp;·&nbsp;
   Illustrative dataset &nbsp;·&nbsp;
-  {int(routing.confidence * 100)}% routing confidence (keyword method)
+  Routing confidence: {_confidence_label(routing.confidence)[0]} (keyword method)
 </div>
 """, unsafe_allow_html=True)
 
 
 def render_trust_panel(domain_name, domain_data, routing):
     label = DOMAIN_LABELS.get(domain_name, domain_name.replace("_", " ").title())
-    pct = int(routing.confidence * 100)
+    conf_lbl, _ = _confidence_label(routing.confidence)
     metric_names = get_all_metric_names(domain_data)
     metrics_str = ", ".join(metric_names[:3]) + ("…" if len(metric_names) > 3 else "")
 
@@ -520,7 +574,7 @@ def render_trust_panel(domain_name, domain_data, routing):
   <span style="color:#22c55e">✓</span> &nbsp;Governed metric definitions: <em style="color:#64748b">{metrics_str}</em><br>
   <span style="color:#22c55e">✓</span> &nbsp;LLM constrained to supplied context — cannot invent KPI definitions<br>
   <span style="color:#22c55e">✓</span> &nbsp;Illustrative demo dataset — not production or customer data<br>
-  <span style="color:#22c55e">✓</span> &nbsp;Routing confidence {pct}% &nbsp;·&nbsp; <em>Keyword-based — not semantic or embedding routing</em>
+  <span style="color:#22c55e">✓</span> &nbsp;Routing confidence: {conf_lbl} &nbsp;·&nbsp; <em>Keyword-based — not semantic or embedding routing</em>
 </div>
 <div style="margin-top:12px;font-size:0.7rem;color:#1e293b;font-style:italic">
   Evaluation is deterministic figure-matching and heuristic phrase-detection — not LLM-based verification.
@@ -575,7 +629,7 @@ border-radius:10px;padding:16px 20px;margin:10px 0 14px">
     {domain_lines}
   </div>
   <div style="color:#374151;font-size:0.72rem;margin-top:10px">
-    Routing confidence: {int(routing.confidence * 100)}% — below the automatic-routing threshold.<br>
+    Routing confidence: {_confidence_label(routing.confidence)[0]} — below the automatic-routing threshold.<br>
     Choose an area to investigate first, or rephrase with more specific terms.
   </div>
 </div>
@@ -676,7 +730,7 @@ padding:1rem 0 0.5rem;text-align:center;font-size:0.7rem;color:#1e293b">
 _, nav_r = st.columns([4, 1])
 with nav_r:
     if st.session_state.get("show_page") == "main":
-        if st.button("System eval →", use_container_width=True):
+        if st.button("System Evaluation →", use_container_width=True):
             st.session_state["show_page"] = "eval"
             st.rerun()
     else:
@@ -690,10 +744,10 @@ with nav_r:
 # ══════════════════════════════════════════════════════════════════════════════
 if st.session_state.get("show_page") == "eval":
     st.markdown("""
-<div style="padding:1.5rem 0 1rem">
+<div style="padding:1.2rem 0 0.8rem">
   <h2 style="color:#f1f5f9;font-size:1.5rem;font-weight:700;margin:0 0 6px">System Evaluation</h2>
   <p style="color:#475569;font-size:0.82rem;margin:0">
-    Routing accuracy and answer quality measured against a curated evaluation dataset.<br>
+    Routing performance measured against a curated evaluation set, with transparent failure analysis.<br>
     A trustworthy AI analytics system must be evaluated — not just demoed.
   </p>
 </div>
@@ -702,81 +756,148 @@ if st.session_state.get("show_page") == "eval":
     eval_results = run_routing_eval(classify_domain, domains)
     accuracy = eval_results["accuracy"]
 
+    # ── Section 1: Routing Evaluation ─────────────────────────────────────────
+    st.markdown("""
+<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:12px 0 10px;
+text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
+padding-bottom:8px">Routing Evaluation</h3>
+""", unsafe_allow_html=True)
+
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Routing accuracy", f"{int(accuracy * 100)}%")
-    c2.metric("Eval questions", eval_results["total"])
+    c1.metric("Baseline routing accuracy", f"{int(accuracy * 100)}%")
+    c2.metric("Labelled questions", eval_results["total"])
     c3.metric("Correct routes", eval_results["correct"])
-    c4.metric("Failures", len(eval_results["failures"]))
+    c4.metric("Routing failures", len(eval_results["failures"]))
 
     st.markdown("""
 <div style="background:rgba(99,102,241,0.05);border:1px solid rgba(99,102,241,0.12);
-border-radius:8px;padding:12px 16px;margin:12px 0;font-size:0.78rem;color:#475569">
-  <strong style="color:#6366f1">Evaluation method:</strong>
-  Keyword-based routing is tested against 11 labelled questions across 5 domains.
-  Routing confidence is computed from keyword score separation between the top and runner-up domains.
+border-radius:8px;padding:12px 16px;margin:10px 0 14px;font-size:0.78rem;color:#475569;line-height:1.8">
+  <strong style="color:#6366f1">Methodology:</strong>
+  Keyword-based routing tested against 11 labelled questions spanning 5 business domains.
+  Routing confidence is derived from <strong style="color:#94a3b8">keyword score separation</strong>
+  between the top and runner-up domain — a routing heuristic, not a calibrated probability.
   2 intentionally ambiguous questions are excluded from accuracy calculation.
-  This is not a held-out test set — a production evaluation would use a larger,
-  separately curated dataset with human-labelled ground truth.
+  <strong style="color:#94a3b8">This is not a held-out production benchmark.</strong>
 </div>
 """, unsafe_allow_html=True)
 
-    st.markdown("---")
-    st.markdown("#### Routing results")
-
-    for r in eval_results["results"]:
-        icon = "✓" if r["correct"] else "✗"
-        color = "#22c55e" if r["correct"] else "#f87171"
-        exp_label = DOMAIN_LABELS.get(r["expected"], r["expected"])
-        pred_label = DOMAIN_LABELS.get(r["predicted"], r["predicted"])
-        conf = int(r["confidence"] * 100)
-        with st.expander(f"[{icon}] {r['question'][:75]}"):
+    with st.expander("Individual routing results", expanded=False):
+        for r in eval_results["results"]:
+            icon = "✓" if r["correct"] else "✗"
+            color = "#22c55e" if r["correct"] else "#f87171"
+            exp_label = DOMAIN_LABELS.get(r["expected"], r["expected"])
+            pred_label = DOMAIN_LABELS.get(r["predicted"], r["predicted"])
+            conf_lbl, _ = _confidence_label(r["confidence"])
             st.markdown(f"""
-| | |
-|---|---|
-| Expected domain | {exp_label} |
-| Predicted domain | {pred_label} |
-| Confidence | {conf}% (keyword routing) |
-| Result | <span style="color:{color};font-weight:600">{'Correct' if r['correct'] else 'Incorrect'}</span> |
-| Note | {r['note']} |
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+  <span style="color:{color};font-weight:700;margin-right:8px">{icon}</span>
+  <span style="color:#e2e8f0;font-size:0.82rem">{r['question']}</span><br>
+  <span style="color:#475569;font-size:0.72rem">
+    Expected: <strong style="color:#94a3b8">{exp_label}</strong>
+    &nbsp;·&nbsp; Predicted: <strong style="color:#94a3b8">{pred_label}</strong>
+    &nbsp;·&nbsp; Confidence: {conf_lbl} &nbsp;·&nbsp; {r['note']}
+  </span>
+</div>
 """, unsafe_allow_html=True)
 
+    # ── Failure Analysis ───────────────────────────────────────────────────────
     if eval_results["failures"]:
-        st.markdown("---")
-        st.markdown("#### Failure cases")
         st.markdown("""
-<div style="font-size:0.8rem;color:#475569;margin-bottom:10px">
-  These questions were mis-routed by the keyword router. Failures are expected and informative —
-  they identify where keyword scoring breaks down and where semantic routing would help.
-  In a production system, failures trigger keyword list review or routing method upgrade.
+<h4 style="color:#e2e8f0;font-size:0.88rem;font-weight:700;margin:16px 0 8px">Failure Analysis</h4>
+<div style="font-size:0.78rem;color:#475569;margin-bottom:10px;line-height:1.7">
+  Failures are not hidden — they identify where keyword scoring breaks down
+  and what routing improvements would help.
 </div>
 """, unsafe_allow_html=True)
         for f in eval_results["failures"]:
             exp = DOMAIN_LABELS.get(f["expected"], f["expected"])
             pred = DOMAIN_LABELS.get(f["predicted"], f["predicted"])
-            st.markdown(
-                f'- **"{f["question"]}"** → expected `{exp}`, predicted `{pred}`'
-            )
+            reason = _failure_reason(f["expected"], f["predicted"], f["question"])
+            st.markdown(f"""
+<div style="background:rgba(248,113,113,0.04);border:1px solid rgba(248,113,113,0.15);
+border-left:3px solid #f87171;border-radius:8px;padding:12px 16px;margin-bottom:8px">
+  <div style="color:#e2e8f0;font-size:0.82rem;font-weight:500;margin-bottom:6px">
+    "{f['question']}"
+  </div>
+  <div style="display:flex;gap:16px;margin-bottom:8px;font-size:0.75rem">
+    <span>Expected: <strong style="color:#94a3b8">{exp}</strong></span>
+    <span>→</span>
+    <span>Predicted: <strong style="color:#f87171">{pred}</strong></span>
+  </div>
+  <div style="color:#64748b;font-size:0.75rem;line-height:1.7">
+    <strong style="color:#475569">Likely reason:</strong> {reason}
+  </div>
+</div>
+""", unsafe_allow_html=True)
     else:
         st.markdown("""
-<div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);
-border-radius:8px;padding:12px 16px;margin:12px 0;font-size:0.78rem;color:#166534">
-  No routing failures on this eval set. Note: 100% accuracy on a small keyword-matched dataset
-  is expected — it does not mean the router is robust to arbitrary real-world questions.
-  Edge cases and ambiguous questions remain failure modes.
+<div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);
+border-radius:8px;padding:12px 16px;margin:10px 0;font-size:0.78rem;color:#166534">
+  No routing failures on this eval set. Note: 100% on a small keyword-matched eval set is expected —
+  it does not mean the router handles arbitrary real-world questions robustly.
 </div>
 """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    # ── Section 2: Answer Quality Checks ──────────────────────────────────────
     st.markdown("""
-#### Known limitations and edge cases
+<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
+text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
+padding-bottom:8px">Answer Quality Checks</h3>
+<div style="font-size:0.78rem;color:#475569;margin-bottom:12px;line-height:1.8">
+  Every generated answer is evaluated across four dimensions. All methods are labelled.
+  These checks identify common failure modes — they are not a substitute for ground-truth evaluation.
+</div>
+""", unsafe_allow_html=True)
 
-- **Ambiguous questions** (e.g. *"Why is revenue declining?"*) correctly surface low confidence
-  rather than confidently mis-routing — this is by design.
-- **Cross-domain questions** (e.g. *"How are we doing overall?"*) have no correct single-domain answer
-  and expose the fundamental limitation of single-domain keyword routing.
-- **Keyword collisions** (e.g. MRR appears in both Sales and Product) can route to the wrong domain
-  when the question lacks additional disambiguating terms.
-- A production router would use embedding similarity or an LLM classifier with a confidence threshold.
+    st.markdown("""
+| Dimension | Method | What it checks |
+|---|---|---|
+| **Numeric grounding** | Deterministic | Do figures in the answer appear in the governed context? |
+| **Metric recognition** | Deterministic | Are referenced metrics defined in the domain skill? |
+| **Answer relevance** | Heuristic | Term overlap + length + non-answer phrase detection |
+| **Unsupported claims** | Heuristic | Generalisation phrase matching |
+""")
+
+    st.markdown("""
+<div style="background:rgba(234,179,8,0.04);border:1px solid rgba(234,179,8,0.15);
+border-radius:8px;padding:12px 16px;margin:10px 0;font-size:0.78rem;color:#78350f;line-height:1.8">
+  <strong>What these checks do NOT claim:</strong>
+  They do not verify factual correctness, eliminate hallucinations, or confirm the LLM's reasoning.
+  Numeric grounding confirms a figure appeared in the supplied context — it does not confirm the figure
+  was used correctly. Heuristic checks have false-positive and false-negative failure modes.
+</div>
+""", unsafe_allow_html=True)
+
+    # ── Section 3: Evaluation Limitations ─────────────────────────────────────
+    st.markdown("""
+<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
+text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
+padding-bottom:8px">Evaluation Limitations</h3>
+""", unsafe_allow_html=True)
+    st.markdown("""
+- **Small, curated dataset** — 11 routing questions is not a statistically meaningful benchmark.
+- **Not a held-out set** — questions were reviewed while building the keyword router; overfitting is possible.
+- **Deterministic keyword baseline** — a semantic router (embedding or LLM-based) would likely outperform this on ambiguous questions, but is not implemented here.
+- **Heuristic answer quality** — no ground-truth correct answers; heuristics have known failure modes.
+- **No independent human evaluation** — answer correctness and usefulness have not been assessed by domain experts.
+- **No calibrated routing probability** — confidence labels (High / Medium / Low) reflect keyword score separation, not a trained classifier's probability.
+- **Illustrative data** — all figures are pre-embedded in YAML skill files, not live business data.
+""")
+
+    # ── Section 4: Next Evaluation Steps ──────────────────────────────────────
+    st.markdown("""
+<h3 style="color:#e2e8f0;font-size:1rem;font-weight:700;margin:20px 0 10px;
+text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid rgba(255,255,255,0.07);
+padding-bottom:8px">Next Evaluation Steps</h3>
+<div style="font-size:0.78rem;color:#475569;margin-bottom:8px;font-style:italic">
+  These are future improvements — none currently exist in this demo.
+</div>
+""", unsafe_allow_html=True)
+    st.markdown("""
+1. **Benchmark semantic routing** — compare embedding-based or LLM-based routing against this keyword baseline to quantify the accuracy improvement on ambiguous questions.
+2. **Build a larger held-out evaluation set** — independently label 100+ questions covering straightforward, ambiguous, and adversarial cases, with no overlap with the keyword lists.
+3. **Add regression evaluations** — run the evaluation suite automatically whenever routing logic, prompts, skill files, or models change.
+4. **Add human evaluation** — measure answer correctness, usefulness, and actionability via analyst or business-user review, not just automated heuristics.
 """)
 
     render_footer()
