@@ -105,7 +105,7 @@ section[data-testid="stMain"] > div {
 }
 .domain-card-icon { font-size: 1.2rem; margin-bottom: 4px; }
 .domain-card-label { color: #e2e8f0; font-size: 0.75rem; font-weight: 600; }
-.domain-card-sub { color: #475569; font-size: 0.62rem; margin-top: 3px; line-height: 1.4; }
+.domain-card-sub { color: #64748b; font-size: 0.62rem; margin-top: 3px; line-height: 1.4; }
 
 /* Make all containers transparent */
 [data-testid="stVerticalBlock"],
@@ -168,13 +168,13 @@ div[data-testid="stTextInput"] input {
     caret-color: #818cf8 !important;
 }
 div[data-testid="stTextInput"] input::placeholder {
-    color: #475569 !important;
+    color: #64748b !important;
 }
 div[data-testid="stTextInput"] input:focus {
     box-shadow: 0 0 0 2px rgba(129,140,248,0.2) !important;
 }
 div[data-testid="stTextInput"] label {
-    color: #64748b !important;
+    color: #7a8fa3 !important;
     font-size: 0.7rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
@@ -189,7 +189,7 @@ div[data-testid="stExpander"] {
     margin-bottom: 6px !important;
 }
 div[data-testid="stExpander"] summary {
-    color: #64748b !important;
+    color: #7a8fa3 !important;
     font-size: 0.8rem !important;
     font-weight: 600 !important;
     padding: 10px 14px !important;
@@ -211,7 +211,7 @@ div[data-testid="metric-container"] {
     padding: 12px 16px !important;
 }
 div[data-testid="metric-container"] label {
-    color: #64748b !important;
+    color: #7a8fa3 !important;
     font-size: 0.72rem !important;
 }
 div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
@@ -222,7 +222,7 @@ div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
 
 /* ── Tables (eval dashboard) ── */
 table { color: #94a3b8 !important; }
-th { color: #64748b !important; font-size: 0.75rem !important; }
+th { color: #7a8fa3 !important; font-size: 0.75rem !important; }
 
 /* Markdown text defaults */
 p, li { color: #94a3b8 !important; }
@@ -387,6 +387,12 @@ def _failure_analysis(expected: str, predicted: str, question: str) -> dict:
             "cause": "<code>coverage</code> contains <code>overage</code> as a substring, causing the Product keyword to trigger a false-positive match. The Sales score from 'pipeline' is outweighed by Product's substring score.",
             "improvement": "Whole-word or token-aware matching to prevent substring false positives.",
         }
+    if expected == "hr" and predicted == "product_usage" and "plan" in q:
+        return {
+            "cause_type": "Observed cause",
+            "cause": "The keyword <code>plan</code> appears in the Product domain's keyword list, scoring alongside <code>hiring</code> in the People domain. On this question the Product keyword score edges out the People signal.",
+            "improvement": "Domain-specific compound matching for 'hiring plan', or weighting People-domain terms more heavily when co-occurring with workforce vocabulary.",
+        }
     exp_lbl = DOMAIN_LABELS.get(expected, expected.replace("_", " ").title())
     pred_lbl = DOMAIN_LABELS.get(predicted, predicted.replace("_", " ").title())
     return {
@@ -411,11 +417,11 @@ def render_hero():
   background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);
   border-radius:8px;padding:7px 18px">
     <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Auto-routed</span>
-    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#64748b;font-size:0.75rem">→</span>
     <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Governed metrics</span>
-    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#64748b;font-size:0.75rem">→</span>
     <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Structured AI answer</span>
-    <span style="color:#334155;font-size:0.75rem">→</span>
+    <span style="color:#64748b;font-size:0.75rem">→</span>
     <span style="color:#6366f1;font-size:0.75rem;font-weight:600">Evaluated</span>
   </div>
   <br>
@@ -515,10 +521,10 @@ def render_routing_indicator(routing, domain_label):
   color:#818cf8;font-size:0.75rem;font-weight:600;padding:3px 11px;border-radius:20px">
     → {domain_label}
   </span>
-  <span style="color:#334155;font-size:0.72rem">·</span>
+  <span style="color:#64748b;font-size:0.72rem">·</span>
   <span style="color:{conf_color};font-size:0.72rem;font-weight:600">{conf_lbl} confidence</span>
-  <span style="color:#334155;font-size:0.72rem">·</span>
-  <span style="color:#334155;font-size:0.7rem;font-style:italic">Keyword router</span>
+  <span style="color:#64748b;font-size:0.72rem">·</span>
+  <span style="color:#64748b;font-size:0.7rem;font-style:italic">Keyword router</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -616,19 +622,19 @@ def render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text="
         st.markdown(f"""
 <div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.05)">
   <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 20px;font-size:0.78rem;line-height:2.2">
-    <span style="color:#475569">Domain</span>
+    <span style="color:#64748b">Domain</span>
     <span style="color:#94a3b8;font-weight:600">{domain_label}</span>
-    <span style="color:#475569">Routing</span>
-    <span><span style="color:{conf_color};font-weight:600">{conf_lbl} confidence</span>&nbsp;·&nbsp;<span style="color:#334155;font-style:italic">Keyword-based router</span></span>
-    <span style="color:#475569">Metrics in domain</span>
+    <span style="color:#64748b">Routing</span>
+    <span><span style="color:{conf_color};font-weight:600">{conf_lbl} confidence</span>&nbsp;·&nbsp;<span style="color:#64748b;font-style:italic">Keyword-based router</span></span>
+    <span style="color:#64748b">Metrics in domain</span>
     <span style="color:#64748b">{metrics_str}</span>
-    <span style="color:#475569">Metric source</span>
+    <span style="color:#64748b">Metric source</span>
     <span style="color:#64748b">{domain_label} YAML skill</span>
   </div>
 </div>
 
 <div style="margin-bottom:8px">
-  <span style="color:#475569;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em">Overall quality</span>
+  <span style="color:#64748b;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em">Overall quality</span>
   <span style="color:{ql_color};font-size:0.95rem;font-weight:700;margin-left:10px">{ev.quality_label} · {pct}%</span>
 </div>
 
@@ -636,27 +642,27 @@ def render_trust_eval_panel(ev, routing, domain_name, domain_data, answer_text="
   <tr>
     <td style="padding:5px 0;color:#64748b;width:42%">Numeric grounding check</td>
     <td style="padding:5px 0">{badge(ev.groundedness)}</td>
-    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Deterministic figure matching</td>
+    <td style="padding:5px 0 5px 10px;color:#64748b;font-size:0.7rem">Deterministic figure matching</td>
   </tr>
   <tr>
     <td style="padding:5px 0;color:#64748b">Metric recognition</td>
     <td style="padding:5px 0">{badge(ev.metric_validity)}</td>
-    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Deterministic metric lookup</td>
+    <td style="padding:5px 0 5px 10px;color:#64748b;font-size:0.7rem">Deterministic metric lookup</td>
   </tr>
   <tr>
     <td style="padding:5px 0;color:#64748b">Answer relevance heuristic</td>
     <td style="padding:5px 0">{badge(ev.relevance)}</td>
-    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Term overlap + non-answer phrase detection</td>
+    <td style="padding:5px 0 5px 10px;color:#64748b;font-size:0.7rem">Term overlap + non-answer phrase detection</td>
   </tr>
   <tr>
     <td style="padding:5px 0;color:#64748b">Unsupported claim heuristic</td>
     <td style="padding:5px 0">{badge(ev.unsupported_claims)}</td>
-    <td style="padding:5px 0 5px 10px;color:#334155;font-size:0.7rem">Generalisation phrase matching</td>
+    <td style="padding:5px 0 5px 10px;color:#64748b;font-size:0.7rem">Generalisation phrase matching</td>
   </tr>
 </table>
 
 <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.05);
-font-size:0.7rem;color:#334155;font-style:italic;line-height:1.8">
+font-size:0.7rem;color:#64748b;font-style:italic;line-height:1.8">
   These checks detect common failure modes but do not independently verify factual correctness.<br>
   Source: {domain_label} YAML skill &nbsp;·&nbsp; Illustrative dataset &nbsp;·&nbsp; Routing confidence: {conf_lbl} (keyword method)
 </div>
@@ -764,7 +770,7 @@ def render_how_it_works():
 ```
 User Question (plain English)
         ↓
-Domain Router  ←  keyword scoring, labelled accurately
+Domain Router  ←  keyword scoring; low-confidence → disambiguation
         ↓
 Analytics Skill  ←  YAML file for the detected domain
         ↓
@@ -778,11 +784,13 @@ Business Answer  ←  Insight / Why it matters / Recommended action
 ```
 
 **Why YAML skill files?**
-Domain knowledge is separated from application logic. Adding a new domain — Finance, Operations, Legal — requires only a new YAML file. No application rewrite. Metric definitions are owned by the analytics team, not inferred by the model.
+Domain knowledge is separated from application logic. Each domain's KPI definitions, formulas, and owners live in a versioned YAML file — not embedded in code or inferred by the model. Adding a new domain requires only a new skill file; no application rewrite. Metric definitions are reviewed by the analytics team, not generated on the fly.
 
-**What the LLM does:** Reasons over the supplied skill context and formats the response into structured sections. It does not access live data, query a database, or invent metric definitions.
+**What the LLM does:** Reasons over the supplied skill context and formats the answer into structured sections. It does not access live data, query a database, define metrics independently, or draw on knowledge outside the provided context.
 
-**What the evaluation layer checks:** Numeric figure matching against the governed context (deterministic), metric name recognition (deterministic), answer relevance via term overlap (heuristic), and unsupported generalisation phrase detection (heuristic). All methods are labelled.
+**How routing handles ambiguity:** When no domain has a clear keyword advantage, the router flags the question as low-confidence rather than silently guessing. The user is prompted to select a domain, preventing a confident-looking wrong answer.
+
+**What the evaluation layer checks:** Numeric figure matching against the governed context (deterministic), metric name recognition (deterministic), answer relevance via term overlap (heuristic), and unsupported generalisation phrase detection (heuristic). All methods are labelled by type.
 """)
 
 
@@ -870,7 +878,7 @@ if st.session_state.get("show_page") == "eval":
     c4.metric("Routing failures", len(eval_results["failures"]))
 
     st.markdown("""
-<div style="font-size:0.76rem;color:#475569;margin:8px 0 16px;line-height:1.7">
+<div style="font-size:0.76rem;color:#64748b;margin:8px 0 16px;line-height:1.7">
   Keyword-based router tested against 11 labelled questions across 5 domains.
   Confidence reflects keyword score separation — a routing heuristic, not a calibrated probability.
   2 intentionally ambiguous questions are excluded from accuracy calculation.
@@ -883,7 +891,7 @@ if st.session_state.get("show_page") == "eval":
 <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;margin-bottom:10px">
   <h3 style="color:#e2e8f0;font-size:0.95rem;font-weight:700;margin:0 0 4px">
     Routing Failure Analysis</h3>
-  <p style="color:#475569;font-size:0.78rem;margin:0 0 12px;line-height:1.6">
+  <p style="color:#64748b;font-size:0.78rem;margin:0 0 12px;line-height:1.6">
     Understand why questions are misrouted and identify opportunities to improve the routing strategy.
   </p>
 </div>
@@ -900,7 +908,7 @@ border-left:3px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:
   </div>
   <div style="display:flex;gap:16px;margin-bottom:10px;font-size:0.75rem">
     <span style="color:#64748b">Expected: <strong style="color:#94a3b8">{exp}</strong></span>
-    <span style="color:#334155">→</span>
+    <span style="color:#64748b">→</span>
     <span style="color:#64748b">Predicted: <strong style="color:#f87171">{pred}</strong></span>
   </div>
   <div style="margin-bottom:6px">
@@ -909,7 +917,7 @@ border-left:3px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:
     <span style="color:#94a3b8;font-size:0.78rem;line-height:1.6">{fa['cause']}</span>
   </div>
   <div>
-    <span style="color:#475569;font-size:0.65rem;font-weight:700;text-transform:uppercase;
+    <span style="color:#64748b;font-size:0.65rem;font-weight:700;text-transform:uppercase;
     letter-spacing:0.08em">Candidate improvement</span><br>
     <span style="color:#64748b;font-size:0.78rem;line-height:1.6">{fa['improvement']}</span>
   </div>
@@ -921,7 +929,7 @@ border-left:3px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:
 <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;margin-bottom:10px">
   <h3 style="color:#e2e8f0;font-size:0.95rem;font-weight:700;margin:0 0 4px">
     Answer Quality Evaluation</h3>
-  <p style="color:#475569;font-size:0.78rem;margin:0 0 12px;line-height:1.6">
+  <p style="color:#64748b;font-size:0.78rem;margin:0 0 12px;line-height:1.6">
     Generated answers are checked for grounding, metric usage, relevance, and potentially unsupported claims.
   </p>
 </div>
@@ -948,7 +956,7 @@ border-left:3px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:
         )
 
     st.markdown("""
-<div style="margin-top:10px;font-size:0.74rem;color:#475569;line-height:1.7">
+<div style="margin-top:10px;font-size:0.74rem;color:#64748b;line-height:1.7">
   <strong style="color:#64748b">Evaluation scope:</strong>
   These checks identify common grounding and relevance issues; they do not independently verify factual correctness.
 </div>
@@ -968,7 +976,7 @@ border-left:3px solid #f87171;border-radius:8px;padding:14px 16px;margin-bottom:
 <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
   <span style="color:{color};font-weight:700;margin-right:8px">{icon}</span>
   <span style="color:#e2e8f0;font-size:0.82rem">{r['question']}</span><br>
-  <span style="color:#475569;font-size:0.72rem">
+  <span style="color:#64748b;font-size:0.72rem">
     Expected: <strong style="color:#94a3b8">{exp_label}</strong>
     &nbsp;·&nbsp; Predicted: <strong style="color:#94a3b8">{pred_label}</strong>
     &nbsp;·&nbsp; Confidence: {conf_lbl} &nbsp;·&nbsp; {r['note']}
@@ -1025,7 +1033,7 @@ render_domain_cards()
 st.markdown('<div style="margin-top:10px"></div>', unsafe_allow_html=True)
 
 st.markdown("""
-<p style="color:#475569;font-size:0.7rem;font-weight:600;text-transform:uppercase;
+<p style="color:#64748b;font-size:0.7rem;font-weight:600;text-transform:uppercase;
 letter-spacing:0.08em;margin-bottom:6px">Ask a business question</p>
 """, unsafe_allow_html=True)
 
