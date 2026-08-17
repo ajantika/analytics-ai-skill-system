@@ -1,6 +1,6 @@
 domain: sales
 description: Sales performance, revenue, pipeline, customer segments and sales rep analytics
-keywords: [revenue, mrr, arr, churn, pipeline, deals, quota, conversion, sales, customers, billing, subscription, recurring, new customer, existing, returning, discount, rep, acv, forecast, bookings, retention]
+keywords: [revenue, mrr, arr, churn, pipeline, deals, quota, conversion, sales, customers, billing, subscription, recurring, new customer, existing, returning, discount, rep, acv, forecast, bookings, retention, contract, contract value, average contract value, segment, customer type, customer segment]
 
 metrics:
   - name: Total MRR

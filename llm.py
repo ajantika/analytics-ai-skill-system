@@ -95,26 +95,25 @@ def parse_structured_answer(raw_answer: str) -> dict:
 
     for line in raw_answer.split("\n"):
         stripped = line.strip()
-        low = stripped.lower()
+        low = stripped.lower().lstrip("*# ").rstrip("*: ")
 
-        if "**insight**" in low or stripped.startswith("Insight"):
+        if low in ("insight", "answer", "summary", "finding"):
             if current and lines:
                 sections[current] = " ".join(lines).strip()
             current = "insight"
             lines = []
-        elif "**why it matters**" in low or stripped.startswith("Why it matters"):
+        elif low in ("why it matters", "why", "business impact", "impact", "implication"):
             if current and lines:
                 sections[current] = " ".join(lines).strip()
             current = "why_it_matters"
             lines = []
-        elif "**recommended action**" in low or stripped.startswith("Recommended action"):
+        elif low in ("recommended action", "recommendation", "action", "next steps", "next step"):
             if current and lines:
                 sections[current] = " ".join(lines).strip()
             current = "recommended_action"
             lines = []
         elif stripped and current:
-            # Strip leading ** from content lines
-            clean = stripped.lstrip("*").strip()
+            clean = stripped.lstrip("*#").strip()
             if clean:
                 lines.append(clean)
 

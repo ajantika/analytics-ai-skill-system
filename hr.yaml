@@ -1,6 +1,6 @@
 domain: hr
 description: Workforce, headcount, attrition, hiring, retention and employee engagement analytics
-keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff, enps, performance, compensation, diversity, tenure]
+keywords: [headcount, attrition, employees, hiring, retention, engagement, workforce, people, talent, onboarding, turnover, hires, departures, staff, enps, performance, compensation, diversity, tenure, new hire, 90-day, hire retention, employee retention, new hires]
 
 metrics:
   - name: Headcount
