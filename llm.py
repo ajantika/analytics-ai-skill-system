@@ -60,7 +60,7 @@ BUSINESS QUESTION: {question}
 Answer using ONLY the figures from the knowledge base above. Follow the exact format specified."""
 
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_message}
@@ -70,7 +70,7 @@ Answer using ONLY the figures from the knowledge base above. Follow the exact fo
         )
         raw = response.choices[0].message.content.strip()
         logger.info(f"LLM response generated ({len(raw)} chars)")
-        return {"answer": raw, "model": "llama-3.1-8b-instant", "error": False}
+        return {"answer": raw, "model": "llama-3.3-70b-versatile", "error": False}
 
     except Exception as e:
         logger.error(f"LLM call failed: {e}")
