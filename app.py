@@ -9,7 +9,7 @@ import logging
 import re
 import streamlit as st
 
-from router import classify_domain, get_ambiguous_domains, AMBIGUITY_THRESHOLD
+from router import classify_domain, get_ambiguous_domains, AMBIGUITY_THRESHOLD, RoutingResult
 from skills import (load_domains, build_context, get_follow_up_questions,
                     get_all_metric_names, get_metric_display)
 from llm import ask_groq, parse_structured_answer
@@ -480,6 +480,7 @@ def render_domain_cards():
             help=cfg.get("subtitle", "")
         ):
             st.session_state["active_domain"] = dk
+            st.session_state["forced_domain"] = dk
             qs = cfg.get("questions", [])
             st.session_state["pending_question"] = qs[0] if qs else ""
             st.rerun()
@@ -510,6 +511,7 @@ letter-spacing:0.08em;margin:14px 0 5px">Or try an example — {active_cfg['icon
     for i, q in enumerate(active_cfg.get("questions", [])):
         if qcols[i % 2].button(q, key=f"dq_{active}_{i}", use_container_width=True):
             st.session_state["pending_question"] = q
+            st.session_state["forced_domain"] = active
             st.rerun()
 
 
@@ -1076,10 +1078,21 @@ border-radius:10px;padding:16px 20px;margin:10px 0 14px">
 </div>
 """, unsafe_allow_html=True)
     else:
-        routing = classify_domain(
-            question, domains,
-            fallback_domain=st.session_state.get("active_domain", "")
-        )
+        _forced = st.session_state.pop("forced_domain", None)
+        if _forced and _forced in domains:
+            routing = RoutingResult(
+                domain=_forced,
+                confidence=0.85,
+                method="keyword",
+                top_domains=[(_forced, 5.0)],
+                is_ambiguous=False,
+                reasoning=f"Routed to {DOMAIN_LABELS.get(_forced, _forced)} from domain example."
+            )
+        else:
+            routing = classify_domain(
+                question, domains,
+                fallback_domain=st.session_state.get("active_domain", "")
+            )
 
         _no_keyword_match = routing.is_ambiguous and routing.top_domains and routing.top_domains[0][1] == 0
 
