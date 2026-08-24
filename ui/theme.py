@@ -152,6 +152,10 @@ div[data-testid="stSlider"] label, div[data-testid="stRadio"] label,
 div[data-testid="stSelectbox"] label, div[data-testid="stMultiSelect"] label {
     color: #94a3b8 !important; font-size: 0.78rem !important; font-weight: 600 !important;
 }
+/* Compact forms pull captions tight against sliders with negative margins, which can
+   overlap them onto the track and swallow clicks on part of it — leaving values on
+   that side unreachable. Keep the slider above anything adjacent. */
+div[data-testid="stSlider"] { position: relative !important; z-index: 3 !important; }
 
 /* Dataframes */
 div[data-testid="stDataFrame"] { border: 1px solid rgba(255,255,255,0.07) !important; border-radius: 10px !important; }

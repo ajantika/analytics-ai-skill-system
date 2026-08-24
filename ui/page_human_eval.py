@@ -226,16 +226,22 @@ def _score_controls(case: dict, existing: dict | None, compact: bool = True) -> 
 
     for dim in DIMENSIONS:
         spec = RUBRIC[dim]
+        # pointer-events:none is load-bearing. These labels are pulled tight against
+        # the slider with negative margins to keep the form short, which overlaps them
+        # onto the track. Without it they swallow clicks on the left of the track and
+        # the slider can only be dragged upward — scores below the starting value
+        # become unreachable.
         st.markdown(
             f'<div style="color:{T.DIMENSION_COLORS[dim]};font-size:0.76rem;font-weight:700;'
-            f'margin:2px 0 -14px">{spec["label"]}'
+            f'margin:2px 0 -10px;pointer-events:none;position:relative;z-index:0">'
+            f'{spec["label"]}'
             f'<span style="color:{T.FAINT};font-weight:400;font-size:0.68rem"> — '
             f'{spec["question"]}</span></div>',
             unsafe_allow_html=True,
         )
         value = st.slider(
             spec["label"],
-            min_value=1, max_value=5,
+            min_value=1, max_value=5, step=1,
             value=int(prior.get(dim) or 4),
             key=f"score_{case['eval_id']}_{dim}",
             label_visibility="collapsed",
@@ -245,7 +251,8 @@ def _score_controls(case: dict, existing: dict | None, compact: bool = True) -> 
         if compact and len(anchor) > 88:
             anchor = anchor[:85].rstrip() + "…"
         st.markdown(
-            f'<div style="color:{T.FAINT};font-size:0.67rem;line-height:1.45;margin-top:-14px">'
+            f'<div style="color:{T.FAINT};font-size:0.67rem;line-height:1.45;'
+            f'margin-top:-10px;pointer-events:none;position:relative;z-index:0">'
             f'<strong style="color:{T.MUTED}">{value} — {SCALE[value]}:</strong> {anchor}</div>',
             unsafe_allow_html=True,
         )
