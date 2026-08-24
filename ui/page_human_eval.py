@@ -385,6 +385,31 @@ def _show_flash() -> None:
         T.note(message, kind)
 
 
+def _now_rating_strip(case: dict, index: int, total: int) -> None:
+    """
+    Restate the case being rated, immediately above the button row.
+
+    Streamlit preserves scroll position across a rerun, so after submitting from the
+    bottom of a long form the evaluator sees a fresh set of sliders that look exactly
+    like the ones they just moved, with the new question off-screen above. Scrolling
+    the parent page from a component is not possible — Streamlit sandboxes component
+    iframes into an opaque origin — so the case is restated here instead, where the
+    evaluator is already looking.
+    """
+    st.markdown(
+        f'<div style="background:{T.SURFACE};border:1px solid {T.BORDER};'
+        f'border-left:3px solid {T.ACCENT};border-radius:9px;padding:10px 14px;'
+        f'margin:4px 0 10px">'
+        f'<div style="color:{T.DIM};font-size:0.62rem;font-weight:700;'
+        f'text-transform:uppercase;letter-spacing:0.09em;margin-bottom:3px">'
+        f'Now rating &nbsp;·&nbsp; {index + 1} of {total} in queue</div>'
+        f'<div style="color:{T.INK};font-size:0.86rem;line-height:1.5">'
+        f'<strong style="color:{T.ACCENT}">{case["eval_id"]}</strong> &nbsp; '
+        f'{case["question"]}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+
 def _download_block() -> None:
     session = st.session_state.get(SESSION_ANNOTATIONS, [])
     if not session:
@@ -509,6 +534,7 @@ def render(state: D.EvalState) -> None:
     scores, meta = _score_controls(case, existing)
 
     _show_flash()
+    _now_rating_strip(case, index, len(queue))
 
     col_prev, col_submit, col_skip, _ = st.columns([1, 1.4, 1, 3])
 
