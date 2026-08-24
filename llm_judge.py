@@ -50,14 +50,35 @@ JUDGE_VERSION = "judge-v1"
 
 # Tried in order. The first model the API accepts is used, and the run artifact
 # records which one actually ran — never the one we hoped for.
+#
+# The chain advances only on a PERMANENT error (model not found, auth). A rate limit is
+# transient and must not cause a permanent downgrade: an earlier run advanced the chain
+# on every 429, walked past both working models, and failed 22 judgements against a
+# model that does not exist on this account.
 JUDGE_MODEL_CHAIN = [
     "openai/gpt-oss-120b",
     "openai/gpt-oss-20b",
-    "llama-3.3-70b-versatile",
 ]
 
 JUDGE_TEMPERATURE = 0.0   # deterministic scoring; a judge that drifts run to run is not a measurement
-JUDGE_MAX_TOKENS = 700
+
+# The gpt-oss models are reasoning models: they spend output tokens thinking before
+# emitting anything, and that reasoning counts against max_tokens. At 700 tokens with
+# default reasoning, a full run truncated 8 of 60 judgements mid-field and four returned
+# nothing at all. Truncation is indistinguishable from a genuine judge failure in the
+# stored artifact, so it is engineered out rather than reported as a finding.
+#
+# reasoning_effort="low" is the fix that matters. The judge is applying a rubric that is
+# already spelled out in the prompt, not solving a problem, so extended deliberation buys
+# little — and it roughly triples token usage, which on a rate-limited tier turns a slow
+# run into a failing one.
+JUDGE_MAX_TOKENS = 1200
+JUDGE_REASONING_EFFORT = "low"
+
+# Groq's client retries 429s internally; when it finally gives up, we back off and retry
+# the SAME model rather than downgrading.
+RATE_LIMIT_BACKOFF_SECONDS = 25
+RATE_LIMIT_MAX_ATTEMPTS = 4
 
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
@@ -442,6 +463,7 @@ def judge_response(
     client = Groq(api_key=key)
     user_message = build_judge_prompt(case, response_text, governed_context)
     models = [model] if model else JUDGE_MODEL_CHAIN
+    eval_id = case.get("eval_id")
 
     last_error = "no model attempted"
     for model_name in models:
@@ -449,7 +471,11 @@ def judge_response(
             {"role": "system", "content": JUDGE_SYSTEM_PROMPT},
             {"role": "user", "content": user_message},
         ]
-        for attempt in range(max_retries + 1):
+        json_retries = 0
+        rate_limit_attempts = 0
+        permanent_failure = False
+
+        while json_retries <= max_retries and rate_limit_attempts < RATE_LIMIT_MAX_ATTEMPTS:
             try:
                 started = time.perf_counter()
                 completion = client.chat.completions.create(
@@ -457,16 +483,18 @@ def judge_response(
                     messages=messages,
                     temperature=JUDGE_TEMPERATURE,
                     max_tokens=JUDGE_MAX_TOKENS,
+                    reasoning_effort=JUDGE_REASONING_EFFORT,
                 )
                 latency = time.perf_counter() - started
                 raw = (completion.choices[0].message.content or "").strip()
 
                 try:
-                    record = parse_judge_response(raw, case.get("eval_id"))
+                    record = parse_judge_response(raw, eval_id)
                 except (JudgeParseError, json.JSONDecodeError) as e:
                     last_error = f"malformed judge JSON: {e}"
-                    logger.warning(f"{case.get('eval_id')}: {last_error} (attempt {attempt + 1})")
-                    if attempt < max_retries:
+                    logger.warning(f"{eval_id}: {last_error} (attempt {json_retries + 1})")
+                    json_retries += 1
+                    if json_retries <= max_retries:
                         messages += [
                             {"role": "assistant", "content": raw[:1500]},
                             {"role": "user", "content":
@@ -474,20 +502,43 @@ def judge_response(
                                 "in the system prompt, with no fences and no other text."},
                         ]
                         continue
-                    return _failed_judge_record(case.get("eval_id"), last_error, raw)
+                    return _failed_judge_record(eval_id, last_error, raw)
 
                 record["judge_model"] = model_name
                 record["judge_version"] = JUDGE_VERSION
                 record["latency_seconds"] = round(latency, 3)
-                record["retries"] = attempt
+                record["retries"] = json_retries
+                record["rate_limit_waits"] = rate_limit_attempts
                 return record
 
             except Exception as e:
-                last_error = f"{type(e).__name__}: {e}"
-                logger.warning(f"Judge call failed on {model_name}: {last_error}")
-                break  # try the next model in the chain
+                name = type(e).__name__
+                last_error = f"{name}: {e}"
 
-    return _failed_judge_record(case.get("eval_id"), last_error)
+                # Transient: wait and retry the SAME model. Downgrading here is what
+                # caused an earlier run to walk the whole chain and fail on a dead model.
+                if name in ("RateLimitError", "APITimeoutError", "APIConnectionError",
+                            "InternalServerError"):
+                    rate_limit_attempts += 1
+                    if rate_limit_attempts < RATE_LIMIT_MAX_ATTEMPTS:
+                        wait = RATE_LIMIT_BACKOFF_SECONDS * rate_limit_attempts
+                        logger.info(f"{eval_id}: {name} on {model_name}, waiting {wait}s "
+                                    f"(attempt {rate_limit_attempts}/{RATE_LIMIT_MAX_ATTEMPTS})")
+                        time.sleep(wait)
+                        continue
+                    logger.warning(f"{eval_id}: {name} on {model_name} after "
+                                   f"{rate_limit_attempts} waits — trying next model")
+                    break
+
+                # Permanent: this model is unusable, so advance the chain.
+                logger.warning(f"Judge call failed permanently on {model_name}: {last_error}")
+                permanent_failure = True
+                break
+
+        if not permanent_failure and rate_limit_attempts >= RATE_LIMIT_MAX_ATTEMPTS:
+            continue  # exhausted waits on this model; try the next one
+
+    return _failed_judge_record(eval_id, last_error)
 
 
 # ── Aggregation ───────────────────────────────────────────────────────────────
