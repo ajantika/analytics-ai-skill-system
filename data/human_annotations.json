@@ -3741,6 +3741,226 @@
       "evaluator_confidence": 0.8,
       "notes": "",
       "timestamp": "2026-08-24T18:19:04+00:00"
+    },
+    {
+      "eval_id": "PRD-008",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-24T19:28:24+00:00"
+    },
+    {
+      "eval_id": "PRD-009",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-24T19:29:18+00:00"
+    },
+    {
+      "eval_id": "PRD-010",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-24T19:29:21+00:00"
+    },
+    {
+      "eval_id": "PRD-011",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-24T19:29:31+00:00"
+    },
+    {
+      "eval_id": "PRD-012",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 3,
+        "groundedness": 3,
+        "correctness": 3,
+        "instruction_following": 3,
+        "helpfulness": 4,
+        "clarity": 3
+      },
+      "overall_score": 3.1666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.65,
+      "notes": "",
+      "timestamp": "2026-08-24T19:29:55+00:00"
+    },
+    {
+      "eval_id": "SLS-001",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 4.333333333333333,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-24T19:30:10+00:00"
+    },
+    {
+      "eval_id": "SLS-002",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.6666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-24T19:30:44+00:00"
+    },
+    {
+      "eval_id": "SLS-003",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-24T19:44:58+00:00"
+    },
+    {
+      "eval_id": "SLS-004",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 5,
+        "clarity": 4
+      },
+      "overall_score": 4.5,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-24T19:48:39+00:00"
+    },
+    {
+      "eval_id": "SLS-005",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-24T19:50:23+00:00"
+    },
+    {
+      "eval_id": "SLS-006",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-24T19:50:41+00:00"
     }
   ]
 }
