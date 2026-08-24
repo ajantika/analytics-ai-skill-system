@@ -39,6 +39,7 @@ from ui import theme as T
 
 SESSION_ANNOTATIONS = "session_annotations"
 RATER_ID = "rater_id"
+FLASH = "he_flash"
 
 
 def _init() -> None:
@@ -338,7 +339,14 @@ def _score_controls(case: dict, existing: dict | None) -> tuple[dict, dict]:
 
 
 def _persist(annotation: dict, state: D.EvalState) -> None:
-    """Write through to disk where possible; hold in session and warn where not."""
+    """
+    Write through to disk where possible; hold in session and warn where not.
+
+    The confirmation is stashed in session state rather than rendered here, because
+    the caller reruns immediately afterwards to advance to the next case — which
+    would wipe a message written now before the evaluator ever saw it. Submitting a
+    rating and getting no visible response reads as a broken button.
+    """
     session = st.session_state.get(SESSION_ANNOTATIONS, [])
     session = [a for a in session
                if (a["eval_id"], a["evaluator_id"]) != (annotation["eval_id"], annotation["evaluator_id"])]
@@ -346,16 +354,35 @@ def _persist(annotation: dict, state: D.EvalState) -> None:
     st.session_state[SESSION_ANNOTATIONS] = session
 
     merged = upsert_annotation(annotation, load_annotations())
+    n_mine = sum(1 for a in merged
+                 if a.get("evaluator_id") == annotation["evaluator_id"]
+                 and a.get("rater_type") == "human")
+
     if save_annotations(merged):
         st.session_state["he_persist_failed"] = False
-        st.success(f"Saved {annotation['eval_id']} as {annotation['evaluator_id']}.")
+        st.session_state[FLASH] = (
+            "good",
+            f"Saved <strong>{annotation['eval_id']}</strong> — overall "
+            f"{annotation['overall_score']:.2f}/5, "
+            f"{'PASS' if annotation['pass'] else 'FAIL'}. "
+            f"That is <strong>{n_mine}</strong> case(s) you have rated.",
+        )
     else:
         st.session_state["he_persist_failed"] = True
-        st.warning(
-            f"Recorded {annotation['eval_id']} in this session, but the filesystem is read-only "
-            "(expected on Streamlit Community Cloud). Download your annotations below and commit "
-            "them to persist."
+        st.session_state[FLASH] = (
+            "warn",
+            f"Recorded <strong>{annotation['eval_id']}</strong> in this session, but the "
+            "filesystem is read-only (expected on Streamlit Community Cloud). Use the download "
+            "button below and commit the file to keep these ratings.",
         )
+
+
+def _show_flash() -> None:
+    """Render and clear the confirmation left by the previous submit."""
+    flash = st.session_state.pop(FLASH, None)
+    if flash:
+        kind, message = flash
+        T.note(message, kind)
 
 
 def _download_block() -> None:
@@ -480,6 +507,8 @@ def render(state: D.EvalState) -> None:
 
     T.section("Your rating", top_rule=True)
     scores, meta = _score_controls(case, existing)
+
+    _show_flash()
 
     col_prev, col_submit, col_skip, _ = st.columns([1, 1.4, 1, 3])
 

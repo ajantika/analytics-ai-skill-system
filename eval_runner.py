@@ -33,6 +33,7 @@ import json
 import logging
 import pathlib
 import sys
+import time
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
@@ -227,6 +228,13 @@ def generate_responses(
 # ── Judging ───────────────────────────────────────────────────────────────────
 
 
+# Groq's free tier caps tokens per minute, and a judge call costs roughly 4,800 of
+# them. Firing calls back to back means every one after the first is rejected, and
+# reactive backoff then wastes more time than it saves. Pacing proactively to just
+# under the sustainable rate turns a 75-minute run of retries into a predictable one.
+JUDGE_PACE_SECONDS = 36.0
+
+
 def judge_all(
     cases_by_id: dict,
     responses: list[dict],
@@ -234,12 +242,20 @@ def judge_all(
     config: RunConfig,
     api_key: Optional[str] = None,
     progress=None,
+    pace_seconds: float = JUDGE_PACE_SECONDS,
 ) -> list[dict]:
     """Run the LLM judge over every successfully generated response."""
     results = []
     usable = [r for r in responses if not r.get("error")]
+    last_call_at = 0.0
 
     for i, resp in enumerate(usable, 1):
+        if pace_seconds and last_call_at:
+            elapsed = time.monotonic() - last_call_at
+            if elapsed < pace_seconds:
+                time.sleep(pace_seconds - elapsed)
+        last_call_at = time.monotonic()
+
         case = cases_by_id.get(resp["eval_id"])
         if not case:
             continue
