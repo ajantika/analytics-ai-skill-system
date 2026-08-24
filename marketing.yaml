@@ -1,6 +1,6 @@
 domain: marketing
 description: Campaign performance, lead generation, pipeline influence, opportunities and revenue attribution
-keywords: [campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend, opportunity, closed, acv, pipeline, revenue, roi, roas, email, webinar, event]
+keywords: [paid social, social, open rate, campaign, traffic, leads, cac, cpl, impressions, clicks, conversion, marketing, ads, attribution, funnel, mql, sql, channels, spend, opportunity, closed, acv, pipeline, revenue, roi, roas, email, webinar, event]
 
 metrics:
   - name: CAC by Channel

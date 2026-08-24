@@ -1,6 +1,6 @@
 domain: csup
 description: Customer support operations — ticket volume, response times, resolution rates, CSAT, and agent performance analytics
-keywords: [tickets, support, csat, resolution, response, sla, escalation, backlog, closed, open, pending, customer support, help desk, agent, queue, time to respond, first response, handle time, reopened, satisfaction, nps, support ops, incident]
+keywords: [reopen, reopen rate, cost per ticket, tickets, support, csat, resolution, response, sla, escalation, backlog, closed, open, pending, customer support, help desk, agent, queue, time to respond, first response, handle time, reopened, satisfaction, nps, support ops, incident]
 
 metrics:
   - name: Ticket Volume (2026 YTD)
