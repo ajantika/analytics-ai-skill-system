@@ -103,72 +103,69 @@ def _rater_bar(state: D.EvalState) -> str:
 
 
 def _case_reference(case: dict, state: D.EvalState) -> None:
-    """Everything the evaluator needs to judge against, before they see any score."""
-    left, right = st.columns([3, 2], gap="medium")
+    """
+    Everything the evaluator needs to judge against, before they see any score.
 
-    with left:
+    Stacked in a single column: this renders inside one half of a side-by-side
+    layout, so it cannot split itself further without the panels becoming unreadably
+    narrow.
+    """
+    st.markdown(
+        T.panel(
+            T.label_text("User question")
+            + T.body_text(case["question"], T.INK, "0.92rem"),
+            accent=T.ACCENT,
+        ),
+        unsafe_allow_html=True,
+    )
+
+    response = state.response_for(case["eval_id"])
+    if response and not response.get("error"):
         st.markdown(
             T.panel(
-                T.label_text("User question")
-                + T.body_text(case["question"], T.INK, "0.95rem"),
-                accent=T.ACCENT,
+                T.label_text("Model response — score this", T.WARN)
+                + T.body_text(T.response_html(response["answer"]), T.TEXT, "0.82rem"),
+                accent=T.WARN,
             ),
             unsafe_allow_html=True,
         )
-        response = state.response_for(case["eval_id"])
-        if response and not response.get("error"):
-            st.markdown(
-                T.panel(
-                    T.label_text("Model response", T.WARN)
-                    + T.body_text(T.response_html(response["answer"]), T.TEXT, "0.84rem"),
-                    accent=T.WARN,
-                ),
-                unsafe_allow_html=True,
-            )
-        else:
-            T.empty_state(
-                "No stored response for this case",
-                "This case has no generated response yet, so there is nothing to rate.",
-                D.GENERATE_COMMAND,
-            )
-
-    with right:
-        st.markdown(
-            T.panel(
-                T.label_text("Expected answer (reference)", T.GOOD)
-                + T.body_text(case["expected_answer_summary"], T.TEXT, "0.8rem"),
-                accent=T.GOOD,
-            ),
-            unsafe_allow_html=True,
-        )
-        st.markdown(
-            T.panel(
-                T.label_text("Expected behaviour", T.GOOD)
-                + T.body_text(case["expected_behavior"], T.TEXT, "0.78rem"),
-                accent=T.GOOD,
-            ),
-            unsafe_allow_html=True,
+    else:
+        T.empty_state(
+            "No stored response for this case",
+            "This case has no generated response yet, so there is nothing to rate.",
+            D.GENERATE_COMMAND,
         )
 
-        required = case.get("required_facts") or []
+    st.markdown(
+        T.panel(
+            T.label_text("Expected answer — your answer key", T.GOOD)
+            + T.body_text(case["expected_answer_summary"], T.TEXT, "0.79rem")
+            + f'<div style="margin-top:8px;padding-top:7px;'
+              f'border-top:1px solid rgba(255,255,255,0.06)">'
+            + T.label_text("Expected behaviour", T.GOOD)
+            + T.body_text(case["expected_behavior"], T.TEXT, "0.76rem")
+            + "</div>",
+            accent=T.GOOD,
+        ),
+        unsafe_allow_html=True,
+    )
+
+    required = case.get("required_facts") or []
+    forbidden = case.get("forbidden_claims") or []
+    if required or forbidden:
+        html = ""
         if required:
-            items = "".join(
+            html += T.label_text("Required facts", T.GOOD) + "".join(
                 T.chip(" | ".join(str(x) for x in f) if isinstance(f, list) else str(f),
                        T.GOOD, "rgba(34,197,94,0.11)")
                 for f in required
             )
-            st.markdown(
-                T.panel(T.label_text("Required facts", T.GOOD) + items, accent=T.GOOD),
-                unsafe_allow_html=True,
-            )
-
-        forbidden = case.get("forbidden_claims") or []
         if forbidden:
-            items = "".join(T.chip(f, T.BAD, "rgba(248,113,113,0.11)") for f in forbidden)
-            st.markdown(
-                T.panel(T.label_text("Forbidden claims", T.BAD) + items, accent=T.BAD),
-                unsafe_allow_html=True,
+            html += ('<div style="height:7px"></div>' if required else "")
+            html += T.label_text("Forbidden claims", T.BAD) + "".join(
+                T.chip(f, T.BAD, "rgba(248,113,113,0.11)") for f in forbidden
             )
+        st.markdown(T.panel(html, accent=T.INFO), unsafe_allow_html=True)
 
     with st.expander("Governed context supplied to the model"):
         skill = case.get("governed_context", {}).get("skill")
@@ -208,58 +205,63 @@ def _case_reference(case: dict, state: D.EvalState) -> None:
             )
 
 
-def _score_controls(case: dict, existing: dict | None) -> tuple[dict, dict]:
-    """The rating form. Returns (scores, meta)."""
+def _score_controls(case: dict, existing: dict | None, compact: bool = True) -> tuple[dict, dict]:
+    """
+    The rating form. Returns (scores, meta).
+
+    Compact by default. The full anchor text for every dimension makes the form about
+    three screens tall, which forces the evaluator to scroll away from the question to
+    reach the submit button and then scroll back to read the next one — a bad loop to
+    repeat twenty times. The selected anchor is shown as one short line; the full
+    rubric stays one click away in the collapsible panel.
+    """
     prior = (existing or {}).get("scores", {})
     scores = {}
 
     st.markdown(
-        f'<p style="color:{T.FAINT};font-size:0.65rem;font-weight:600;text-transform:uppercase;'
-        f'letter-spacing:0.08em;margin:6px 0 2px">Rubric scores — 1 Poor to 5 Excellent</p>',
+        f'<p style="color:{T.FAINT};font-size:0.63rem;font-weight:700;text-transform:uppercase;'
+        f'letter-spacing:0.08em;margin:2px 0 2px">Rubric scores — 1 Poor to 5 Excellent</p>',
         unsafe_allow_html=True,
     )
 
     for dim in DIMENSIONS:
         spec = RUBRIC[dim]
-        col_label, col_slider = st.columns([2, 3], gap="medium")
-        with col_label:
-            st.markdown(
-                f'<div style="padding-top:4px">'
-                f'<div style="color:{T.DIMENSION_COLORS[dim]};font-size:0.83rem;font-weight:700">'
-                f'{spec["label"]}</div>'
-                f'<div style="color:{T.DIM};font-size:0.71rem;line-height:1.5;margin-top:2px">'
-                f'{spec["question"]}</div></div>',
-                unsafe_allow_html=True,
-            )
-        with col_slider:
-            value = st.slider(
-                spec["label"],
-                min_value=1, max_value=5,
-                value=int(prior.get(dim) or 4),
-                key=f"score_{case['eval_id']}_{dim}",
-                label_visibility="collapsed",
-            )
-            scores[dim] = value
-            st.markdown(
-                f'<div style="color:{T.FAINT};font-size:0.7rem;line-height:1.5;margin-top:-8px">'
-                f'<strong style="color:{T.MUTED}">{value} — {SCALE[value]}:</strong> '
-                f'{spec["anchors"][value]}</div>',
-                unsafe_allow_html=True,
-            )
-        st.markdown('<div style="height:6px"></div>', unsafe_allow_html=True)
+        st.markdown(
+            f'<div style="color:{T.DIMENSION_COLORS[dim]};font-size:0.76rem;font-weight:700;'
+            f'margin:2px 0 -14px">{spec["label"]}'
+            f'<span style="color:{T.FAINT};font-weight:400;font-size:0.68rem"> — '
+            f'{spec["question"]}</span></div>',
+            unsafe_allow_html=True,
+        )
+        value = st.slider(
+            spec["label"],
+            min_value=1, max_value=5,
+            value=int(prior.get(dim) or 4),
+            key=f"score_{case['eval_id']}_{dim}",
+            label_visibility="collapsed",
+        )
+        scores[dim] = value
+        anchor = spec["anchors"][value]
+        if compact and len(anchor) > 88:
+            anchor = anchor[:85].rstrip() + "…"
+        st.markdown(
+            f'<div style="color:{T.FAINT};font-size:0.67rem;line-height:1.45;margin-top:-14px">'
+            f'<strong style="color:{T.MUTED}">{value} — {SCALE[value]}:</strong> {anchor}</div>',
+            unsafe_allow_html=True,
+        )
 
-    st.markdown(f'<hr style="margin:10px 0 14px">', unsafe_allow_html=True)
+    st.markdown(f'<hr style="margin:8px 0 10px">', unsafe_allow_html=True)
 
     derived_pass = applies_pass_rule(scores)
     col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
 
     with col1:
         st.markdown(
-            f'<div style="color:{T.MUTED};font-size:0.78rem;font-weight:600;margin-bottom:4px">'
+            f'<div style="color:{T.MUTED};font-size:0.74rem;font-weight:600;margin-bottom:2px">'
             f'Overall verdict</div>'
-            f'<div style="color:{T.FAINT};font-size:0.68rem;line-height:1.5;margin-bottom:6px">'
-            f'The rule gives <strong style="color:{T.GOOD if derived_pass else T.BAD}">'
-            f'{"PASS" if derived_pass else "FAIL"}</strong> for these scores. Override if you disagree.'
+            f'<div style="color:{T.FAINT};font-size:0.66rem;line-height:1.45;margin-bottom:4px">'
+            f'Rule gives <strong style="color:{T.GOOD if derived_pass else T.BAD}">'
+            f'{"PASS" if derived_pass else "FAIL"}</strong>. Override if you disagree.'
             f'</div>',
             unsafe_allow_html=True,
         )
@@ -274,9 +276,9 @@ def _score_controls(case: dict, existing: dict | None) -> tuple[dict, dict]:
 
     with col2:
         st.markdown(
-            f'<div style="color:{T.MUTED};font-size:0.78rem;font-weight:600;margin-bottom:4px">'
+            f'<div style="color:{T.MUTED};font-size:0.74rem;font-weight:600;margin-bottom:2px">'
             f'Failure mode</div>'
-            f'<div style="color:{T.FAINT};font-size:0.68rem;line-height:1.5;margin-bottom:6px">'
+            f'<div style="color:{T.FAINT};font-size:0.66rem;line-height:1.45;margin-bottom:4px">'
             f'The one a reviewer would fix first.</div>',
             unsafe_allow_html=True,
         )
@@ -301,10 +303,10 @@ def _score_controls(case: dict, existing: dict | None) -> tuple[dict, dict]:
 
     with col3:
         st.markdown(
-            f'<div style="color:{T.MUTED};font-size:0.78rem;font-weight:600;margin-bottom:4px">'
+            f'<div style="color:{T.MUTED};font-size:0.74rem;font-weight:600;margin-bottom:2px">'
             f'Your confidence</div>'
-            f'<div style="color:{T.FAINT};font-size:0.68rem;line-height:1.5;margin-bottom:6px">'
-            f'How sure are you of this rating? Low confidence marks cases worth reviewing as a batch.'
+            f'<div style="color:{T.FAINT};font-size:0.66rem;line-height:1.45;margin-bottom:4px">'
+            f'How sure are you? Low confidence flags cases worth reviewing later.'
             f'</div>',
             unsafe_allow_html=True,
         )
@@ -321,12 +323,11 @@ def _score_controls(case: dict, existing: dict | None) -> tuple[dict, dict]:
         )
 
     notes = st.text_area(
-        "Notes — what drove your lowest score?",
+        "Notes — what drove your lowest score? (optional)",
         value=(existing or {}).get("notes", ""),
-        placeholder="Name the specific claim or figure. This is what makes a disagreement "
-                    "diagnosable later.",
+        placeholder="Name the specific claim or figure.",
         key=f"notes_{case['eval_id']}",
-        height=80,
+        height=68,
     )
 
     return scores, {
@@ -519,19 +520,25 @@ def render(state: D.EvalState) -> None:
     )
     st.markdown(f'<div style="margin-bottom:8px">{meta_chips}</div>', unsafe_allow_html=True)
 
-    _case_reference(case, state)
-
     existing = next((a for a in annotations
                      if a["eval_id"] == case["eval_id"] and a["evaluator_id"] == rater_id), None)
-    if existing:
-        T.note(
-            f"You already rated this case (overall {T.score(existing.get('overall_score'))}/5). "
-            "Submitting again replaces that rating.",
-            "info",
-        )
 
-    T.section("Your rating", top_rule=True)
-    scores, meta = _score_controls(case, existing)
+    # Reference on the left, scoring on the right, so the question stays on screen
+    # while the evaluator scores it. Stacking them vertically meant scrolling away
+    # from the question to reach submit, then back up to read the next one.
+    col_ref, col_score = st.columns([1, 1], gap="large")
+
+    with col_ref:
+        _case_reference(case, state)
+
+    with col_score:
+        if existing:
+            T.note(
+                f"You already rated this case (overall "
+                f"{T.score(existing.get('overall_score'))}/5). Submitting replaces it.",
+                "info",
+            )
+        scores, meta = _score_controls(case, existing)
 
     _show_flash()
     _now_rating_strip(case, index, len(queue))
