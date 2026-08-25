@@ -56,170 +56,227 @@
         },
         "judge": {
           "n": 60,
-          "n_parsed": 38,
-          "parse_success_rate": 0.6333333333333333,
-          "mean_overall_score": 4.807017543859649,
+          "n_parsed": 60,
+          "parse_success_rate": 1.0,
+          "mean_overall_score": 4.741666666666666,
           "by_dimension": {
-            "relevance": 4.842105263157895,
-            "groundedness": 4.7105263157894735,
-            "correctness": 4.894736842105263,
-            "instruction_following": 4.7894736842105265,
-            "helpfulness": 4.7368421052631575,
-            "clarity": 4.868421052631579
+            "relevance": 4.733333333333333,
+            "groundedness": 4.683333333333334,
+            "correctness": 4.8,
+            "instruction_following": 4.8,
+            "helpfulness": 4.6,
+            "clarity": 4.833333333333333
           },
-          "pass_rate": 0.9473684210526315,
+          "pass_rate": 0.9166666666666666,
           "critical_failure_rate": 0.0,
-          "mean_confidence": 0.9355263157894737,
+          "mean_confidence": 0.9538333333333333,
           "arithmetic_error_rate": 0.0,
-          "pass_rule_error_rate": 0.02631578947368421,
+          "pass_rule_error_rate": 0.016666666666666666,
           "off_taxonomy_rate": 0.0,
           "models_used": [
             "openai/gpt-oss-120b",
             "openai/gpt-oss-20b"
           ],
-          "mean_latency_seconds": 28.278210526315792
+          "mean_latency_seconds": 18.322116666666666
         },
         "alignment": {
           "human_only": {
-            "n": 0
-          },
-          "demo_only": {
-            "n": 38,
-            "human_mean_score": 4.072368421052632,
-            "judge_mean_score": 4.807017543859649,
-            "score_gap": 0.7346491228070171,
-            "human_pass_rate": 0.5,
-            "judge_pass_rate": 0.9473684210526315,
-            "exact_agreement": 0.15789473684210525,
-            "within_1_agreement": 0.6578947368421053,
-            "pass_agreement": 0.5,
-            "kappa_pass": 0.0,
-            "pearson": 0.14378464437544886,
-            "spearman": -0.07138460328091395,
-            "disagreement_rate": 0.7368421052631579,
+            "n": 18,
+            "human_mean_score": 4.453703703703704,
+            "judge_mean_score": 4.953703703703704,
+            "score_gap": 0.5,
+            "human_pass_rate": 1.0,
+            "judge_pass_rate": 1.0,
+            "exact_agreement": 0.4444444444444444,
+            "within_1_agreement": 0.8888888888888888,
+            "pass_agreement": 1.0,
+            "kappa_pass": null,
+            "pearson": -0.11740350855121554,
+            "spearman": -0.03998914228170264,
+            "disagreement_rate": 0.2222222222222222,
             "bias_direction": "lenient",
             "by_dimension": {
               "relevance": {
-                "within_1": 0.6052631578947368,
-                "kappa_quadratic": 0.07977207977207978,
-                "human_mean": 4.407894736842105,
-                "judge_mean": 4.842105263157895,
-                "n": 38
+                "within_1": 0.9444444444444444,
+                "kappa_quadratic": 0.0,
+                "human_mean": 4.611111111111111,
+                "judge_mean": 5.0,
+                "n": 18
               },
               "groundedness": {
-                "within_1": 0.3684210526315789,
-                "kappa_quadratic": -0.07261653783087363,
-                "human_mean": 2.9342105263157894,
-                "judge_mean": 4.7105263157894735,
-                "n": 38
+                "within_1": 0.8888888888888888,
+                "kappa_quadratic": 0.06666666666666654,
+                "human_mean": 4.5,
+                "judge_mean": 4.722222222222222,
+                "n": 18
               },
               "correctness": {
-                "within_1": 0.6578947368421053,
-                "kappa_quadratic": 0.07795185326709986,
-                "human_mean": 3.6578947368421053,
-                "judge_mean": 4.894736842105263,
-                "n": 38
+                "within_1": 0.9444444444444444,
+                "kappa_quadratic": 0.0,
+                "human_mean": 4.555555555555555,
+                "judge_mean": 5.0,
+                "n": 18
               },
               "instruction_following": {
-                "within_1": 0.9473684210526315,
+                "within_1": 0.9444444444444444,
                 "kappa_quadratic": 0.0,
-                "human_mean": 5.0,
-                "judge_mean": 4.7894736842105265,
-                "n": 38
+                "human_mean": 4.444444444444445,
+                "judge_mean": 5.0,
+                "n": 18
               },
               "helpfulness": {
-                "within_1": 0.7105263157894737,
-                "kappa_quadratic": 0.09881422924901184,
-                "human_mean": 3.960526315789474,
-                "judge_mean": 4.7368421052631575,
-                "n": 38
+                "within_1": 0.8888888888888888,
+                "kappa_quadratic": 0.0,
+                "human_mean": 4.277777777777778,
+                "judge_mean": 5.0,
+                "n": 18
               },
               "clarity": {
-                "within_1": 0.9736842105263158,
+                "within_1": 0.8333333333333334,
                 "kappa_quadratic": 0.0,
-                "human_mean": 4.473684210526316,
-                "judge_mean": 4.868421052631579,
-                "n": 38
+                "human_mean": 4.333333333333333,
+                "judge_mean": 5.0,
+                "n": 18
+              }
+            }
+          },
+          "demo_only": {
+            "n": 60,
+            "human_mean_score": 4.1097222222222225,
+            "judge_mean_score": 4.741666666666666,
+            "score_gap": 0.6319444444444438,
+            "human_pass_rate": 0.48333333333333334,
+            "judge_pass_rate": 0.9166666666666666,
+            "exact_agreement": 0.23333333333333334,
+            "within_1_agreement": 0.6833333333333333,
+            "pass_agreement": 0.5333333333333333,
+            "kappa_pass": 0.09189189189189195,
+            "pearson": 0.25633030293483605,
+            "spearman": 0.17088673041631305,
+            "disagreement_rate": 0.6833333333333333,
+            "bias_direction": "lenient",
+            "by_dimension": {
+              "relevance": {
+                "within_1": 0.6166666666666667,
+                "kappa_quadratic": 0.06438631790744465,
+                "human_mean": 4.475,
+                "judge_mean": 4.733333333333333,
+                "n": 60
+              },
+              "groundedness": {
+                "within_1": 0.4666666666666667,
+                "kappa_quadratic": -0.04389561043895607,
+                "human_mean": 3.1083333333333334,
+                "judge_mean": 4.683333333333334,
+                "n": 60
+              },
+              "correctness": {
+                "within_1": 0.6666666666666666,
+                "kappa_quadratic": 0.07407407407407396,
+                "human_mean": 3.675,
+                "judge_mean": 4.8,
+                "n": 60
+              },
+              "instruction_following": {
+                "within_1": 0.95,
+                "kappa_quadratic": 0.0,
+                "human_mean": 5.0,
+                "judge_mean": 4.8,
+                "n": 60
+              },
+              "helpfulness": {
+                "within_1": 0.7333333333333333,
+                "kappa_quadratic": 0.1777777777777777,
+                "human_mean": 3.933333333333333,
+                "judge_mean": 4.6,
+                "n": 60
+              },
+              "clarity": {
+                "within_1": 0.9666666666666667,
+                "kappa_quadratic": 0.0,
+                "human_mean": 4.466666666666667,
+                "judge_mean": 4.833333333333333,
+                "n": 60
               }
             }
           },
           "combined": {
-            "n": 38,
-            "human_mean_score": 4.072368421052632,
-            "judge_mean_score": 4.807017543859649,
-            "score_gap": 0.7346491228070171,
-            "human_pass_rate": 0.5,
-            "judge_pass_rate": 0.9473684210526315,
-            "exact_agreement": 0.15789473684210525,
-            "within_1_agreement": 0.6578947368421053,
-            "pass_agreement": 0.5,
-            "kappa_pass": 0.0,
-            "pearson": 0.14378464437544886,
-            "spearman": -0.07138460328091395,
-            "disagreement_rate": 0.7368421052631579,
+            "n": 60,
+            "human_mean_score": 4.141666666666667,
+            "judge_mean_score": 4.741666666666666,
+            "score_gap": 0.5999999999999996,
+            "human_pass_rate": 0.48333333333333334,
+            "judge_pass_rate": 0.9166666666666666,
+            "exact_agreement": 0.25,
+            "within_1_agreement": 0.7166666666666667,
+            "pass_agreement": 0.5333333333333333,
+            "kappa_pass": 0.09189189189189195,
+            "pearson": 0.28617796347768437,
+            "spearman": 0.19702869465736356,
+            "disagreement_rate": 0.6333333333333333,
             "bias_direction": "lenient",
             "by_dimension": {
               "relevance": {
-                "within_1": 0.6052631578947368,
-                "kappa_quadratic": 0.07977207977207978,
-                "human_mean": 4.407894736842105,
-                "judge_mean": 4.842105263157895,
-                "n": 38
+                "within_1": 0.6666666666666666,
+                "kappa_quadratic": 0.05594405594405594,
+                "human_mean": 4.486111111111112,
+                "judge_mean": 4.733333333333333,
+                "n": 60
               },
               "groundedness": {
-                "within_1": 0.3684210526315789,
-                "kappa_quadratic": -0.07261653783087363,
-                "human_mean": 2.9342105263157894,
-                "judge_mean": 4.7105263157894735,
-                "n": 38
+                "within_1": 0.5166666666666667,
+                "kappa_quadratic": -0.04245771487745942,
+                "human_mean": 3.2722222222222226,
+                "judge_mean": 4.683333333333334,
+                "n": 60
               },
               "correctness": {
-                "within_1": 0.6578947368421053,
-                "kappa_quadratic": 0.07795185326709986,
-                "human_mean": 3.6578947368421053,
-                "judge_mean": 4.894736842105263,
-                "n": 38
+                "within_1": 0.6666666666666666,
+                "kappa_quadratic": 0.10916580844490209,
+                "human_mean": 3.7583333333333333,
+                "judge_mean": 4.8,
+                "n": 60
               },
               "instruction_following": {
-                "within_1": 0.9473684210526315,
-                "kappa_quadratic": 0.0,
-                "human_mean": 5.0,
-                "judge_mean": 4.7894736842105265,
-                "n": 38
+                "within_1": 0.95,
+                "kappa_quadratic": -0.008230452674897304,
+                "human_mean": 4.944444444444445,
+                "judge_mean": 4.8,
+                "n": 60
               },
               "helpfulness": {
-                "within_1": 0.7105263157894737,
-                "kappa_quadratic": 0.09881422924901184,
-                "human_mean": 3.960526315789474,
-                "judge_mean": 4.7368421052631575,
-                "n": 38
+                "within_1": 0.7333333333333333,
+                "kappa_quadratic": 0.21534936998854537,
+                "human_mean": 3.936111111111111,
+                "judge_mean": 4.6,
+                "n": 60
               },
               "clarity": {
-                "within_1": 0.9736842105263158,
-                "kappa_quadratic": 0.0,
-                "human_mean": 4.473684210526316,
-                "judge_mean": 4.868421052631579,
-                "n": 38
+                "within_1": 0.9666666666666667,
+                "kappa_quadratic": 0.03883495145631055,
+                "human_mean": 4.452777777777778,
+                "judge_mean": 4.833333333333333,
+                "n": 60
               }
             }
           }
         },
         "coverage": {
           "total_cases": 60,
-          "human_annotated": 0,
+          "human_annotated": 18,
           "demo_annotated": 60,
-          "judge_evaluated": 38,
-          "human_coverage": 0.0,
+          "judge_evaluated": 60,
+          "human_coverage": 0.3,
           "demo_coverage": 1.0,
-          "judge_coverage": 0.6333333333333333,
-          "human_and_judge": 0,
-          "demo_and_judge": 38
+          "judge_coverage": 1.0,
+          "human_and_judge": 18,
+          "demo_and_judge": 60
         },
         "failure_distribution": {
           "judge": {
-            "unsupported_claim": 2,
+            "unsupported_claim": 3,
             "missing_context_failure": 1,
-            "incomplete_answer": 3
+            "incomplete_answer": 5
           },
           "human": {},
           "demo_profiles": {

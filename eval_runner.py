@@ -243,10 +243,24 @@ def judge_all(
     api_key: Optional[str] = None,
     progress=None,
     pace_seconds: float = JUDGE_PACE_SECONDS,
+    keep: Optional[list[dict]] = None,
 ) -> list[dict]:
-    """Run the LLM judge over every successfully generated response."""
-    results = []
-    usable = [r for r in responses if not r.get("error")]
+    """
+    Run the LLM judge over every successfully generated response.
+
+    `keep` carries forward judgements from a previous pass; any case already judged
+    successfully is skipped. A full 60-case pass costs more tokens than a free-tier
+    daily budget allows, so re-judging work that already succeeded is not merely
+    wasteful — it makes completing the set impossible.
+    """
+    # Only successful judgements carry forward. Keeping the failures too would leave a
+    # stale failed record beside each newly successful one for the same case, inflating
+    # the denominator and reporting a parse success rate that never happened.
+    results = [r for r in (keep or []) if r.get("parse_ok")]
+    already = {r["eval_id"] for r in results}
+    usable = [r for r in responses if not r.get("error") and r["eval_id"] not in already]
+    if already:
+        logger.info(f"reusing {len(already)} existing judgements, judging {len(usable)} remaining")
     last_call_at = 0.0
 
     for i, resp in enumerate(usable, 1):
@@ -636,6 +650,8 @@ def main(argv: Optional[list[str]] = None) -> int:
     p.add_argument("--list", action="store_true", help="list stored runs")
     p.add_argument("--compare", nargs=2, metavar=("BASELINE", "CURRENT"), help="compare two run ids")
     p.add_argument("--run-id", help="target run id for --judge")
+    p.add_argument("--only-missing", action="store_true",
+                   help="with --judge, only judge cases that have no successful judgement yet")
     p.add_argument("--label", default="", help="human-readable label for this run")
     p.add_argument("--notes", default="", help="what this run is testing")
     p.add_argument("--model", help=f"generator model (default {DEFAULT_MODEL})")
@@ -703,7 +719,8 @@ def main(argv: Optional[list[str]] = None) -> int:
             print("No GROQ_API_KEY found. export GROQ_API_KEY='...' and retry.")
             return 1
 
-        results = judge_all(cases_by_id, responses, domains, config, key)
+        existing = load_judge_results(run_id) if args.only_missing else None
+        results = judge_all(cases_by_id, responses, domains, config, key, keep=existing)
         payload = {"config": asdict(config), "results": results}
         _write_json(RUNS_DIR / run_id / "judge_results.json", payload)
         _write_json(CURRENT_JUDGE, payload)
