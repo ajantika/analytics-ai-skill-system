@@ -69,6 +69,9 @@ RUNS_INDEX = DATA_DIR / "evaluation_runs.json"
 CURRENT_RESPONSES = DATA_DIR / "model_responses.json"
 CURRENT_JUDGE = DATA_DIR / "judge_results.json"
 
+# Generation calls are cheaper than judge calls, so they can run closer together.
+GENERATION_PACE_SECONDS = 14.0
+
 
 # ── Run configuration ─────────────────────────────────────────────────────────
 
@@ -157,6 +160,7 @@ def generate_responses(
     config: RunConfig,
     api_key: Optional[str] = None,
     progress=None,
+    pace_seconds: float = GENERATION_PACE_SECONDS,
 ) -> tuple[list[dict], list[dict]]:
     """
     Route each case, build its governed context, call the model, and run the
@@ -167,8 +171,19 @@ def generate_responses(
     """
     router_fn = ROUTER_VERSIONS[config.router_version]
     responses, deterministic = [], []
+    last_call_at = 0.0
 
     for i, case in enumerate(cases, 1):
+        # Paced for the same reason the judge pass is. Generation was left unpaced,
+        # and the first baseline run lost its last five cases to rate limiting after
+        # the budget was drained — a silent hole in the comparison rather than a
+        # visible failure.
+        if pace_seconds and last_call_at:
+            elapsed = time.monotonic() - last_call_at
+            if elapsed < pace_seconds:
+                time.sleep(pace_seconds - elapsed)
+        last_call_at = time.monotonic()
+
         routing = router_fn(case["question"], domains)
 
         # The case declares which skill supplies the governed context. Where it
@@ -233,6 +248,7 @@ def generate_responses(
 # reactive backoff then wastes more time than it saves. Pacing proactively to just
 # under the sustainable rate turns a 75-minute run of retries into a predictable one.
 JUDGE_PACE_SECONDS = 36.0
+
 
 
 def judge_all(

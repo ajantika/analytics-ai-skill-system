@@ -3730,6 +3730,3291 @@
           "legacy_quality_label": "MEDIUM"
         }
       ]
+    },
+    {
+      "config": {
+        "run_id": "run-20260825-052533-7413",
+        "timestamp": "2026-08-25T05:25:33+00:00",
+        "label": "baseline prompt v1",
+        "model_version": "openai/gpt-oss-20b",
+        "system_prompt_version": "sysprompt-v1",
+        "router_version": "v3_idf_weighted",
+        "judge_version": "judge-v1",
+        "judge_model": null,
+        "dataset_version": "1.0.0",
+        "n_cases": 60,
+        "temperature": 0.2,
+        "notes": "Generation-only baseline for prompt regression. Judge scores omitted: a full judge pass exceeds the free-tier daily budget. Deterministic and routing metrics are directly comparable to the sysprompt-v2 run.",
+        "artifact_kind": "real_model_run",
+        "demo_rater_ids": [
+          "demo_strict",
+          "demo_lenient"
+        ]
+      },
+      "summary": {
+        "generation": {
+          "n_cases": 60,
+          "n_responses": 60,
+          "n_errors": 5,
+          "mean_latency_seconds": 10.680345454545455,
+          "mean_answer_chars": 459.8181818181818
+        },
+        "routing": {
+          "accuracy": 0.8813559322033898,
+          "correct": 52,
+          "total": 59,
+          "n_excluded_ambiguous": 1,
+          "no_match_count": 2,
+          "tie_count": 8,
+          "silent_misroutes": 1
+        },
+        "deterministic": {
+          "n": 55,
+          "verdict_pass_rate": 0.7454545454545455,
+          "numeric_grounding_pass_rate": 0.6545454545454545,
+          "metric_recognition_pass_rate": 1.0,
+          "required_facts_pass_rate": 0.9047619047619048,
+          "required_facts_n": 42,
+          "forbidden_claims_violation_rate": 0.06976744186046512,
+          "forbidden_claims_n": 43,
+          "routing_accuracy": 0.8727272727272727,
+          "routing_n": 55,
+          "relevance_pass_rate": 0.7090909090909091,
+          "unsupported_claim_rate": 0.03636363636363636,
+          "mean_required_fact_coverage": 0.9325396825396824
+        },
+        "judge": {
+          "n": 0,
+          "n_parsed": 0
+        },
+        "alignment": {
+          "human_only": {
+            "n": 0
+          },
+          "demo_only": {
+            "n": 0
+          },
+          "combined": {
+            "n": 0
+          }
+        },
+        "coverage": {
+          "total_cases": 60,
+          "human_annotated": 18,
+          "demo_annotated": 55,
+          "judge_evaluated": 0,
+          "human_coverage": 0.3,
+          "demo_coverage": 0.9166666666666666,
+          "judge_coverage": 0.0,
+          "human_and_judge": 0,
+          "demo_and_judge": 0
+        },
+        "failure_distribution": {
+          "judge": {},
+          "human": {},
+          "demo_profiles": {
+            "hallucinated_number": 12,
+            "unsafe_or_policy_issue": 2,
+            "wrong_domain": 14,
+            "missing_context_failure": 12,
+            "incomplete_answer": 4
+          }
+        }
+      },
+      "deterministic_records": [
+        {
+          "eval_id": "PRD-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "694",
+                  "matched": "694"
+                },
+                {
+                  "required": "24.4%",
+                  "matched": "24.4%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9609933481152994,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-002",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "6/6 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "LATAM",
+                  "matched": "LATAM"
+                },
+                {
+                  "required": "41%",
+                  "matched": "41%"
+                },
+                {
+                  "required": "18%",
+                  "matched": "18%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-003",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$1.4M",
+                  "matched": "$1.4M"
+                },
+                {
+                  "required": "694",
+                  "matched": "694"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.880701754385965,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-004",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "5/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "52%",
+                  "matched": "52%"
+                },
+                {
+                  "required": "71%",
+                  "matched": "71%"
+                },
+                {
+                  "required": "$890K",
+                  "matched": "$890K"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-005",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 6 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9725324675324676,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-006",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "8/9 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "24.4%",
+                  "matched": "24.4%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9851090909090909,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-007",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "41%",
+                  "matched": "41%"
+                },
+                {
+                  "required": "18%",
+                  "matched": "18%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 5 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9205313092979127,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-008",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "42.3%",
+                  "matched": "42.3%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8405313092979128,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-009",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "1/1 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$4.2M",
+                  "matched": "$4.2M"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-010",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "5/7 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "1,203",
+                  "matched": "1,203"
+                },
+                {
+                  "required": "694",
+                  "matched": "694"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8164542253521127,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-011",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "6/8 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "sales",
+              "expected": "product_usage",
+              "detail": "Routed to sales; case expects product_usage.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9113636363636364,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "PRD-012",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 0/1 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "product_usage",
+              "expected": "product_usage",
+              "detail": "Routed to product_usage as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7019836956521739,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "SLS-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Sarah M",
+                  "matched": "Sarah M"
+                },
+                {
+                  "required": "23.4%",
+                  "matched": "23.4%"
+                },
+                {
+                  "required": "11.2%",
+                  "matched": "11.2%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-002",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "3.8x",
+                  "matched": "3.8x"
+                },
+                {
+                  "required": "$18.7M",
+                  "matched": "$18.7M"
+                },
+                {
+                  "required": "$4.9M",
+                  "matched": "$4.9M"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "marketing",
+              "expected": "sales",
+              "detail": "Routed to marketing; case expects sales.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-003",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 1/4 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$8,400",
+                  "matched": "$8,400"
+                },
+                {
+                  "required": "$34,200",
+                  "matched": "$34,200"
+                },
+                {
+                  "required": "$142,000",
+                  "matched": "$142,000"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.747,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "SLS-004",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$89K",
+                  "matched": "$89K"
+                },
+                {
+                  "required": "89",
+                  "matched": "89"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8775000000000001,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-005",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "2/3 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "109%",
+                  "matched": "109%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8170000000000001,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-006",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "23.4%",
+                  "matched": "23.4%"
+                },
+                {
+                  "required": "11.2%",
+                  "matched": "11.2%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "hr",
+              "expected": "sales",
+              "detail": "Routed to hr; case expects sales.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-007",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "forbidden_claims",
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 0/1 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "FAIL",
+              "violations": [
+                "last year"
+              ],
+              "detail": "Forbidden phrase present: 'last year'",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.5527272727272727,
+          "legacy_quality_label": "LOW"
+        },
+        {
+          "eval_id": "SLS-008",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "required_facts",
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 0/3 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "FAIL",
+              "found": [],
+              "missing": [
+                "$14.6M",
+                "78%"
+              ],
+              "coverage": 0.0,
+              "detail": "Only 0/2 required facts present. Missing: $14.6M, 78%.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7075,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "SLS-009",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Sarah M",
+                  "matched": "Sarah M"
+                },
+                {
+                  "required": "23.4%",
+                  "matched": "23.4%"
+                },
+                {
+                  "required": "James K",
+                  "matched": "James K"
+                },
+                {
+                  "required": "19.8%",
+                  "matched": "19.8%"
+                },
+                {
+                  "required": "Priya R",
+                  "matched": "Priya R"
+                },
+                {
+                  "required": "17.1%",
+                  "matched": "17.1%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 6 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9001644736842106,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-010",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "9/18 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.897,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-011",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "2/3 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "WARN",
+              "found": [
+                {
+                  "required": "312",
+                  "matched": "312"
+                }
+              ],
+              "missing": [
+                "$312K"
+              ],
+              "coverage": 0.5,
+              "detail": "1/2 required facts present. Missing: $312K.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "sales",
+              "expected": "sales",
+              "detail": "Routed to sales as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8547817047817048,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SLS-012",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "1/1 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "2.1x",
+                  "matched": "2.1x"
+                },
+                {
+                  "required": "3x",
+                  "matched": "3x"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "marketing",
+              "expected": "sales",
+              "detail": "Routed to marketing; case expects sales.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "3/3 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Email Nurture",
+                  "matched": "Email Nurture"
+                },
+                {
+                  "required": "312",
+                  "matched": "312"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9294565217391304,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-002",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "4/6 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$890",
+                  "matched": "$890"
+                },
+                {
+                  "required": "$3,420",
+                  "matched": "$3,420"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8170000000000001,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-003",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 2/7 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Referral",
+                  "matched": "Referral"
+                },
+                {
+                  "required": "$45,200",
+                  "matched": "$45,200"
+                },
+                {
+                  "required": "$1,580",
+                  "matched": "$1,580"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.6902325581395349,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "MKT-004",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "5/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "33.1%",
+                  "matched": "33.1%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9877518796992482,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-005",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "4/8 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "$3,420",
+                  "matched": "$3,420"
+                },
+                {
+                  "required": "18%",
+                  "matched": "18%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 5 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.897,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-006",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "No specific figures found in answer \u2014 may be too general.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "FOUND",
+              "detail": "Possible unsupported generalisation: 'industry standard'",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7010439560439561,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "MKT-007",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "No specific figures found in answer \u2014 may be too general.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "sales",
+              "expected": "marketing",
+              "detail": "Routed to sales; case expects marketing.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8138571428571428,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-008",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "2/3 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Referral",
+                  "matched": "Referral"
+                },
+                {
+                  "required": "$45,200",
+                  "matched": "$45,200"
+                },
+                {
+                  "required": "Organic",
+                  "matched": "Organic"
+                },
+                {
+                  "required": "$31,400",
+                  "matched": "$31,400"
+                },
+                {
+                  "required": "$28,100",
+                  "matched": "$28,100"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 5 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7775000000000001,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "MKT-009",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "6/9 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.897,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-010",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "WARN",
+              "found": [
+                {
+                  "required": "423",
+                  "matched": "423"
+                },
+                {
+                  "required": "44.2%",
+                  "matched": "44.2%"
+                }
+              ],
+              "missing": [
+                "187"
+              ],
+              "coverage": 0.6666666666666666,
+              "detail": "2/3 required facts present. Missing: 187.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9202631578947369,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "MKT-011",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "required_facts",
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 0/3 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "FAIL",
+              "found": [],
+              "missing": [
+                "$3.1M",
+                "$2.8M",
+                "89",
+                "312"
+              ],
+              "coverage": 0.0,
+              "detail": "Only 0/4 required facts present. Missing: $3.1M, $2.8M, 89, 312.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7140882352941176,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "HRA-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Engineering",
+                  "matched": "Engineering"
+                },
+                {
+                  "required": "18.7%",
+                  "matched": "18.7%"
+                },
+                {
+                  "required": "16.2%",
+                  "matched": "16.2%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-002",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "6/7 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "87%",
+                  "matched": "87%"
+                },
+                {
+                  "required": "71%",
+                  "matched": "71%"
+                },
+                {
+                  "required": "102%",
+                  "matched": "102%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-003",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "4.2%",
+                  "matched": "4.2%"
+                },
+                {
+                  "required": "52",
+                  "matched": "52"
+                },
+                {
+                  "required": "3%",
+                  "matched": "3%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-004",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "7/7 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "18.7%",
+                  "matched": "18.7%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-005",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "forbidden_claims"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "No specific figures found in answer \u2014 may be too general.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "FAIL",
+              "violations": [
+                "should be placed on a performance improvement plan"
+              ],
+              "detail": "Forbidden phrase present: 'should be placed on a performance improvement plan'",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.795,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "HRA-006",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "No specific figures found in answer \u2014 may be too general.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.897,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-007",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "12/12 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "18.7%",
+                  "matched": "18.7%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.895,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-008",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "1/1 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "+34",
+                  "matched": "+34"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Answer is very short \u2014 may not fully address the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-009",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "8/8 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-010",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "5/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "91.3%",
+                  "matched": "91.3%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9789941348973606,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "HRA-011",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "8/8 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "Engineering",
+                  "matched": "Engineering"
+                },
+                {
+                  "required": "+18",
+                  "matched": "+18"
+                },
+                {
+                  "required": "18.7%",
+                  "matched": "18.7%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 3 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "hr",
+              "expected": "hr",
+              "detail": "Routed to hr as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "7/7 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "87.3%",
+                  "matched": "87.3%"
+                },
+                {
+                  "required": "90%",
+                  "matched": "90%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 1 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-002",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "8/8 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "94.2%",
+                  "matched": "94.2%"
+                },
+                {
+                  "required": "95%",
+                  "matched": "95%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-003",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "6/6 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "35,109",
+                  "matched": "35,109"
+                },
+                {
+                  "required": "91.4%",
+                  "matched": "91.4%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-004",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "2/2 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "12m",
+                  "matched": "12 minutes"
+                },
+                {
+                  "required": "15m",
+                  "matched": "15 minutes"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.997,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-005",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "7/7 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "6.2%",
+                  "matched": "6.2%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.9874085850556439,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-006",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "forbidden_claims",
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "5/5 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "11.3",
+                  "matched": "11.3"
+                },
+                {
+                  "required": "18.4",
+                  "matched": "18.4"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "FAIL",
+              "violations": [
+                "terminate"
+              ],
+              "detail": "Forbidden phrase present: 'terminate'",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "hr",
+              "expected": "csup",
+              "detail": "Routed to hr; case expects csup.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8150000000000001,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-007",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "1/1 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 2 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "FOUND",
+              "detail": "Possible unsupported generalisation: 'industry standard'",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8203030303030303,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-008",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "No specific figures found in answer \u2014 may be too general.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "Referenced metrics found in governed semantic layer.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.7926793248945148,
+          "legacy_quality_label": "MEDIUM"
+        },
+        {
+          "eval_id": "SUP-009",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "expected_domain"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "4/4 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "91.2%",
+                  "matched": "91.2%"
+                },
+                {
+                  "required": "88.6%",
+                  "matched": "88.6%"
+                },
+                {
+                  "required": "84.1%",
+                  "matched": "84.1%"
+                },
+                {
+                  "required": "79.4%",
+                  "matched": "79.4%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 4 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "FAIL",
+              "routed": "marketing",
+              "expected": "csup",
+              "detail": "Routed to marketing; case expects csup.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8150000000000001,
+          "legacy_quality_label": "HIGH"
+        }
+      ]
     }
   ]
 }
