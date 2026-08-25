@@ -69,8 +69,8 @@ and correctness first and keeping human review on helpfulness and clarity.
 ### A prompt change reasoned from real failures made things worse
 
 `sysprompt-v2` was written to fix observed instruction-following and missing-context
-failures. Measured against a baseline run under the original prompt, it was a 17-point
-regression on required-fact coverage. It was not shipped. Details in
+failures. Measured against a baseline run under the original prompt, it was a 16-point
+regression on required-fact coverage across all 60 cases. It was not shipped. Details in
 [How evaluation feeds product improvement](#how-evaluation-feeds-product-improvement).
 
 Both findings are the same argument: an evaluation number you have not checked against a
@@ -215,16 +215,16 @@ page load, so the before-and-after is evidence rather than narration:
 | 1 | `"pipeline coverage"` routed to Product — `"coverage"` contains the keyword `"overage"` | `v2_token_aware`: word-boundary matching | Substring false positives eliminated; accuracy barely moved — the bug was real but not dominant |
 | 2 | Most remaining misroutes were **ties** broken by dict iteration order | `v3_idf_weighted`: inverse-domain-frequency weighting; no-match and ties flagged explicitly | Routing accuracy **76.3% → 88.1%**; silent misroutes **10 → 1** |
 | 3 | Five cases matched *no* keyword — skill files listed `reopened` but not `reopen`, defined NRR but never listed `nrr` | Added the missing terms to three skill files | Three of five resolved; the other two ask about named individuals and are left failing and visible |
-| 4 | Every `instruction_following` case failed — the prompt hard-coded *"use these exact headers"* | `sysprompt-v2`: template becomes a default that explicit user instructions override, plus premise-checking and an explicit "not in the governed layer" outcome | **Rejected.** Required-fact pass rate **90% → 73%**, grounding **66% → 57%**. Not shipped |
+| 4 | Every `instruction_following` case failed — the prompt hard-coded *"use these exact headers"* | `sysprompt-v2`: template becomes a default that explicit user instructions override, plus premise-checking and an explicit "not in the governed layer" outcome | **Rejected.** Required-fact pass rate **89% → 73%**, grounding **65% → 57%**. Not shipped |
 
 Case 4 is the one worth reading twice. The change was reasoned from real failures and
-predicted to help. Measured against a baseline run under the original prompt, it was a
-17-point regression on the metric that matters most: whether the answer actually contains
-the figures the reference requires.
+predicted to help. Measured against a baseline run under the original prompt across the
+full 60 cases, it was a 16-point regression on the metric that matters most: whether the
+answer actually contains the figures the reference requires.
 
 The mechanism is visible in the responses. Telling the model to decline when the governed
 layer lacks an answer, and to mark inference explicitly, made it hedge on questions it
-could answer. The two metrics that improved — unsupported claims 4% → 0%, forbidden-claim
+could answer. The two metrics that improved — unsupported claims 3% → 0%, forbidden-claim
 violations 7% → 4% — are the ones that reward saying less. That is a real effect and the
 wrong trade for an assistant whose job is reporting governed figures.
 
@@ -232,9 +232,11 @@ Both prompt versions remain callable and the default is unchanged. One determini
 comparison is not sufficient grounds to switch, and the judge and human dimensions that
 would confirm the trade-off are not yet measured on the baseline.
 
-*(The baseline lost its final five cases to rate limiting on a free-tier daily budget, so
-the comparison rests on 55 v1 cases against 60 v2 cases. The gap is disclosed on the
-Regression page. Generation is now paced to prevent a recurrence.)*
+*(An earlier version of this comparison rested on 55 v1 cases: the baseline lost its final
+five to rate limiting on a free-tier daily budget. Those have since been generated and the
+figures above cover all 60 on both sides. Generation is now paced to prevent a recurrence,
+and an empty completion — which arrives as a 200 with no content — is recorded as a failure
+rather than stored as a zero-length answer.)*
 
 The second column of case 2 matters more than the first: a flagged uncertain route lets
 the user pick a domain; a silent one produces a fluent, well-formatted answer built on

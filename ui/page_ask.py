@@ -505,8 +505,12 @@ def render(state: D.EvalState) -> None:
             "rate_limited": "Model is rate limited",
             "model_unavailable": "Model unavailable",
             "auth_failed": "API key rejected",
+            "empty_completion": "Model returned an empty answer",
         }.get(kind, "Model call failed")
-        T.note(f"<strong>{heading}.</strong> {result['answer']}", "warn")
+        detail = result["answer"] or (
+            "The model returned no content. This is usually transient — try the question again."
+        )
+        T.note(f"<strong>{heading}.</strong> {detail}", "warn")
         if kind == "quota_exhausted":
             st.markdown(
                 T.panel(

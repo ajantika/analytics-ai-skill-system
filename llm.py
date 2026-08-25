@@ -204,6 +204,19 @@ def ask_groq(
         )
         latency = time.perf_counter() - started
         raw = (response.choices[0].message.content or "").strip()
+
+        # An empty completion is a failure, not an answer. It arrives with a 200 and no
+        # exception, so without this check it is stored as a successful response of zero
+        # length — which then scores as a legitimate result in every downstream evaluator.
+        if not raw:
+            logger.warning(f"LLM returned an empty completion ({latency:.2f}s, {version})")
+            return {
+                "answer": "", "model": model_name, "prompt_version": version, "error": True,
+                "error_kind": "empty_completion",
+                "error_detail": "model returned a 200 with no content",
+                "latency_seconds": round(latency, 3),
+            }
+
         logger.info(f"LLM response generated ({len(raw)} chars, {latency:.2f}s, {version})")
         return {
             "answer": raw,

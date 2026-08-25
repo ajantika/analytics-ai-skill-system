@@ -3755,9 +3755,9 @@
         "generation": {
           "n_cases": 60,
           "n_responses": 60,
-          "n_errors": 5,
-          "mean_latency_seconds": 10.680345454545455,
-          "mean_answer_chars": 459.8181818181818
+          "n_errors": 0,
+          "mean_latency_seconds": 9.868933333333333,
+          "mean_answer_chars": 461.71666666666664
         },
         "routing": {
           "accuracy": 0.8813559322033898,
@@ -3769,19 +3769,19 @@
           "silent_misroutes": 1
         },
         "deterministic": {
-          "n": 55,
-          "verdict_pass_rate": 0.7454545454545455,
-          "numeric_grounding_pass_rate": 0.6545454545454545,
+          "n": 60,
+          "verdict_pass_rate": 0.75,
+          "numeric_grounding_pass_rate": 0.65,
           "metric_recognition_pass_rate": 1.0,
-          "required_facts_pass_rate": 0.9047619047619048,
-          "required_facts_n": 42,
-          "forbidden_claims_violation_rate": 0.06976744186046512,
-          "forbidden_claims_n": 43,
-          "routing_accuracy": 0.8727272727272727,
-          "routing_n": 55,
-          "relevance_pass_rate": 0.7090909090909091,
-          "unsupported_claim_rate": 0.03636363636363636,
-          "mean_required_fact_coverage": 0.9325396825396824
+          "required_facts_pass_rate": 0.8888888888888888,
+          "required_facts_n": 45,
+          "forbidden_claims_violation_rate": 0.06521739130434782,
+          "forbidden_claims_n": 46,
+          "routing_accuracy": 0.8813559322033898,
+          "routing_n": 59,
+          "relevance_pass_rate": 0.7,
+          "unsupported_claim_rate": 0.03333333333333333,
+          "mean_required_fact_coverage": 0.9148148148148147
         },
         "judge": {
           "n": 0,
@@ -3878,7 +3878,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9609933481152994,
+          "legacy_quality_score": 0.961,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4000,7 +4000,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.880701754385965,
+          "legacy_quality_score": 0.8807,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4113,7 +4113,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9725324675324676,
+          "legacy_quality_score": 0.972535,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4168,7 +4168,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9851090909090909,
+          "legacy_quality_score": 0.985105,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4227,7 +4227,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9205313092979127,
+          "legacy_quality_score": 0.92053,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4282,7 +4282,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8405313092979128,
+          "legacy_quality_score": 0.84053,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4396,7 +4396,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8164542253521127,
+          "legacy_quality_score": 0.81645,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4448,7 +4448,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9113636363636364,
+          "legacy_quality_score": 0.911365,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4500,7 +4500,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7019836956521739,
+          "legacy_quality_score": 0.701985,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -4752,7 +4752,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8775000000000001,
+          "legacy_quality_score": 0.8775050000000001,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -4923,7 +4923,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.5527272727272727,
+          "legacy_quality_score": 0.55273,
           "legacy_quality_label": "LOW"
         },
         {
@@ -4979,7 +4979,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7075,
+          "legacy_quality_score": 0.707505,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -5054,7 +5054,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9001644736842106,
+          "legacy_quality_score": 0.90017,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5161,7 +5161,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8547817047817048,
+          "legacy_quality_score": 0.8547750000000001,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5281,7 +5281,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9294565217391304,
+          "legacy_quality_score": 0.929455,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5405,7 +5405,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.6902325581395349,
+          "legacy_quality_score": 0.69024,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -5460,7 +5460,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9877518796992482,
+          "legacy_quality_score": 0.987745,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5569,7 +5569,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7010439560439561,
+          "legacy_quality_score": 0.70104,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -5621,7 +5621,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8138571428571428,
+          "legacy_quality_score": 0.813855,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5692,7 +5692,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7775000000000001,
+          "legacy_quality_score": 0.7775050000000001,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -5803,7 +5803,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9202631578947369,
+          "legacy_quality_score": 0.92026,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -5861,7 +5861,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7140882352941176,
+          "legacy_quality_score": 0.71409,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -6424,7 +6424,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9789941348973606,
+          "legacy_quality_score": 0.979,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -6778,7 +6778,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9874085850556439,
+          "legacy_quality_score": 0.987415,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -6892,7 +6892,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8203030303030303,
+          "legacy_quality_score": 0.8203,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -6942,7 +6942,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7926793248945148,
+          "legacy_quality_score": 0.792675,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -7013,6 +7013,277 @@
           },
           "legacy_quality_score": 0.8150000000000001,
           "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-010",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "2/2 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "SUP-011",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "11/11 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "74.2%",
+                  "matched": "74.2%"
+                },
+                {
+                  "required": "79.4%",
+                  "matched": "79.4%"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 2 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "csup",
+              "expected": "csup",
+              "detail": "Routed to csup as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "WARN",
+              "detail": "Low term overlap between question and answer \u2014 verify relevance.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.917,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "XDM-001",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "WARN",
+              "detail": "6/9 figures matched \u2014 some may be ungrounded.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "N/A",
+              "found": [],
+              "missing": [],
+              "coverage": null,
+              "detail": "This case specifies no required facts \u2014 the expected behaviour is qualitative.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "N/A",
+              "routed": "sales",
+              "expected": null,
+              "detail": "Case has no single correct domain \u2014 it tests ambiguity handling, not routing accuracy.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.8184750000000001,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "XDM-002",
+          "verdict": "PASS",
+          "hard_failures": [],
+          "checks": {
+            "numeric_grounding": {
+              "status": "PASS",
+              "detail": "1/1 figures found in governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "PASS",
+              "found": [
+                {
+                  "required": "312",
+                  "matched": "312"
+                }
+              ],
+              "missing": [],
+              "coverage": 1.0,
+              "detail": "All 1 required facts present.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 3 forbidden phrases detected. Semantic violations are not caught by literal matching.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.92833,
+          "legacy_quality_label": "HIGH"
+        },
+        {
+          "eval_id": "XDM-003",
+          "verdict": "FAIL",
+          "hard_failures": [
+            "required_facts",
+            "numeric_grounding"
+          ],
+          "checks": {
+            "numeric_grounding": {
+              "status": "FAIL",
+              "detail": "Only 1/4 figures matched the governed context.",
+              "method": "DETERMINISTIC \u2014 figure matching against governed context"
+            },
+            "metric_recognition": {
+              "status": "PASS",
+              "detail": "No explicit metric names referenced \u2014 check answer for specificity.",
+              "method": "DETERMINISTIC \u2014 metric name lookup in semantic layer"
+            },
+            "required_facts": {
+              "status": "FAIL",
+              "found": [],
+              "missing": [
+                "$18.7M",
+                "$14.6M",
+                "78%"
+              ],
+              "coverage": 0.0,
+              "detail": "Only 0/3 required facts present. Missing: $18.7M, $14.6M, 78%.",
+              "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
+            },
+            "forbidden_claims": {
+              "status": "N/A",
+              "violations": [],
+              "detail": "This case specifies no forbidden claims.",
+              "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
+            },
+            "expected_domain": {
+              "status": "PASS",
+              "routed": "marketing",
+              "expected": "marketing",
+              "detail": "Routed to marketing as expected.",
+              "method": "DETERMINISTIC \u2014 exact domain key comparison"
+            },
+            "relevance_heuristic": {
+              "status": "PASS",
+              "detail": "Answer is substantive and shares relevant terms with the question.",
+              "method": "HEURISTIC \u2014 term overlap + length + non-answer phrase detection"
+            },
+            "unsupported_claim_heuristic": {
+              "status": "NONE",
+              "detail": "No unsupported generalisation phrases detected.",
+              "method": "HEURISTIC \u2014 generalisation phrase matching"
+            }
+          },
+          "legacy_quality_score": 0.707505,
+          "legacy_quality_label": "MEDIUM"
         }
       ]
     }
