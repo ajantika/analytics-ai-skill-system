@@ -23,6 +23,61 @@ thing measuring quality is itself wrong.
 
 ---
 
+## What the evaluation found
+
+Two results, both of which contradict what the numbers look like at first glance.
+
+### The automated judge agreed 89% of the time and was measuring nothing
+
+Across the 18 responses scored by hand and by the LLM judge:
+
+| | |
+|---|---|
+| Agreement within ±1 point | **89%** |
+| Pass/fail agreement | **100%** |
+| Cohen's κ, quadratic-weighted | **0.00** |
+| Pearson r | −0.12 |
+| Human mean / judge mean | 4.45 / 4.95 |
+
+Raw agreement looks strong and means almost nothing. Both raters cluster at the top of
+the scale, so nearly all of that agreement is what chance produces anyway. Correct for
+it and there is none left: the judge was rating almost everything a 5 and being credited
+wherever the human happened to land in the same place.
+
+Pass/fail κ is **undefined**, not zero — both raters passed all 18 cases, so there is no
+variance to correct for. The application renders it as an em-dash with that reason rather
+than as a number.
+
+The bias is directional on every dimension and largest exactly where the rubric is most
+subjective:
+
+| Dimension | Judge − human |
+|---|---|
+| Helpfulness | +0.72 |
+| Clarity | +0.67 |
+| Instruction following | +0.56 |
+| Correctness | +0.44 |
+| Relevance | +0.39 |
+| **Groundedness** | **+0.22** |
+
+That shape is the practical finding. The judge tracks humans best on the most objective
+dimension and worst on the most subjective ones, which argues for automating groundedness
+and correctness first and keeping human review on helpfulness and clarity.
+
+**A dashboard reporting only the 89% would have shipped this judge.**
+
+### A prompt change reasoned from real failures made things worse
+
+`sysprompt-v2` was written to fix observed instruction-following and missing-context
+failures. Measured against a baseline run under the original prompt, it was a 17-point
+regression on required-fact coverage. It was not shipped. Details in
+[How evaluation feeds product improvement](#how-evaluation-feeds-product-improvement).
+
+Both findings are the same argument: an evaluation number you have not checked against a
+reference is not a measurement.
+
+---
+
 ## Architecture
 
 ```
@@ -160,10 +215,26 @@ page load, so the before-and-after is evidence rather than narration:
 | 1 | `"pipeline coverage"` routed to Product — `"coverage"` contains the keyword `"overage"` | `v2_token_aware`: word-boundary matching | Substring false positives eliminated; accuracy barely moved — the bug was real but not dominant |
 | 2 | Most remaining misroutes were **ties** broken by dict iteration order | `v3_idf_weighted`: inverse-domain-frequency weighting; no-match and ties flagged explicitly | Routing accuracy **76.3% → 88.1%**; silent misroutes **10 → 1** |
 | 3 | Five cases matched *no* keyword — skill files listed `reopened` but not `reopen`, defined NRR but never listed `nrr` | Added the missing terms to three skill files | Three of five resolved; the other two ask about named individuals and are left failing and visible |
-| 4 | Every `instruction_following` case failed — the prompt hard-coded *"use these exact headers"* | `sysprompt-v2`: template becomes a default that explicit user instructions override | **Not yet measured** — needs a model run under each prompt version |
+| 4 | Every `instruction_following` case failed — the prompt hard-coded *"use these exact headers"* | `sysprompt-v2`: template becomes a default that explicit user instructions override, plus premise-checking and an explicit "not in the governed layer" outcome | **Rejected.** Required-fact pass rate **90% → 73%**, grounding **66% → 57%**. Not shipped |
 
-Case 4 is reported as unmeasured rather than assumed. Leaving it blank is the same
-discipline the rest of the system applies.
+Case 4 is the one worth reading twice. The change was reasoned from real failures and
+predicted to help. Measured against a baseline run under the original prompt, it was a
+17-point regression on the metric that matters most: whether the answer actually contains
+the figures the reference requires.
+
+The mechanism is visible in the responses. Telling the model to decline when the governed
+layer lacks an answer, and to mark inference explicitly, made it hedge on questions it
+could answer. The two metrics that improved — unsupported claims 4% → 0%, forbidden-claim
+violations 7% → 4% — are the ones that reward saying less. That is a real effect and the
+wrong trade for an assistant whose job is reporting governed figures.
+
+Both prompt versions remain callable and the default is unchanged. One deterministic
+comparison is not sufficient grounds to switch, and the judge and human dimensions that
+would confirm the trade-off are not yet measured on the baseline.
+
+*(The baseline lost its final five cases to rate limiting on a free-tier daily budget, so
+the comparison rests on 55 v1 cases against 60 v2 cases. The gap is disclosed on the
+Regression page. Generation is now paced to prevent a recurrence.)*
 
 The second column of case 2 matters more than the first: a flagged uncertain route lets
 the user pick a domain; a silent one produces a fluent, well-formatted answer built on
@@ -266,7 +337,7 @@ ui/data.py             cached loaders, assembled evaluation state
 ui/page_*.py           10 pages
 
 data/                  golden set (committed) + generated artifacts (see data/README.md)
-tests/                 296 tests, runnable with pytest or tests/run_tests.py
+tests/                 297 tests, runnable with pytest or tests/run_tests.py
 ```
 
 ---
@@ -280,7 +351,7 @@ with structured-output validation · human annotation workflow with provenance t
 human↔AI agreement (exact, ±1, pass agreement, weighted Cohen's κ, Pearson, Spearman,
 per dimension) · human↔human calibration with disagreement diagnosis · 12-category
 failure taxonomy · versioned runs with regression comparison · three router versions kept
-callable · 296 unit tests.
+callable · 297 unit tests.
 
 ### Demo or simulated — labelled as such in the UI
 
