@@ -252,12 +252,19 @@ def primary_run(runs: list[dict]) -> Optional[dict]:
 def load_state(run_id: Optional[str] = None) -> EvalState:
     """Assemble the full evaluation state for one page render."""
     cases = get_cases()
-    responses = get_responses(run_id)
-    judge_results = get_judge_results(run_id)
     annotations = get_annotations()
     runs = get_runs()
 
     latest = primary_run(runs)
+
+    # Read the primary run's own artifacts rather than the data/ mirror files. The
+    # mirrors are overwritten by whichever run executed most recently, so a baseline
+    # run left the annotation UI serving one run's responses while the judge scores
+    # on screen came from another — a mismatch nothing in the app could detect, and
+    # which silently invalidated every rating made in that window.
+    effective = run_id or (latest["config"]["run_id"] if latest else None)
+    responses = get_responses(effective)
+    judge_results = get_judge_results(effective)
     deterministic = (latest or {}).get("deterministic_records", []) if latest else []
 
     return EvalState(

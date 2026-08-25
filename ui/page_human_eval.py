@@ -22,6 +22,7 @@ import streamlit as st
 from failure_taxonomy import all_modes, get_failure_mode, label_of
 from human_evals import (
     CRITICAL_RULE,
+    fingerprint,
     DIMENSIONS,
     PASS_RULE,
     RUBRIC,
@@ -48,6 +49,8 @@ def _init() -> None:
     st.session_state.setdefault("he_index", 0)
     st.session_state.setdefault("he_filter_unrated", True)
     st.session_state.setdefault("he_persist_failed", False)
+    st.session_state.setdefault("he_priority", True)
+    st.session_state.setdefault("he_jump", None)
 
 
 def _all_annotations(state: D.EvalState) -> list[dict]:
@@ -385,6 +388,31 @@ def _score_controls(case: dict, existing: dict | None, compact: bool = True) -> 
     }
 
 
+def _evaluation_value(case: dict, state: D.EvalState) -> int:
+    """
+    How much is a human opinion on this case worth right now?
+
+    Highest where the objective checks already failed but the judge scored the response
+    highly: those are candidate false passes, and a human verdict on them is what turns
+    an empty confusion-matrix cell into evidence. Severity and case type break ties.
+    """
+    score = 0
+    det = state.deterministic_for(case["eval_id"])
+    judge = state.judge_for(case["eval_id"])
+
+    if det and det["verdict"] == "FAIL":
+        score += 2
+        if judge and judge.get("parse_ok") and (judge.get("overall_score") or 0) >= 4.5:
+            score += 2          # objective checks failed, judge was confident — the useful conflict
+    if case.get("severity") == "critical":
+        score += 2
+    if case.get("test_type") in ("adversarial", "missing_context", "instruction_following"):
+        score += 1
+    if judge and judge.get("parse_ok") and (judge.get("overall_score") or 5) < 4.0:
+        score += 1
+    return score
+
+
 def _persist(annotation: dict, state: D.EvalState) -> None:
     """
     Write through to disk where possible; hold in session and warn where not.
@@ -538,9 +566,18 @@ def render(state: D.EvalState) -> None:
     annotations = _all_annotations(state)
     mine = {a["eval_id"] for a in annotations if a.get("evaluator_id") == rater_id}
 
-    col_f1, col_f2 = st.columns([1, 3])
+    col_f1, col_f2 = st.columns([1, 2])
     only_unrated = col_f1.checkbox("Hide cases I have rated", value=st.session_state["he_filter_unrated"])
     st.session_state["he_filter_unrated"] = only_unrated
+
+    priority_first = col_f2.checkbox(
+        "Sort by evaluation value — cases most likely to reveal a judge disagreement first",
+        value=st.session_state["he_priority"],
+        help="Ranks by whether the deterministic checks failed, how severe the case is, and "
+             "whether the AI judge scored it confidently. Cases where the objective checks "
+             "failed but the judge scored highly are the ones worth a human opinion.",
+    )
+    st.session_state["he_priority"] = priority_first
 
     ratable = [c for c in state.cases if state.response_for(c["eval_id"])
                and not state.response_for(c["eval_id"]).get("error")]
@@ -554,7 +591,33 @@ def render(state: D.EvalState) -> None:
         _download_block()
         return
 
-    index = min(st.session_state["he_index"], len(queue) - 1)
+    if priority_first:
+        queue = sorted(queue, key=lambda c: -_evaluation_value(c, state))
+
+    # A jump box, because reaching a specific case by pressing Skip repeatedly is not a
+    # workflow. Rating is already the scarcest input in the system; navigation should not
+    # consume any of it.
+    labels = {
+        c["eval_id"]: (
+            f"{c['eval_id']} — {D.TEST_TYPE_LABELS.get(c['test_type'], c['test_type'])}"
+            f"{'  ·  worth rating' if _evaluation_value(c, state) >= 4 else ''}"
+            f"{'  ·  already rated' if c['eval_id'] in mine else ''}"
+        )
+        for c in queue
+    }
+    ids = [c["eval_id"] for c in queue]
+    current = st.session_state.get("he_jump")
+    start = ids.index(current) if current in ids else min(st.session_state["he_index"], len(ids) - 1)
+
+    chosen = st.selectbox(
+        "Jump to a case",
+        options=ids, index=start,
+        format_func=lambda i: labels[i],
+        key="he_case_picker",
+    )
+    st.session_state["he_jump"] = chosen
+    index = ids.index(chosen)
+    st.session_state["he_index"] = index
     case = queue[index]
 
     _progress_strip(state, rater_id, queue, index)
@@ -609,6 +672,10 @@ def render(state: D.EvalState) -> None:
             evaluator_confidence=meta["evaluator_confidence"],
             notes=meta["notes"],
             timestamp=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            run_id=(state.latest_run or {}).get("config", {}).get("run_id"),
+            response_fingerprint=fingerprint(
+                (state.response_for(case["eval_id"]) or {}).get("answer", "")
+            ),
         )
         _persist(annotation, state)
         st.session_state["he_index"] = index if only_unrated else min(index + 1, len(queue) - 1)

@@ -268,8 +268,18 @@ def make_annotation(
     evaluator_confidence: float = 0.8,
     notes: str = "",
     timestamp: Optional[str] = None,
+    run_id: Optional[str] = None,
+    response_fingerprint: Optional[str] = None,
 ) -> dict:
-    """Build a normalised annotation record. Pass/critical default to the written rules."""
+    """
+    Build a normalised annotation record. Pass/critical default to the written rules.
+
+    run_id and response_fingerprint record *which* generated response was actually in
+    front of the evaluator. Without them a rating is just a score attached to a case id,
+    and pairing it against a judge verdict silently assumes both saw the same text —
+    an assumption that failed once already when a baseline run replaced the responses
+    the annotation UI was serving.
+    """
     mode = normalize_failure_mode(failure_mode)
     crit = is_critical(mode) if critical_failure is None else bool(critical_failure)
     ok = applies_pass_rule(scores, mode) if passed is None else bool(passed)
@@ -285,7 +295,15 @@ def make_annotation(
         "evaluator_confidence": float(evaluator_confidence),
         "notes": notes,
         "timestamp": timestamp,
+        "run_id": run_id,
+        "response_fingerprint": response_fingerprint,
     }
+
+
+def fingerprint(text: str) -> str:
+    """Short stable digest of a response, used to prove a rating and a judgement saw the same text."""
+    import hashlib
+    return hashlib.sha256((text or "").strip().encode()).hexdigest()[:12]
 
 
 # ── Storage ───────────────────────────────────────────────────────────────────

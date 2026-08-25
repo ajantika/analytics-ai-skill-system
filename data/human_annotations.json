@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "rater_type 'human' records were authored by a person in the Human Evaluation UI. rater_type 'demo_profile' records were produced by a scripted rubric profile and are not human annotations.",
+  "note": "rater_type 'human' records were authored by a person in the Human Evaluation UI. rater_type 'demo_profile' records were produced by a scripted rubric profile and are not human annotations. run_id records which evaluation run's responses the evaluator actually saw; ratings are never paired against a judge verdict from a different run.",
   "annotations": [
     {
       "eval_id": "PRD-001",
@@ -20,7 +20,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T18:01:26+00:00"
+      "timestamp": "2026-08-24T18:01:26+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "b36ccaed0743",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-002",
@@ -40,7 +43,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T18:01:36+00:00"
+      "timestamp": "2026-08-24T18:01:36+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "29d04535b815",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-003",
@@ -60,7 +66,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.9,
       "notes": "",
-      "timestamp": "2026-08-24T18:01:53+00:00"
+      "timestamp": "2026-08-24T18:01:53+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "3cc91bdf7c70",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-004",
@@ -80,7 +89,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T18:08:56+00:00"
+      "timestamp": "2026-08-24T18:08:56+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "1164ecee2368",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-005",
@@ -100,7 +112,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T18:16:56+00:00"
+      "timestamp": "2026-08-24T18:16:56+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "67afc532870c",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-006",
@@ -120,7 +135,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.9,
       "notes": "",
-      "timestamp": "2026-08-24T18:18:05+00:00"
+      "timestamp": "2026-08-24T18:18:05+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "0e401dfb6b9d",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-007",
@@ -140,7 +158,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T18:19:04+00:00"
+      "timestamp": "2026-08-24T18:19:04+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "62fe46e80cec",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-008",
@@ -160,7 +181,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.85,
       "notes": "",
-      "timestamp": "2026-08-24T19:28:24+00:00"
+      "timestamp": "2026-08-24T19:28:24+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "269071cf871e",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-009",
@@ -180,7 +204,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T19:29:18+00:00"
+      "timestamp": "2026-08-24T19:29:18+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "ae33c3f8b9e7",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-010",
@@ -200,7 +227,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T19:29:21+00:00"
+      "timestamp": "2026-08-24T19:29:21+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "3143b647b635",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-011",
@@ -220,7 +250,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T19:29:31+00:00"
+      "timestamp": "2026-08-24T19:29:31+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "e6c490751d92",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-012",
@@ -240,7 +273,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.65,
       "notes": "",
-      "timestamp": "2026-08-24T19:29:55+00:00"
+      "timestamp": "2026-08-24T19:29:55+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "2d2329a89d90",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-001",
@@ -260,7 +296,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T19:30:10+00:00"
+      "timestamp": "2026-08-24T19:30:10+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "f10ec28eb97b",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-002",
@@ -280,7 +319,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.8,
       "notes": "",
-      "timestamp": "2026-08-24T19:30:44+00:00"
+      "timestamp": "2026-08-24T19:30:44+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "7f7d1bdc7f38",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-003",
@@ -300,7 +342,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.85,
       "notes": "",
-      "timestamp": "2026-08-24T19:44:58+00:00"
+      "timestamp": "2026-08-24T19:44:58+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "fe9e4a55a667",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-004",
@@ -320,7 +365,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.85,
       "notes": "",
-      "timestamp": "2026-08-24T19:48:39+00:00"
+      "timestamp": "2026-08-24T19:48:39+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "ea840d800022",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-005",
@@ -340,7 +388,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.85,
       "notes": "",
-      "timestamp": "2026-08-24T19:50:23+00:00"
+      "timestamp": "2026-08-24T19:50:23+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "3a692f188f70",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "SLS-006",
@@ -360,7 +411,10 @@
       "failure_mode": "none",
       "evaluator_confidence": 0.85,
       "notes": "",
-      "timestamp": "2026-08-24T19:50:41+00:00"
+      "timestamp": "2026-08-24T19:50:41+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "a54e24116033",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     },
     {
       "eval_id": "PRD-001",
@@ -390,7 +444,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-001",
@@ -420,7 +476,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-002",
@@ -450,7 +508,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-002",
@@ -480,7 +540,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-003",
@@ -510,7 +572,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-003",
@@ -540,7 +604,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-004",
@@ -570,7 +636,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-004",
@@ -600,7 +668,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-005",
@@ -630,7 +700,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-005",
@@ -660,7 +732,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-006",
@@ -690,7 +764,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-006",
@@ -720,7 +796,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-007",
@@ -750,7 +828,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-007",
@@ -780,7 +860,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-008",
@@ -810,7 +892,9 @@
         "clarity": "Anchor 4: short and unambiguous."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-008",
@@ -840,7 +924,9 @@
         "clarity": "Anchor 4: short and unambiguous."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-009",
@@ -870,7 +956,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-009",
@@ -900,7 +988,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-010",
@@ -930,7 +1020,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-010",
@@ -960,7 +1052,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-011",
@@ -990,7 +1084,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-011",
@@ -1020,7 +1116,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-012",
@@ -1050,7 +1148,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "PRD-012",
@@ -1080,7 +1180,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-001",
@@ -1110,7 +1212,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-001",
@@ -1140,7 +1244,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-002",
@@ -1170,7 +1276,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-002",
@@ -1200,7 +1308,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-003",
@@ -1230,7 +1340,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-003",
@@ -1260,7 +1372,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-004",
@@ -1290,7 +1404,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-004",
@@ -1320,7 +1436,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-005",
@@ -1350,7 +1468,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-005",
@@ -1380,7 +1500,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-006",
@@ -1410,7 +1532,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-006",
@@ -1440,7 +1564,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-007",
@@ -1470,7 +1596,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-007",
@@ -1500,7 +1628,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-008",
@@ -1530,7 +1660,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-008",
@@ -1560,7 +1692,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-009",
@@ -1590,7 +1724,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-009",
@@ -1620,7 +1756,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-010",
@@ -1650,7 +1788,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-010",
@@ -1680,7 +1820,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-011",
@@ -1710,7 +1852,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-011",
@@ -1740,7 +1884,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-012",
@@ -1770,7 +1916,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SLS-012",
@@ -1800,7 +1948,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-001",
@@ -1830,7 +1980,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-001",
@@ -1860,7 +2012,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-002",
@@ -1890,7 +2044,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-002",
@@ -1920,7 +2076,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-003",
@@ -1950,7 +2108,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-003",
@@ -1980,7 +2140,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-004",
@@ -2010,7 +2172,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-004",
@@ -2040,7 +2204,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-005",
@@ -2070,7 +2236,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-005",
@@ -2100,7 +2268,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-006",
@@ -2130,7 +2300,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-006",
@@ -2160,7 +2332,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-007",
@@ -2190,7 +2364,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-007",
@@ -2220,7 +2396,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-008",
@@ -2250,7 +2428,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-008",
@@ -2280,7 +2460,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-009",
@@ -2310,7 +2492,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-009",
@@ -2340,7 +2524,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-010",
@@ -2370,7 +2556,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-010",
@@ -2400,7 +2588,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-011",
@@ -2430,7 +2620,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "MKT-011",
@@ -2460,7 +2652,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-001",
@@ -2490,7 +2684,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-001",
@@ -2520,7 +2716,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-002",
@@ -2550,7 +2748,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-002",
@@ -2580,7 +2780,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-003",
@@ -2610,7 +2812,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-003",
@@ -2640,7 +2844,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-004",
@@ -2670,7 +2876,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-004",
@@ -2700,7 +2908,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-005",
@@ -2730,7 +2940,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-005",
@@ -2760,7 +2972,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-006",
@@ -2790,7 +3004,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-006",
@@ -2820,7 +3036,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-007",
@@ -2850,7 +3068,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-007",
@@ -2880,7 +3100,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-008",
@@ -2910,7 +3132,9 @@
         "clarity": "Anchor 4: short and unambiguous."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-008",
@@ -2940,7 +3164,9 @@
         "clarity": "Anchor 4: short and unambiguous."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-009",
@@ -2970,7 +3196,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-009",
@@ -3000,7 +3228,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-010",
@@ -3030,7 +3260,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-010",
@@ -3060,7 +3292,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-011",
@@ -3090,7 +3324,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "HRA-011",
@@ -3120,7 +3356,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-001",
@@ -3150,7 +3388,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-001",
@@ -3180,7 +3420,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-002",
@@ -3210,7 +3452,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-002",
@@ -3240,7 +3484,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-003",
@@ -3270,7 +3516,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-003",
@@ -3300,7 +3548,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-004",
@@ -3330,7 +3580,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-004",
@@ -3360,7 +3612,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-005",
@@ -3390,7 +3644,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-005",
@@ -3420,7 +3676,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-006",
@@ -3450,7 +3708,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-006",
@@ -3480,7 +3740,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-007",
@@ -3510,7 +3772,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-007",
@@ -3540,7 +3804,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-008",
@@ -3570,7 +3836,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-008",
@@ -3600,7 +3868,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-009",
@@ -3630,7 +3900,9 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Applies rubric anchors literally. Between two anchors, takes the lower. Treats unmarked interpretation as a groundedness defect. Optimises for precision.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
     },
     {
       "eval_id": "SUP-009",
@@ -3660,7 +3932,285 @@
         "clarity": "Anchor 4-5: structured and readable."
       },
       "profile_policy": "Gives benefit of the doubt between adjacent anchors. Scores helpfulness and clarity on usability rather than tightness. Optimises for recall of good answers.",
-      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules."
+      "disclosure": "Demo profiles are scripted rubric applications, not human annotators. They read the real generated response and apply explicit anchor rules.",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": null
+    },
+    {
+      "eval_id": "PRD-009",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:25:57+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "b2ed540e80ca",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-004",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 4,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.5,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:26:49+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "6ebf2835ffc0",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-012",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.6666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:27:33+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "be965d269cdc",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "MKT-003",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:28:15+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "7f7eeb4f94e3",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SUP-006",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.6666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:28:34+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "11a0fd255bad",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-007",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:28:43+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "eb338597202d",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SUP-009",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-25T17:29:03+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "ecf8cf7d832f",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "PRD-011",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:29:35+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "1bd25cb86291",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-002",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:29:52+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "14582763da91",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-006",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.333333333333333,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:30:12+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "a68cb1437ec2",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-008",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 5
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-25T17:30:39+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "79492ca5f343",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-010",
+      "evaluator_id": "ani",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-25T17:31:03+00:00",
+      "run_id": "run-20260825-052533-7413",
+      "response_fingerprint": "f2159fafc781",
+      "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
     }
   ]
 }

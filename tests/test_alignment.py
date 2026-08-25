@@ -91,6 +91,38 @@ def test_pairs_record_how_many_humans_contributed():
 
 # ── coverage ──────────────────────────────────────────────────────────────────
 
+def test_annotations_from_a_different_run_are_not_paired():
+    """
+    The load-bearing integrity check. A rating and a judgement are only comparable if
+    they scored the same generated text. When a baseline run replaced the responses the
+    annotation UI was serving, ratings were made against one run while judge verdicts
+    came from another — same eval_id on both sides, entirely different answers, and no
+    dashboard could have shown it.
+    """
+    ann = _ann("A"); ann["run_id"] = "run-baseline"
+    judge = _judge("A"); judge["run_id"] = "run-current"
+    assert build_pairs([ann], [judge]) == []
+
+
+def test_annotations_from_the_same_run_are_paired():
+    ann = _ann("A"); ann["run_id"] = "run-current"
+    judge = _judge("A"); judge["run_id"] = "run-current"
+    assert len(build_pairs([ann], [judge])) == 1
+
+
+def test_untagged_annotations_still_pair():
+    """Legacy records predate provenance tracking; excluding them would discard real data."""
+    judge = _judge("A"); judge["run_id"] = "run-current"
+    assert len(build_pairs([_ann("A")], [judge])) == 1
+
+
+def test_mixed_runs_keep_only_the_matching_annotations():
+    good = _ann("A", "r1"); good["run_id"] = "run-current"
+    stale = _ann("B", "r1"); stale["run_id"] = "run-baseline"
+    judges = [dict(_judge("A"), run_id="run-current"), dict(_judge("B"), run_id="run-current")]
+    assert [p["eval_id"] for p in build_pairs([good, stale], judges)] == ["A"]
+
+
 def test_coverage_counts_each_population_separately():
     anns = [_ann("A", "aj", "human"), _ann("B", "demo_strict", "demo_profile")]
     c = coverage(anns, [_judge("A"), _judge("B"), _judge("C")], total_cases=60)

@@ -59,8 +59,24 @@ def build_pairs(
     contribute a score to an agreement statistic, though it is still counted in
     judge reliability elsewhere.
     """
-    human = consensus_by_eval(annotations, rater_type=rater_type)
     judge = {r["eval_id"]: r for r in judge_records if r.get("parse_ok") and r.get("eval_id")}
+
+    # A rating and a judgement are comparable only if they scored the same text. Where an
+    # annotation records which run it was made against, judgements from a different run
+    # are dropped rather than silently paired. The failure this guards against produced
+    # 12 invalid pairs before it was caught, and nothing on the dashboards could have
+    # revealed it: both sides had a score for the same eval_id, and neither recorded
+    # which generated response it had actually seen.
+    comparable = [
+        a for a in annotations
+        if not (a.get("run_id") and judge.get(a["eval_id"], {}).get("run_id")
+                and a["run_id"] != judge[a["eval_id"]]["run_id"])
+    ]
+    dropped = len(annotations) - len(comparable)
+    if dropped:
+        logger.info(f"build_pairs: excluded {dropped} annotation(s) rated against a different run")
+
+    human = consensus_by_eval(comparable, rater_type=rater_type)
 
     pairs = []
     for eval_id in sorted(set(human) & set(judge)):
