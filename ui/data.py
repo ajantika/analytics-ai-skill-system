@@ -223,6 +223,32 @@ class EvalState:
         return human if human.get("n") else self.alignment["demo_only"]
 
 
+def primary_run(runs: list[dict]) -> Optional[dict]:
+    """
+    The run whose numbers represent the system as it is currently configured.
+
+    Not simply the most recent one. A baseline run executed to measure a prompt or
+    router change is deliberately configured differently and is often the newest
+    record on disk — reporting its figures as the current state of the system would
+    invert the very comparison it was created to support.
+
+    So: the most recent run matching the current defaults, falling back to the most
+    recent run of any configuration when none matches.
+    """
+    if not runs:
+        return None
+    from llm import DEFAULT_MODEL, DEFAULT_PROMPT_VERSION
+    from router import DEFAULT_ROUTER_VERSION
+
+    matching = [
+        r for r in runs
+        if r["config"].get("system_prompt_version") == DEFAULT_PROMPT_VERSION
+        and r["config"].get("router_version") == DEFAULT_ROUTER_VERSION
+        and r["config"].get("model_version") == DEFAULT_MODEL
+    ]
+    return (matching or runs)[-1]
+
+
 def load_state(run_id: Optional[str] = None) -> EvalState:
     """Assemble the full evaluation state for one page render."""
     cases = get_cases()
@@ -231,7 +257,7 @@ def load_state(run_id: Optional[str] = None) -> EvalState:
     annotations = get_annotations()
     runs = get_runs()
 
-    latest = runs[-1] if runs else None
+    latest = primary_run(runs)
     deterministic = (latest or {}).get("deterministic_records", []) if latest else []
 
     return EvalState(

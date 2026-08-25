@@ -62,8 +62,47 @@ def _all_annotations(state: D.EvalState) -> list[dict]:
     return list(keyed.values())
 
 
+def _how_to_panel(has_rater: bool) -> None:
+    """
+    Starting instructions. Expanded until an evaluator ID is entered, because a first
+    visitor sees a name box and six sliders with no indication of what they are for
+    or that the answer key is already on the page.
+    """
+    with st.expander("ℹ️  How to use this page — start here", expanded=not has_rater):
+        st.markdown("""
+**You do not need to know the answers.** Every case carries a reference answer that is
+shown to you before you score. You are checking the model's response against it.
+
+**1. Enter an evaluator ID.** Any name will do — it is how your ratings are stored and
+kept separate from the scripted demo profiles. Press Enter.
+
+**2. Read the case.** The left column shows the question and the model's response. The
+right column shows the reference answer, the expected behaviour, the facts the answer
+must contain, and any claims it must not make.
+
+**3. Score six dimensions, 1 to 5.** The grey line under each slider tells you what that
+score means for that dimension. Drag left for lower scores.
+
+**4. Set the verdict.** Pass/fail is filled in for you by the written rule; override it
+if you disagree. Pick a failure mode if something went wrong, and drop your confidence
+if the case was genuinely hard to call — low-confidence ratings are useful, not failures.
+
+**5. Submit.** The next case loads automatically and a confirmation appears above the
+buttons.
+
+---
+
+**Roughly 30–60 seconds per case.** Around 20 cases is enough for the agreement
+statistics on the Alignment page to become meaningful.
+
+**Why this matters:** these ratings are the reference the automated judge is measured
+against. Without them the judge is an unvalidated instrument, and every quality number
+downstream of it is unsupported.
+""")
+
+
 def _rubric_panel() -> None:
-    with st.expander("Evaluation rubric — read before rating", expanded=False):
+    with st.expander("Evaluation rubric — the full scoring anchors", expanded=False):
         st.markdown(rubric_markdown())
 
 
@@ -473,9 +512,11 @@ def render(state: D.EvalState) -> None:
 
     if not state.has_responses:
         T.empty_state("No responses to rate", D.NO_RUN_EXPLANATION, D.GENERATE_COMMAND)
+        _how_to_panel(False)
         _rubric_panel()
         return
 
+    _how_to_panel(bool(st.session_state.get(RATER_ID)))
     rater_id = _rater_bar(state)
     _rubric_panel()
 

@@ -124,8 +124,7 @@ def _hero() -> None:
   letter-spacing:-0.03em">Analytics AI Skill System</h1>
   <p style="color:{T.MUTED};font-size:0.95rem;margin:0 0 14px;line-height:1.6;max-width:560px;
   display:inline-block">
-    Ask business questions across five analytics domains using governed metric
-    definitions — then evaluate whether the answers are any good.
+    Ask business questions across five analytics domains using governed metric definitions.
   </p>
   <div style="display:inline-flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap;
   justify-content:center;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.16);
@@ -500,7 +499,28 @@ def render(state: D.EvalState) -> None:
         result = ask_groq(question, context, prompt_version=DEFAULT_PROMPT_VERSION)
 
     if result["error"]:
-        T.note(f"Model call failed: {result['answer']}", "warn")
+        kind = result.get("error_kind", "unknown")
+        heading = {
+            "quota_exhausted": "Daily model quota reached",
+            "rate_limited": "Model is rate limited",
+            "model_unavailable": "Model unavailable",
+            "auth_failed": "API key rejected",
+        }.get(kind, "Model call failed")
+        T.note(f"<strong>{heading}.</strong> {result['answer']}", "warn")
+        if kind == "quota_exhausted":
+            st.markdown(
+                T.panel(
+                    T.label_text("The rest of the application still works", T.ACCENT)
+                    + T.body_text(
+                        "Answer generation is the only feature that calls the model live. The "
+                        "evaluation pages read stored records from a completed run, so the "
+                        "Quality Dashboard, AI Judge, Alignment, Failure Analysis, Golden "
+                        "Dataset and Regression pages are all fully populated right now.",
+                        T.TEXT, "0.82rem",
+                    ),
+                ),
+                unsafe_allow_html=True,
+            )
         return
 
     answer_text = result["answer"]

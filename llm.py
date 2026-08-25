@@ -27,6 +27,7 @@ helped rather than assuming it did.
 
 import logging
 import os
+import re
 import time
 from typing import Optional
 
@@ -214,11 +215,64 @@ def ask_groq(
 
     except Exception as e:
         logger.error(f"LLM call failed: {e}")
+        kind, message = _classify_error(e)
         return {
-            "answer": f"Model call failed: {str(e)}",
+            "answer": message,
             "model": model_name, "prompt_version": version, "error": True,
+            "error_kind": kind, "error_detail": str(e),
             "latency_seconds": None,
         }
+
+
+_RETRY_AFTER = re.compile(r"try again in ([\dhms.]+)", re.I)
+_USAGE = re.compile(r"Limit (\d+), Used (\d+)", re.I)
+
+
+def _classify_error(e: Exception) -> tuple[str, str]:
+    """
+    Turn a provider exception into something a reader can act on.
+
+    Rate-limit errors arrive as a wall of JSON naming an org id, a service tier and
+    a token count. Rendering that verbatim tells the reader nothing about what went
+    wrong or what to do, so the three cases worth distinguishing are separated here
+    and everything else keeps its original text.
+    """
+    text = str(e)
+    lowered = text.lower()
+
+    if "rate_limit" in lowered or "429" in text:
+        retry = _RETRY_AFTER.search(text)
+        usage = _USAGE.search(text)
+        detail = ""
+        if usage:
+            limit, used = int(usage.group(1)), int(usage.group(2))
+            detail = f" {used:,} of {limit:,} tokens used."
+        wait = f" Capacity returns in about {retry.group(1)}." if retry else ""
+        if "tpd" in lowered or "per day" in lowered:
+            return "quota_exhausted", (
+                "The daily token budget for this Groq account is used up, so no new answers "
+                f"can be generated right now.{detail}{wait} "
+                "Everything else in this application reads stored evaluation records and "
+                "works normally."
+            )
+        return "rate_limited", (
+            "Too many requests to the model in a short window."
+            f"{wait} Try that question again in a moment."
+        )
+
+    if "model_not_found" in lowered or "does not exist" in lowered:
+        return "model_unavailable", (
+            "The configured model is not available on this account. Check the model id in "
+            "llm.py against the models your Groq key can reach."
+        )
+
+    if "authentication" in lowered or "invalid api key" in lowered or "401" in text:
+        return "auth_failed", (
+            "The Groq API key was rejected. Check GROQ_API_KEY in your environment or in "
+            ".streamlit/secrets.toml."
+        )
+
+    return "unknown", f"The model call failed: {text}"
 
 
 def parse_structured_answer(raw_answer: str) -> dict:
