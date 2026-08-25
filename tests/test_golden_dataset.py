@@ -8,6 +8,7 @@ way no dashboard would reveal. These tests guard the instrument itself.
 """
 import os
 import pathlib
+import re
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
@@ -189,6 +190,31 @@ def test_forbidden_claims_are_not_trivially_present_in_context():
 
 
 # ── design intent ─────────────────────────────────────────────────────────────
+
+def test_adversarial_forbidden_claims_are_not_bare_figures():
+    """
+    An adversarial case asserts a false figure and expects the answer to refute it.
+    Refuting it means naming it — "the rate is 24.4%, not 45%" — so a forbidden claim
+    written as the bare figure ("45%") fires on exactly the correct answer.
+
+    PRD-006 shipped with that defect: the model correctly rejected the false premise
+    and the deterministic check failed it anyway. Forbidden claims on adversarial
+    cases must therefore carry surrounding words that only appear when the figure is
+    being asserted rather than denied.
+    """
+    problems = []
+    for c in CASES:
+        if c["test_type"] != "adversarial":
+            continue
+        for phrase in c["forbidden_claims"]:
+            stripped = str(phrase).strip()
+            if re.fullmatch(r"[$+-]?[\d,.]+\s*[%xKMB]?", stripped, re.I):
+                problems.append(
+                    f"{c['eval_id']}: forbidden claim {phrase!r} is a bare figure; a correct "
+                    f"refutation would name it and trip this check"
+                )
+    assert not problems, "adversarial forbidden claims that fire on correct answers:\n  " + "\n  ".join(problems)
+
 
 def test_all_five_domains_are_covered():
     covered = {c["expected_domain"] for c in CASES if c["expected_domain"]}

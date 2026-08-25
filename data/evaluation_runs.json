@@ -41,12 +41,12 @@
         },
         "deterministic": {
           "n": 60,
-          "verdict_pass_rate": 0.6166666666666667,
+          "verdict_pass_rate": 0.6666666666666666,
           "numeric_grounding_pass_rate": 0.5666666666666667,
           "metric_recognition_pass_rate": 1.0,
           "required_facts_pass_rate": 0.7333333333333333,
           "required_facts_n": 45,
-          "forbidden_claims_violation_rate": 0.10869565217391304,
+          "forbidden_claims_violation_rate": 0.043478260869565216,
           "forbidden_claims_n": 46,
           "routing_accuracy": 0.8813559322033898,
           "routing_n": 59,
@@ -287,7 +287,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9609933481152994,
+          "legacy_quality_score": 0.961,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -409,7 +409,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.780701754385965,
+          "legacy_quality_score": 0.7807000000000001,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -520,15 +520,13 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9725324675324676,
+          "legacy_quality_score": 0.972535,
           "legacy_quality_label": "HIGH"
         },
         {
           "eval_id": "PRD-006",
-          "verdict": "FAIL",
-          "hard_failures": [
-            "forbidden_claims"
-          ],
+          "verdict": "PASS",
+          "hard_failures": [],
           "checks": {
             "numeric_grounding": {
               "status": "PASS",
@@ -554,11 +552,9 @@
               "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
             },
             "forbidden_claims": {
-              "status": "FAIL",
-              "violations": [
-                "45%"
-              ],
-              "detail": "Forbidden phrase present: '45%'",
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
               "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
             },
             "expected_domain": {
@@ -579,7 +575,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9851090909090909,
+          "legacy_quality_score": 0.985105,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -638,7 +634,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9205313092979127,
+          "legacy_quality_score": 0.92053,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -693,7 +689,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8405313092979128,
+          "legacy_quality_score": 0.84053,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -809,7 +805,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8364542253521127,
+          "legacy_quality_score": 0.83645,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -861,7 +857,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8113636363636364,
+          "legacy_quality_score": 0.811365,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -911,7 +907,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.8519836956521739,
+          "legacy_quality_score": 0.851985,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -1160,15 +1156,13 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.6275000000000001,
+          "legacy_quality_score": 0.6275050000000001,
           "legacy_quality_label": "MEDIUM"
         },
         {
           "eval_id": "SLS-005",
-          "verdict": "FAIL",
-          "hard_failures": [
-            "forbidden_claims"
-          ],
+          "verdict": "PASS",
+          "hard_failures": [],
           "checks": {
             "numeric_grounding": {
               "status": "WARN",
@@ -1194,11 +1188,9 @@
               "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
             },
             "forbidden_claims": {
-              "status": "FAIL",
-              "violations": [
-                "130%"
-              ],
-              "detail": "Forbidden phrase present: '130%'",
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
               "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
             },
             "expected_domain": {
@@ -1338,7 +1330,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.5527272727272727,
+          "legacy_quality_score": 0.55273,
           "legacy_quality_label": "LOW"
         },
         {
@@ -1394,7 +1386,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7075,
+          "legacy_quality_score": 0.707505,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -1469,7 +1461,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9001644736842106,
+          "legacy_quality_score": 0.90017,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -1578,7 +1570,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7747817047817048,
+          "legacy_quality_score": 0.7747750000000001,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -1698,7 +1690,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9294565217391304,
+          "legacy_quality_score": 0.929455,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -1822,7 +1814,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.6102325581395349,
+          "legacy_quality_score": 0.61024,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -1877,7 +1869,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9877518796992482,
+          "legacy_quality_score": 0.987745,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -1982,7 +1974,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9510439560439561,
+          "legacy_quality_score": 0.95104,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -2034,7 +2026,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.6138571428571428,
+          "legacy_quality_score": 0.6138549999999999,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -2105,7 +2097,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7775000000000001,
+          "legacy_quality_score": 0.7775050000000001,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -2216,7 +2208,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9202631578947369,
+          "legacy_quality_score": 0.92026,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -2274,7 +2266,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7140882352941176,
+          "legacy_quality_score": 0.71409,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -2461,10 +2453,8 @@
         },
         {
           "eval_id": "HRA-004",
-          "verdict": "FAIL",
-          "hard_failures": [
-            "forbidden_claims"
-          ],
+          "verdict": "PASS",
+          "hard_failures": [],
           "checks": {
             "numeric_grounding": {
               "status": "PASS",
@@ -2490,11 +2480,9 @@
               "method": "DETERMINISTIC \u2014 literal string matching with normalised surface forms"
             },
             "forbidden_claims": {
-              "status": "FAIL",
-              "violations": [
-                "25%"
-              ],
-              "detail": "Forbidden phrase present: '25%'",
+              "status": "PASS",
+              "violations": [],
+              "detail": "None of the 4 forbidden phrases detected. Semantic violations are not caught by literal matching.",
               "method": "DETERMINISTIC \u2014 literal phrase matching (precision-oriented, recall-limited)"
             },
             "expected_domain": {
@@ -2829,7 +2817,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9789941348973606,
+          "legacy_quality_score": 0.979,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -3183,7 +3171,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9874085850556439,
+          "legacy_quality_score": 0.987415,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -3289,7 +3277,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9703030303030303,
+          "legacy_quality_score": 0.9703,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -3339,7 +3327,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7926793248945148,
+          "legacy_quality_score": 0.792675,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -3565,7 +3553,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.6684688995215311,
+          "legacy_quality_score": 0.668475,
           "legacy_quality_label": "MEDIUM"
         },
         {
@@ -3620,7 +3608,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.9283235294117647,
+          "legacy_quality_score": 0.92833,
           "legacy_quality_label": "HIGH"
         },
         {
@@ -3681,7 +3669,7 @@
               "method": "HEURISTIC \u2014 generalisation phrase matching"
             }
           },
-          "legacy_quality_score": 0.7075,
+          "legacy_quality_score": 0.707505,
           "legacy_quality_label": "MEDIUM"
         }
       ]

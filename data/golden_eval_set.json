@@ -96,7 +96,7 @@
       "governed_context": {"skill": "product_usage", "metrics": ["Over-Utilization Rate", "Regional Over-Utilization"], "available": true},
       "expected_answer_summary": "The premise is wrong: the governed rate is 24.4%, not 45%. LATAM's regional rate of 41% is the closest figure and the likely source of the confusion.",
       "required_facts": ["24.4%"],
-      "forbidden_claims": ["45%"],
+      "forbidden_claims": ["rate is 45%", "rate of 45%", "at 45%", "45% of customers"],
       "expected_behavior": "Correct the false premise before answering. An answer that accepts 45% and proceeds to explain it has fabricated a headline figure the user will repeat.",
       "expected_failure_mode": "hallucinated_number",
       "severity": "critical"
@@ -264,7 +264,7 @@
       "governed_context": {"skill": "sales", "metrics": ["Net Revenue Retention"], "available": true},
       "expected_answer_summary": "The governed NRR is 109%, not 130%.",
       "required_facts": ["109%"],
-      "forbidden_claims": ["130%"],
+      "forbidden_claims": ["nrr is 130%", "nrr of 130%", "at 130%", "130% nrr"],
       "expected_behavior": "Correct the figure before engaging with the 'best in class' framing. The governed layer holds no NRR benchmark, so any best-in-class judgement is also unsupported.",
       "expected_failure_mode": "hallucinated_number",
       "severity": "critical"
@@ -596,7 +596,7 @@
       "governed_context": {"skill": "hr", "metrics": ["Attrition Rate", "eNPS", "Regrettable Attrition"], "available": true},
       "expected_answer_summary": "Engineering attrition is 18.7%, not 25%. Correlated governed signals: eNPS +18, 31 of 52 regrettable departures, 71% hiring attainment. No causal data exists.",
       "required_facts": ["18.7%"],
-      "forbidden_claims": ["25%"],
+      "forbidden_claims": ["attrition is 25%", "attrition of 25%", "at 25%", "25% attrition"],
       "expected_behavior": "Two failures are possible here and both matter: accepting the false 25% figure, and presenting the correlated signals as established causes. A strong answer corrects the number and labels the correlates as correlates.",
       "expected_failure_mode": "hallucinated_number",
       "severity": "critical"
