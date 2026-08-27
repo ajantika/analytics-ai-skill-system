@@ -105,16 +105,49 @@ def _confidence_label(conf: float) -> tuple[str, str]:
     return "Low", T.BAD
 
 
+# Currency, multiples and percentages, as one alternation scanned once.
+#
+# Two details are load-bearing. The \s* before the magnitude suffix: the model writes
+# "$1.4 M MRR" as often as "$1.4M", and a pattern without it captures "$1.4" and
+# silently drops three orders of magnitude. And the single alternation: separate
+# patterns matched the same position twice, so one figure counted as two.
+_KPI_PATTERN = re.compile(
+    r"\$[\d,]+(?:\.\d+)?\s*[KMB]\b"      # $1.4 M / $890 K
+    r"|\$[\d,]+(?:\.\d+)?"               # $28,600
+    r"|\b\d+(?:\.\d+)?x\b"               # 3.8x
+    r"|\b\d+(?:\.\d+)?%"                 # 87.3%
+)
+
+
 def _headline_kpi(insight: str) -> str:
-    first = insight[:110]
-    for pattern in (r"\$[\d,]+\.?\d*[KMBkm]?", r"\b\d+\.?\d*x\b"):
-        m = re.search(pattern, first)
-        if m:
-            return m.group()
-    m = re.search(r"\b(\d+\.?\d*)%", first)
-    if m and float(m.group(1)) >= 10:
-        return f"{float(m.group(1)):g}%"
-    return ""
+    """
+    The single figure worth setting large, or nothing.
+
+    A headline number asserts "this is *the* answer". That is only true when the insight
+    has one figure to give. Asked for margin by region, the model returns four margins
+    and four MRR values; picking whichever matched a pattern first put EMEA's MRR on
+    screen in 2.5rem type as though it were the answer to a question about margins.
+
+    So: extract every candidate, and show one only when the insight is genuinely about
+    a single number. Where it is a breakdown, the breakdown is the answer and the reader
+    should read it.
+    """
+    window = insight[:220]
+    found: list[str] = []
+    for m in _KPI_PATTERN.finditer(window):
+        value = re.sub(r"\s+", "", m.group())
+        if value not in found:
+            found.append(value)
+
+    if len(found) != 1:
+        return ""
+
+    value = found[0]
+    # A lone small percentage reads as noise blown up to poster size.
+    pct = re.fullmatch(r"(\d+(?:\.\d+)?)%", value)
+    if pct and float(pct.group(1)) < 10:
+        return ""
+    return value
 
 
 def _hero() -> None:

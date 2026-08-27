@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "note": "rater_type 'human' records were authored by a person in the Human Evaluation UI. rater_type 'demo_profile' records were produced by a scripted rubric profile and are not human annotations. run_id records which evaluation run's responses the evaluator actually saw; ratings are never paired against a judge verdict from a different run.",
+  "note": "rater_type 'human' records were authored by a person in the Human Evaluation UI. rater_type 'demo_profile' records were produced by a scripted rubric profile and are not human annotations.",
   "annotations": [
     {
       "eval_id": "PRD-001",
@@ -4211,6 +4211,270 @@
       "run_id": "run-20260825-052533-7413",
       "response_fingerprint": "f2159fafc781",
       "provenance_note": "Backfilled. The annotation UI was serving this run's responses at the time this rating was made, inferred from the rating timestamp against the run timestamps."
+    },
+    {
+      "eval_id": "SLS-012",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.6666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.75,
+      "notes": "",
+      "timestamp": "2026-08-27T05:23:51+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "9d6a9832a963"
+    },
+    {
+      "eval_id": "MKT-003",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:24:26+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "4dd891978eec"
+    },
+    {
+      "eval_id": "SUP-006",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 3,
+        "groundedness": 3,
+        "correctness": 3,
+        "instruction_following": 3,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.7,
+      "notes": "",
+      "timestamp": "2026-08-27T05:25:00+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "e3b0c44298fc"
+    },
+    {
+      "eval_id": "SLS-007",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:25:35+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "f36d83214e5a"
+    },
+    {
+      "eval_id": "SUP-009",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-27T05:25:57+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "ecf8cf7d832f"
+    },
+    {
+      "eval_id": "SLS-008",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 4.333333333333333,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:26:35+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "057a2c79fea4"
+    },
+    {
+      "eval_id": "SLS-010",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:31:18+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "7c9cfd1a0f43"
+    },
+    {
+      "eval_id": "MKT-007",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 3,
+        "clarity": 3
+      },
+      "overall_score": 3.6666666666666665,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:31:49+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "8510f1ae1119"
+    },
+    {
+      "eval_id": "MKT-011",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.666666666666667,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.85,
+      "notes": "",
+      "timestamp": "2026-08-27T05:32:19+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "201d94b18842"
+    },
+    {
+      "eval_id": "HRA-002",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:33:09+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "1ba241e627b6"
+    },
+    {
+      "eval_id": "SUP-011",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 5,
+        "groundedness": 5,
+        "correctness": 5,
+        "instruction_following": 5,
+        "helpfulness": 5,
+        "clarity": 5
+      },
+      "overall_score": 5.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.95,
+      "notes": "",
+      "timestamp": "2026-08-27T05:33:27+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "0125d3e0ee0c"
+    },
+    {
+      "eval_id": "XDM-001",
+      "evaluator_id": "ajantika",
+      "rater_type": "human",
+      "scores": {
+        "relevance": 4,
+        "groundedness": 4,
+        "correctness": 4,
+        "instruction_following": 4,
+        "helpfulness": 4,
+        "clarity": 4
+      },
+      "overall_score": 4.0,
+      "pass": true,
+      "critical_failure": false,
+      "failure_mode": "none",
+      "evaluator_confidence": 0.8,
+      "notes": "",
+      "timestamp": "2026-08-27T05:33:53+00:00",
+      "run_id": "run-20260824-080547-06ce",
+      "response_fingerprint": "4f65ad9a9309"
     }
   ]
 }
