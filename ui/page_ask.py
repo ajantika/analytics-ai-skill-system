@@ -112,11 +112,12 @@ def _confidence_label(conf: float) -> tuple[str, str]:
 # silently drops three orders of magnitude. And the single alternation: separate
 # patterns matched the same position twice, so one figure counted as two.
 _KPI_PATTERN = re.compile(
-    r"\$[\d,]+(?:\.\d+)?\s*[KMB]\b"      # $1.4 M / $890 K
+    r"\$[\d,]+(?:\.\d+)?\s*(?:million|billion|thousand)\b"  # $1.4 million
+    r"|\$[\d,]+(?:\.\d+)?\s*[KMB]\b"      # $1.4 M / $890 K
     r"|\$[\d,]+(?:\.\d+)?"               # $28,600
     r"|\b\d+(?:\.\d+)?x\b"               # 3.8x
     r"|\b\d+(?:\.\d+)?%"                 # 87.3%
-)
+, re.IGNORECASE)
 
 
 def _headline_kpi(insight: str) -> str:
@@ -143,6 +144,10 @@ def _headline_kpi(insight: str) -> str:
         return ""
 
     value = found[0]
+    # Normalize word-form magnitudes: "$1.4 million" → "$1.4M"
+    value = re.sub(r"(?i)\s*million\b", "M", value)
+    value = re.sub(r"(?i)\s*billion\b", "B", value)
+    value = re.sub(r"(?i)\s*thousand\b", "K", value)
     # A lone small percentage reads as noise blown up to poster size.
     pct = re.fullmatch(r"(\d+(?:\.\d+)?)%", value)
     if pct and float(pct.group(1)) < 10:
